@@ -1,0 +1,11 @@
+{
+  "id": "TC-052",
+  "module": "Filters",
+  "scenario": "Filter workout exercises by category: \"Cardio\"",
+  "expected": "Table body displays exclusively workout rows from category \"Cardio\"",
+  "actual": "Filter for category \"Cardio\" returned 1 rows, all matching category.",
+  "status": "PASS",
+  "duration": 1302,
+  "severity": "Medium",
+  "screenshotPath": null
+}

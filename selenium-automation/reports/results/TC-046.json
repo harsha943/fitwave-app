@@ -1,0 +1,11 @@
+{
+  "id": "TC-046",
+  "module": "Search",
+  "scenario": "Search exercises matching term \"Blast\"",
+  "expected": "Table renders only items containing the query string \"Blast\"",
+  "actual": "Search for \"Blast\" returned 1 rows, all matching the keyword criteria.",
+  "status": "PASS",
+  "duration": 1330,
+  "severity": "High",
+  "screenshotPath": null
+}

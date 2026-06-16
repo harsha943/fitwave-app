@@ -1,0 +1,11 @@
+{
+  "id": "TC-010",
+  "module": "Registration",
+  "scenario": "Register with simple/short password (under 8 chars)",
+  "expected": "System rejects registration returning Weak Password warning page",
+  "actual": "Registration rejected correctly. Error displays: \"Weak Password\"",
+  "status": "PASS",
+  "duration": 2035,
+  "severity": "High",
+  "screenshotPath": null
+}

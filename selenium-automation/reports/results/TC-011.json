@@ -1,0 +1,11 @@
+{
+  "id": "TC-011",
+  "module": "Registration",
+  "scenario": "Register with password lacking uppercase letters complexity rules",
+  "expected": "System rejects due to Complexity Violation",
+  "actual": "Registration rejected correctly. Error displays: \"Complexity Violation\"",
+  "status": "PASS",
+  "duration": 2167,
+  "severity": "Medium",
+  "screenshotPath": null
+}

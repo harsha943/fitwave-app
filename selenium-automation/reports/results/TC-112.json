@@ -1,0 +1,11 @@
+{
+  "id": "TC-112",
+  "module": "Responsive UI Validation",
+  "scenario": "Validate UI layouts under viewport: 1280x800 (Desktop resolution layout check)",
+  "expected": "Grid cells rearrange, sidebar collapses or is hidden, menu hamburger buttons function",
+  "actual": "Desktop viewport size (1280x800) verified: sidebar displays statically and hamburger toggle hidden.",
+  "status": "PASS",
+  "duration": 1009,
+  "severity": "Medium",
+  "screenshotPath": null
+}

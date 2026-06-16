@@ -1,0 +1,11 @@
+{
+  "id": "TC-019",
+  "module": "Dashboard",
+  "scenario": "Dashboard UI element presence check case 3",
+  "expected": "Metrics show total active workouts, total minutes, and sidebar structures correctly",
+  "actual": "Workouts count metrics displayed: 3",
+  "status": "PASS",
+  "duration": 79,
+  "severity": "Medium",
+  "screenshotPath": null
+}

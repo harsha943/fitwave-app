@@ -1,0 +1,11 @@
+{
+  "id": "TC-100",
+  "module": "Reports",
+  "scenario": "Generate weekly activities visual summary scenario 8",
+  "expected": "Metrics download report button maps to active files export link",
+  "actual": "Verified dashboard reports section has active export download triggers.",
+  "status": "PASS",
+  "duration": 53,
+  "severity": "Medium",
+  "screenshotPath": null
+}

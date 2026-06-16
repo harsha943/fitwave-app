@@ -1,0 +1,1379 @@
+[
+  {
+    "id": "TC-001",
+    "module": "Login",
+    "scenario": "Login with valid credentials",
+    "expected": "User redirected to dashboard, welcome banner displays member name",
+    "severity": "High",
+    "data": {
+      "username": "admin@fitwave.com",
+      "password": "AdminPassword123!",
+      "expectSuccess": true
+    }
+  },
+  {
+    "id": "TC-002",
+    "module": "Login",
+    "scenario": "Login with invalid username and valid password",
+    "expected": "System displays Authentication Failure warning page",
+    "severity": "Medium",
+    "data": {
+      "username": "baduser@fitwave.com",
+      "password": "AdminPassword123!",
+      "expectSuccess": false
+    }
+  },
+  {
+    "id": "TC-003",
+    "module": "Login",
+    "scenario": "Login with valid username and invalid password",
+    "expected": "System displays Authentication Failure warning page",
+    "severity": "Medium",
+    "data": {
+      "username": "admin@fitwave.com",
+      "password": "wrongpassword",
+      "expectSuccess": false
+    }
+  },
+  {
+    "id": "TC-004",
+    "module": "Login",
+    "scenario": "Login with SQL Injection string in username field",
+    "expected": "System blocks username SQL strings showing Security Exception panel",
+    "severity": "High",
+    "data": {
+      "username": "admin@fitwave.com' OR '1'='1",
+      "password": "somepassword",
+      "expectSuccess": false,
+      "isSqlInjection": true
+    }
+  },
+  {
+    "id": "TC-005",
+    "module": "Login",
+    "scenario": "Login with empty email address field",
+    "expected": "HTML validation blocks login form submission",
+    "severity": "Medium",
+    "data": {
+      "username": "",
+      "password": "AdminPassword123!",
+      "expectSuccess": false
+    }
+  },
+  {
+    "id": "TC-006",
+    "module": "Login",
+    "scenario": "Login with empty password field",
+    "expected": "HTML validation blocks login form submission",
+    "severity": "Medium",
+    "data": {
+      "username": "admin@fitwave.com",
+      "password": "",
+      "expectSuccess": false
+    }
+  },
+  {
+    "id": "TC-007",
+    "module": "Login",
+    "scenario": "Login with malformed email structure (missing @)",
+    "expected": "Browser triggers field validation warnings",
+    "severity": "Medium",
+    "data": {
+      "username": "adminfitwave.com",
+      "password": "AdminPassword123!",
+      "expectSuccess": false
+    }
+  },
+  {
+    "id": "TC-008",
+    "module": "Login",
+    "scenario": "Login case sensitivity verification on email parameter",
+    "expected": "Login succeeds and treats email parameter case-insensitively",
+    "severity": "Medium",
+    "data": {
+      "username": "ADMIN@FITWAVE.COM",
+      "password": "AdminPassword123!",
+      "expectSuccess": true
+    }
+  },
+  {
+    "id": "TC-009",
+    "module": "Registration",
+    "scenario": "Register new account with complex password rules",
+    "expected": "System creates user state successfully and displays Success page banner",
+    "severity": "High",
+    "data": {
+      "name": "User Registration",
+      "email": "user_reg_1781586974873_1@fitwave.com",
+      "password": "StrongPassword123!",
+      "expectSuccess": true
+    }
+  },
+  {
+    "id": "TC-010",
+    "module": "Registration",
+    "scenario": "Register with simple/short password (under 8 chars)",
+    "expected": "System rejects registration returning Weak Password warning page",
+    "severity": "High",
+    "data": {
+      "name": "User Reg Two",
+      "email": "reg2@fitwave.com",
+      "password": "123",
+      "expectSuccess": false
+    }
+  },
+  {
+    "id": "TC-011",
+    "module": "Registration",
+    "scenario": "Register with password lacking uppercase letters complexity rules",
+    "expected": "System rejects due to Complexity Violation",
+    "severity": "Medium",
+    "data": {
+      "name": "User Reg Three",
+      "email": "reg3@fitwave.com",
+      "password": "password123!",
+      "expectSuccess": false
+    }
+  },
+  {
+    "id": "TC-012",
+    "module": "Registration",
+    "scenario": "Register with password lacking numeric values",
+    "expected": "System rejects due to Complexity Violation",
+    "severity": "Medium",
+    "data": {
+      "name": "User Reg Four",
+      "email": "reg4@fitwave.com",
+      "password": "Password!",
+      "expectSuccess": false
+    }
+  },
+  {
+    "id": "TC-013",
+    "module": "Registration",
+    "scenario": "Register with empty name inputs",
+    "expected": "HTML form validation halts submission",
+    "severity": "Medium",
+    "data": {
+      "name": "",
+      "email": "reg5@fitwave.com",
+      "password": "Password123!",
+      "expectSuccess": false
+    }
+  },
+  {
+    "id": "TC-014",
+    "module": "Registration",
+    "scenario": "Register with invalid email format",
+    "expected": "Form inputs validation reports malformed email error",
+    "severity": "Medium",
+    "data": {
+      "name": "User Reg Six",
+      "email": "reg6_fitwave.com",
+      "password": "Password123!",
+      "expectSuccess": false
+    }
+  },
+  {
+    "id": "TC-015",
+    "module": "Registration",
+    "scenario": "Register screen redirects back to Sign In page check",
+    "expected": "Login page view is rendered to the user",
+    "severity": "Medium",
+    "data": {
+      "checkRedirect": true,
+      "expectSuccess": true
+    }
+  },
+  {
+    "id": "TC-016",
+    "module": "Registration",
+    "scenario": "Register account with extremely long name value",
+    "expected": "Registration succeeds and limits name text length safely",
+    "severity": "Medium",
+    "data": {
+      "name": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+      "email": "longname_reg_1781586974873@fitwave.com",
+      "password": "Password123!",
+      "expectSuccess": true
+    }
+  },
+  {
+    "id": "TC-017",
+    "module": "Dashboard",
+    "scenario": "Dashboard UI element presence check case 1",
+    "expected": "Metrics show total active workouts, total minutes, and sidebar structures correctly",
+    "severity": "Medium",
+    "data": {
+      "checkIndex": 1
+    }
+  },
+  {
+    "id": "TC-018",
+    "module": "Dashboard",
+    "scenario": "Dashboard UI element presence check case 2",
+    "expected": "Metrics show total active workouts, total minutes, and sidebar structures correctly",
+    "severity": "Medium",
+    "data": {
+      "checkIndex": 2
+    }
+  },
+  {
+    "id": "TC-019",
+    "module": "Dashboard",
+    "scenario": "Dashboard UI element presence check case 3",
+    "expected": "Metrics show total active workouts, total minutes, and sidebar structures correctly",
+    "severity": "Medium",
+    "data": {
+      "checkIndex": 3
+    }
+  },
+  {
+    "id": "TC-020",
+    "module": "Dashboard",
+    "scenario": "Dashboard UI element presence check case 4",
+    "expected": "Metrics show total active workouts, total minutes, and sidebar structures correctly",
+    "severity": "Medium",
+    "data": {
+      "checkIndex": 4
+    }
+  },
+  {
+    "id": "TC-021",
+    "module": "Dashboard",
+    "scenario": "Dashboard UI element presence check case 5",
+    "expected": "Metrics show total active workouts, total minutes, and sidebar structures correctly",
+    "severity": "Medium",
+    "data": {
+      "checkIndex": 5
+    }
+  },
+  {
+    "id": "TC-022",
+    "module": "Dashboard",
+    "scenario": "Dashboard UI element presence check case 6",
+    "expected": "Metrics show total active workouts, total minutes, and sidebar structures correctly",
+    "severity": "Medium",
+    "data": {
+      "checkIndex": 6
+    }
+  },
+  {
+    "id": "TC-023",
+    "module": "Dashboard",
+    "scenario": "Dashboard UI element presence check case 7",
+    "expected": "Metrics show total active workouts, total minutes, and sidebar structures correctly",
+    "severity": "Medium",
+    "data": {
+      "checkIndex": 7
+    }
+  },
+  {
+    "id": "TC-024",
+    "module": "Dashboard",
+    "scenario": "Dashboard UI element presence check case 8",
+    "expected": "Metrics show total active workouts, total minutes, and sidebar structures correctly",
+    "severity": "Medium",
+    "data": {
+      "checkIndex": 8
+    }
+  },
+  {
+    "id": "TC-025",
+    "module": "User Profile",
+    "scenario": "Update profile details check case 1",
+    "expected": "Profile inputs saved; sidebar displays updated member profile name",
+    "severity": "High",
+    "data": {
+      "name": "Harsha Profile 1",
+      "email": "profile_edit_1@fitwave.com",
+      "phone": "+15550111"
+    }
+  },
+  {
+    "id": "TC-026",
+    "module": "User Profile",
+    "scenario": "Update profile details check case 2",
+    "expected": "Profile inputs saved; sidebar displays updated member profile name",
+    "severity": "High",
+    "data": {
+      "name": "Harsha Profile 2",
+      "email": "profile_edit_2@fitwave.com",
+      "phone": "+15550112"
+    }
+  },
+  {
+    "id": "TC-027",
+    "module": "User Profile",
+    "scenario": "Update profile details check case 3",
+    "expected": "Profile inputs saved; sidebar displays updated member profile name",
+    "severity": "High",
+    "data": {
+      "name": "Harsha Profile 3",
+      "email": "profile_edit_3@fitwave.com",
+      "phone": "+15550113"
+    }
+  },
+  {
+    "id": "TC-028",
+    "module": "User Profile",
+    "scenario": "Update profile details check case 4",
+    "expected": "Profile inputs saved; sidebar displays updated member profile name",
+    "severity": "High",
+    "data": {
+      "name": "Harsha Profile 4",
+      "email": "profile_edit_4@fitwave.com",
+      "phone": "+15550114"
+    }
+  },
+  {
+    "id": "TC-029",
+    "module": "User Profile",
+    "scenario": "Update profile details check case 5",
+    "expected": "Profile inputs saved; sidebar displays updated member profile name",
+    "severity": "High",
+    "data": {
+      "name": "Harsha Profile 5",
+      "email": "profile_edit_5@fitwave.com",
+      "phone": "+15550115"
+    }
+  },
+  {
+    "id": "TC-030",
+    "module": "User Profile",
+    "scenario": "Update profile details check case 6",
+    "expected": "Profile inputs saved; sidebar displays updated member profile name",
+    "severity": "High",
+    "data": {
+      "name": "Harsha Profile 6",
+      "email": "profile_edit_6@fitwave.com",
+      "phone": "+15550116"
+    }
+  },
+  {
+    "id": "TC-031",
+    "module": "User Profile",
+    "scenario": "Update profile details check case 7",
+    "expected": "Profile inputs saved; sidebar displays updated member profile name",
+    "severity": "High",
+    "data": {
+      "name": "Harsha Profile 7",
+      "email": "profile_edit_7@fitwave.com",
+      "phone": "+15550117"
+    }
+  },
+  {
+    "id": "TC-032",
+    "module": "User Profile",
+    "scenario": "Update profile details check case 8",
+    "expected": "Profile inputs saved; sidebar displays updated member profile name",
+    "severity": "High",
+    "data": {
+      "name": "Harsha Profile 8",
+      "email": "profile_edit_8@fitwave.com",
+      "phone": "+15550118"
+    }
+  },
+  {
+    "id": "TC-033",
+    "module": "Settings",
+    "scenario": "Save settings configurations check case 1",
+    "expected": "Selected theme, alert state, and summaries saved and visible on page load",
+    "severity": "Medium",
+    "data": {
+      "theme": "dark",
+      "emailAlerts": "enabled",
+      "weeklySummary": "yes"
+    }
+  },
+  {
+    "id": "TC-034",
+    "module": "Settings",
+    "scenario": "Save settings configurations check case 2",
+    "expected": "Selected theme, alert state, and summaries saved and visible on page load",
+    "severity": "Medium",
+    "data": {
+      "theme": "light",
+      "emailAlerts": "enabled",
+      "weeklySummary": "yes"
+    }
+  },
+  {
+    "id": "TC-035",
+    "module": "Settings",
+    "scenario": "Save settings configurations check case 3",
+    "expected": "Selected theme, alert state, and summaries saved and visible on page load",
+    "severity": "Medium",
+    "data": {
+      "theme": "dark",
+      "emailAlerts": "enabled",
+      "weeklySummary": "yes"
+    }
+  },
+  {
+    "id": "TC-036",
+    "module": "Settings",
+    "scenario": "Save settings configurations check case 4",
+    "expected": "Selected theme, alert state, and summaries saved and visible on page load",
+    "severity": "Medium",
+    "data": {
+      "theme": "light",
+      "emailAlerts": "enabled",
+      "weeklySummary": "yes"
+    }
+  },
+  {
+    "id": "TC-037",
+    "module": "Settings",
+    "scenario": "Save settings configurations check case 5",
+    "expected": "Selected theme, alert state, and summaries saved and visible on page load",
+    "severity": "Medium",
+    "data": {
+      "theme": "dark",
+      "emailAlerts": "enabled",
+      "weeklySummary": "yes"
+    }
+  },
+  {
+    "id": "TC-038",
+    "module": "Settings",
+    "scenario": "Save settings configurations check case 6",
+    "expected": "Selected theme, alert state, and summaries saved and visible on page load",
+    "severity": "Medium",
+    "data": {
+      "theme": "light",
+      "emailAlerts": "enabled",
+      "weeklySummary": "yes"
+    }
+  },
+  {
+    "id": "TC-039",
+    "module": "Settings",
+    "scenario": "Save settings configurations check case 7",
+    "expected": "Selected theme, alert state, and summaries saved and visible on page load",
+    "severity": "Medium",
+    "data": {
+      "theme": "dark",
+      "emailAlerts": "enabled",
+      "weeklySummary": "yes"
+    }
+  },
+  {
+    "id": "TC-040",
+    "module": "Settings",
+    "scenario": "Save settings configurations check case 8",
+    "expected": "Selected theme, alert state, and summaries saved and visible on page load",
+    "severity": "Medium",
+    "data": {
+      "theme": "light",
+      "emailAlerts": "enabled",
+      "weeklySummary": "yes"
+    }
+  },
+  {
+    "id": "TC-041",
+    "module": "Search",
+    "scenario": "Search exercises matching term \"Cardio\"",
+    "expected": "Table renders only items containing the query string \"Cardio\"",
+    "severity": "High",
+    "data": {
+      "query": "Cardio"
+    }
+  },
+  {
+    "id": "TC-042",
+    "module": "Search",
+    "scenario": "Search exercises matching term \"Squat\"",
+    "expected": "Table renders only items containing the query string \"Squat\"",
+    "severity": "High",
+    "data": {
+      "query": "Squat"
+    }
+  },
+  {
+    "id": "TC-043",
+    "module": "Search",
+    "scenario": "Search exercises matching term \"Yoga\"",
+    "expected": "Table renders only items containing the query string \"Yoga\"",
+    "severity": "High",
+    "data": {
+      "query": "Yoga"
+    }
+  },
+  {
+    "id": "TC-044",
+    "module": "Search",
+    "scenario": "Search exercises matching term \"Morning\"",
+    "expected": "Table renders only items containing the query string \"Morning\"",
+    "severity": "High",
+    "data": {
+      "query": "Morning"
+    }
+  },
+  {
+    "id": "TC-045",
+    "module": "Search",
+    "scenario": "Search exercises matching term \"Heavy\"",
+    "expected": "Table renders only items containing the query string \"Heavy\"",
+    "severity": "High",
+    "data": {
+      "query": "Heavy"
+    }
+  },
+  {
+    "id": "TC-046",
+    "module": "Search",
+    "scenario": "Search exercises matching term \"Blast\"",
+    "expected": "Table renders only items containing the query string \"Blast\"",
+    "severity": "High",
+    "data": {
+      "query": "Blast"
+    }
+  },
+  {
+    "id": "TC-047",
+    "module": "Search",
+    "scenario": "Search exercises matching term \"Session\"",
+    "expected": "Table renders only items containing the query string \"Session\"",
+    "severity": "High",
+    "data": {
+      "query": "Session"
+    }
+  },
+  {
+    "id": "TC-048",
+    "module": "Search",
+    "scenario": "Search exercises matching term \"Flow\"",
+    "expected": "Table renders only items containing the query string \"Flow\"",
+    "severity": "High",
+    "data": {
+      "query": "Flow"
+    }
+  },
+  {
+    "id": "TC-049",
+    "module": "Filters",
+    "scenario": "Filter workout exercises by category: \"Cardio\"",
+    "expected": "Table body displays exclusively workout rows from category \"Cardio\"",
+    "severity": "Medium",
+    "data": {
+      "category": "Cardio"
+    }
+  },
+  {
+    "id": "TC-050",
+    "module": "Filters",
+    "scenario": "Filter workout exercises by category: \"Strength\"",
+    "expected": "Table body displays exclusively workout rows from category \"Strength\"",
+    "severity": "Medium",
+    "data": {
+      "category": "Strength"
+    }
+  },
+  {
+    "id": "TC-051",
+    "module": "Filters",
+    "scenario": "Filter workout exercises by category: \"Flexibility\"",
+    "expected": "Table body displays exclusively workout rows from category \"Flexibility\"",
+    "severity": "Medium",
+    "data": {
+      "category": "Flexibility"
+    }
+  },
+  {
+    "id": "TC-052",
+    "module": "Filters",
+    "scenario": "Filter workout exercises by category: \"Cardio\"",
+    "expected": "Table body displays exclusively workout rows from category \"Cardio\"",
+    "severity": "Medium",
+    "data": {
+      "category": "Cardio"
+    }
+  },
+  {
+    "id": "TC-053",
+    "module": "Filters",
+    "scenario": "Filter workout exercises by category: \"Strength\"",
+    "expected": "Table body displays exclusively workout rows from category \"Strength\"",
+    "severity": "Medium",
+    "data": {
+      "category": "Strength"
+    }
+  },
+  {
+    "id": "TC-054",
+    "module": "Filters",
+    "scenario": "Filter workout exercises by category: \"Flexibility\"",
+    "expected": "Table body displays exclusively workout rows from category \"Flexibility\"",
+    "severity": "Medium",
+    "data": {
+      "category": "Flexibility"
+    }
+  },
+  {
+    "id": "TC-055",
+    "module": "Filters",
+    "scenario": "Filter workout exercises by category: \"Cardio\"",
+    "expected": "Table body displays exclusively workout rows from category \"Cardio\"",
+    "severity": "Medium",
+    "data": {
+      "category": "Cardio"
+    }
+  },
+  {
+    "id": "TC-056",
+    "module": "Filters",
+    "scenario": "Filter workout exercises by category: \"Strength\"",
+    "expected": "Table body displays exclusively workout rows from category \"Strength\"",
+    "severity": "Medium",
+    "data": {
+      "category": "Strength"
+    }
+  },
+  {
+    "id": "TC-057",
+    "module": "CRUD Operations",
+    "scenario": "Create routine record operation test case 1",
+    "expected": "Workout added to layout table",
+    "severity": "High",
+    "data": {
+      "action": "Create",
+      "name": "Workout Route Alpha 1",
+      "category": "Cardio",
+      "duration": 21
+    }
+  },
+  {
+    "id": "TC-058",
+    "module": "CRUD Operations",
+    "scenario": "Create routine record operation test case 2",
+    "expected": "Workout added to layout table",
+    "severity": "High",
+    "data": {
+      "action": "Create",
+      "name": "Workout Route Alpha 2",
+      "category": "Cardio",
+      "duration": 22
+    }
+  },
+  {
+    "id": "TC-059",
+    "module": "CRUD Operations",
+    "scenario": "Create routine record operation test case 3",
+    "expected": "Workout added to layout table",
+    "severity": "High",
+    "data": {
+      "action": "Create",
+      "name": "Workout Route Alpha 3",
+      "category": "Cardio",
+      "duration": 23
+    }
+  },
+  {
+    "id": "TC-060",
+    "module": "CRUD Operations",
+    "scenario": "Create routine record operation test case 4",
+    "expected": "Workout added to layout table",
+    "severity": "High",
+    "data": {
+      "action": "Create",
+      "name": "Workout Route Alpha 4",
+      "category": "Cardio",
+      "duration": 24
+    }
+  },
+  {
+    "id": "TC-061",
+    "module": "CRUD Operations",
+    "scenario": "Update routine record operation test case 5",
+    "expected": "Workout updated with changes",
+    "severity": "High",
+    "data": {
+      "action": "Update",
+      "name": "Modified Route Beta 5",
+      "category": "Strength",
+      "duration": 40
+    }
+  },
+  {
+    "id": "TC-062",
+    "module": "CRUD Operations",
+    "scenario": "Update routine record operation test case 6",
+    "expected": "Workout updated with changes",
+    "severity": "High",
+    "data": {
+      "action": "Update",
+      "name": "Modified Route Beta 6",
+      "category": "Strength",
+      "duration": 41
+    }
+  },
+  {
+    "id": "TC-063",
+    "module": "CRUD Operations",
+    "scenario": "Update routine record operation test case 7",
+    "expected": "Workout updated with changes",
+    "severity": "High",
+    "data": {
+      "action": "Update",
+      "name": "Modified Route Beta 7",
+      "category": "Strength",
+      "duration": 42
+    }
+  },
+  {
+    "id": "TC-064",
+    "module": "CRUD Operations",
+    "scenario": "Update routine record operation test case 8",
+    "expected": "Workout updated with changes",
+    "severity": "High",
+    "data": {
+      "action": "Update",
+      "name": "Modified Route Beta 8",
+      "category": "Strength",
+      "duration": 43
+    }
+  },
+  {
+    "id": "TC-065",
+    "module": "CRUD Operations",
+    "scenario": "Delete routine record operation test case 9",
+    "expected": "Workout row deleted",
+    "severity": "High",
+    "data": {
+      "action": "Delete"
+    }
+  },
+  {
+    "id": "TC-066",
+    "module": "CRUD Operations",
+    "scenario": "Delete routine record operation test case 10",
+    "expected": "Workout row deleted",
+    "severity": "High",
+    "data": {
+      "action": "Delete"
+    }
+  },
+  {
+    "id": "TC-067",
+    "module": "CRUD Operations",
+    "scenario": "Delete routine record operation test case 11",
+    "expected": "Workout row deleted",
+    "severity": "High",
+    "data": {
+      "action": "Delete"
+    }
+  },
+  {
+    "id": "TC-068",
+    "module": "CRUD Operations",
+    "scenario": "Delete routine record operation test case 12",
+    "expected": "Workout row deleted",
+    "severity": "High",
+    "data": {
+      "action": "Delete"
+    }
+  },
+  {
+    "id": "TC-069",
+    "module": "File Upload",
+    "scenario": "Upload exercise template tracker document scenario 1",
+    "expected": "Redirects to upload success page showing Succeeded notification details",
+    "severity": "Medium",
+    "data": {
+      "fileName": "template_excel_1.xlsx"
+    }
+  },
+  {
+    "id": "TC-070",
+    "module": "File Upload",
+    "scenario": "Upload exercise template tracker document scenario 2",
+    "expected": "Redirects to upload success page showing Succeeded notification details",
+    "severity": "Medium",
+    "data": {
+      "fileName": "template_excel_2.xlsx"
+    }
+  },
+  {
+    "id": "TC-071",
+    "module": "File Upload",
+    "scenario": "Upload exercise template tracker document scenario 3",
+    "expected": "Redirects to upload success page showing Succeeded notification details",
+    "severity": "Medium",
+    "data": {
+      "fileName": "template_excel_3.xlsx"
+    }
+  },
+  {
+    "id": "TC-072",
+    "module": "File Upload",
+    "scenario": "Upload exercise template tracker document scenario 4",
+    "expected": "Redirects to upload success page showing Succeeded notification details",
+    "severity": "Medium",
+    "data": {
+      "fileName": "template_excel_4.xlsx"
+    }
+  },
+  {
+    "id": "TC-073",
+    "module": "File Upload",
+    "scenario": "Upload exercise template tracker document scenario 5",
+    "expected": "Redirects to upload success page showing Succeeded notification details",
+    "severity": "Medium",
+    "data": {
+      "fileName": "template_excel_5.xlsx"
+    }
+  },
+  {
+    "id": "TC-074",
+    "module": "File Upload",
+    "scenario": "Upload exercise template tracker document scenario 6",
+    "expected": "Redirects to upload success page showing Succeeded notification details",
+    "severity": "Medium",
+    "data": {
+      "fileName": "template_excel_6.xlsx"
+    }
+  },
+  {
+    "id": "TC-075",
+    "module": "File Upload",
+    "scenario": "Upload exercise template tracker document scenario 7",
+    "expected": "Redirects to upload success page showing Succeeded notification details",
+    "severity": "Medium",
+    "data": {
+      "fileName": "template_excel_7.xlsx"
+    }
+  },
+  {
+    "id": "TC-076",
+    "module": "File Upload",
+    "scenario": "Upload exercise template tracker document scenario 8",
+    "expected": "Redirects to upload success page showing Succeeded notification details",
+    "severity": "Medium",
+    "data": {
+      "fileName": "template_excel_8.xlsx"
+    }
+  },
+  {
+    "id": "TC-077",
+    "module": "File Download",
+    "scenario": "Download file payload scenario 1: check report or backup URL",
+    "expected": "Server serves resource file attachments without routing errors",
+    "severity": "Medium",
+    "data": {
+      "isBackup": false
+    }
+  },
+  {
+    "id": "TC-078",
+    "module": "File Download",
+    "scenario": "Download file payload scenario 2: check report or backup URL",
+    "expected": "Server serves resource file attachments without routing errors",
+    "severity": "Medium",
+    "data": {
+      "isBackup": true
+    }
+  },
+  {
+    "id": "TC-079",
+    "module": "File Download",
+    "scenario": "Download file payload scenario 3: check report or backup URL",
+    "expected": "Server serves resource file attachments without routing errors",
+    "severity": "Medium",
+    "data": {
+      "isBackup": false
+    }
+  },
+  {
+    "id": "TC-080",
+    "module": "File Download",
+    "scenario": "Download file payload scenario 4: check report or backup URL",
+    "expected": "Server serves resource file attachments without routing errors",
+    "severity": "Medium",
+    "data": {
+      "isBackup": true
+    }
+  },
+  {
+    "id": "TC-081",
+    "module": "File Download",
+    "scenario": "Download file payload scenario 5: check report or backup URL",
+    "expected": "Server serves resource file attachments without routing errors",
+    "severity": "Medium",
+    "data": {
+      "isBackup": false
+    }
+  },
+  {
+    "id": "TC-082",
+    "module": "File Download",
+    "scenario": "Download file payload scenario 6: check report or backup URL",
+    "expected": "Server serves resource file attachments without routing errors",
+    "severity": "Medium",
+    "data": {
+      "isBackup": true
+    }
+  },
+  {
+    "id": "TC-083",
+    "module": "File Download",
+    "scenario": "Download file payload scenario 7: check report or backup URL",
+    "expected": "Server serves resource file attachments without routing errors",
+    "severity": "Medium",
+    "data": {
+      "isBackup": false
+    }
+  },
+  {
+    "id": "TC-084",
+    "module": "File Download",
+    "scenario": "Download file payload scenario 8: check report or backup URL",
+    "expected": "Server serves resource file attachments without routing errors",
+    "severity": "Medium",
+    "data": {
+      "isBackup": true
+    }
+  },
+  {
+    "id": "TC-085",
+    "module": "Notifications",
+    "scenario": "Mark notification item ID 1 as read",
+    "expected": "Badge count decreases and row vanishes",
+    "severity": "Low",
+    "data": {
+      "isClearAll": false,
+      "notificationId": 1
+    }
+  },
+  {
+    "id": "TC-086",
+    "module": "Notifications",
+    "scenario": "Mark notification item ID 2 as read",
+    "expected": "Badge count decreases and row vanishes",
+    "severity": "Low",
+    "data": {
+      "isClearAll": false,
+      "notificationId": 2
+    }
+  },
+  {
+    "id": "TC-087",
+    "module": "Notifications",
+    "scenario": "Mark notification item ID 3 as read",
+    "expected": "Badge count decreases and row vanishes",
+    "severity": "Low",
+    "data": {
+      "isClearAll": false,
+      "notificationId": 3
+    }
+  },
+  {
+    "id": "TC-088",
+    "module": "Notifications",
+    "scenario": "Mark notification item ID 4 as read",
+    "expected": "Badge count decreases and row vanishes",
+    "severity": "Low",
+    "data": {
+      "isClearAll": false,
+      "notificationId": 4
+    }
+  },
+  {
+    "id": "TC-089",
+    "module": "Notifications",
+    "scenario": "Mark notification item ID 5 as read",
+    "expected": "Badge count decreases and row vanishes",
+    "severity": "Low",
+    "data": {
+      "isClearAll": false,
+      "notificationId": 5
+    }
+  },
+  {
+    "id": "TC-090",
+    "module": "Notifications",
+    "scenario": "Mark notification item ID 6 as read",
+    "expected": "Badge count decreases and row vanishes",
+    "severity": "Low",
+    "data": {
+      "isClearAll": false,
+      "notificationId": 6
+    }
+  },
+  {
+    "id": "TC-091",
+    "module": "Notifications",
+    "scenario": "Mark notification item ID 7 as read",
+    "expected": "Badge count decreases and row vanishes",
+    "severity": "Low",
+    "data": {
+      "isClearAll": false,
+      "notificationId": 7
+    }
+  },
+  {
+    "id": "TC-092",
+    "module": "Notifications",
+    "scenario": "Clear all panel notifications",
+    "expected": "Dropdown shows No notifications text placeholder",
+    "severity": "Low",
+    "data": {
+      "isClearAll": true,
+      "notificationId": 8
+    }
+  },
+  {
+    "id": "TC-093",
+    "module": "Reports",
+    "scenario": "Generate weekly activities visual summary scenario 1",
+    "expected": "Metrics download report button maps to active files export link",
+    "severity": "Medium",
+    "data": {
+      "reportIndex": 1
+    }
+  },
+  {
+    "id": "TC-094",
+    "module": "Reports",
+    "scenario": "Generate weekly activities visual summary scenario 2",
+    "expected": "Metrics download report button maps to active files export link",
+    "severity": "Medium",
+    "data": {
+      "reportIndex": 2
+    }
+  },
+  {
+    "id": "TC-095",
+    "module": "Reports",
+    "scenario": "Generate weekly activities visual summary scenario 3",
+    "expected": "Metrics download report button maps to active files export link",
+    "severity": "Medium",
+    "data": {
+      "reportIndex": 3
+    }
+  },
+  {
+    "id": "TC-096",
+    "module": "Reports",
+    "scenario": "Generate weekly activities visual summary scenario 4",
+    "expected": "Metrics download report button maps to active files export link",
+    "severity": "Medium",
+    "data": {
+      "reportIndex": 4
+    }
+  },
+  {
+    "id": "TC-097",
+    "module": "Reports",
+    "scenario": "Generate weekly activities visual summary scenario 5",
+    "expected": "Metrics download report button maps to active files export link",
+    "severity": "Medium",
+    "data": {
+      "reportIndex": 5
+    }
+  },
+  {
+    "id": "TC-098",
+    "module": "Reports",
+    "scenario": "Generate weekly activities visual summary scenario 6",
+    "expected": "Metrics download report button maps to active files export link",
+    "severity": "Medium",
+    "data": {
+      "reportIndex": 6
+    }
+  },
+  {
+    "id": "TC-099",
+    "module": "Reports",
+    "scenario": "Generate weekly activities visual summary scenario 7",
+    "expected": "Metrics download report button maps to active files export link",
+    "severity": "Medium",
+    "data": {
+      "reportIndex": 7
+    }
+  },
+  {
+    "id": "TC-100",
+    "module": "Reports",
+    "scenario": "Generate weekly activities visual summary scenario 8",
+    "expected": "Metrics download report button maps to active files export link",
+    "severity": "Medium",
+    "data": {
+      "reportIndex": 8
+    }
+  },
+  {
+    "id": "TC-101",
+    "module": "Logout",
+    "scenario": "Logout user session session termination scenario 1",
+    "expected": "Terminates active session, rendering Sign Out message window",
+    "severity": "High",
+    "data": {
+      "logoutIndex": 1
+    }
+  },
+  {
+    "id": "TC-102",
+    "module": "Logout",
+    "scenario": "Logout user session session termination scenario 2",
+    "expected": "Terminates active session, rendering Sign Out message window",
+    "severity": "High",
+    "data": {
+      "logoutIndex": 2
+    }
+  },
+  {
+    "id": "TC-103",
+    "module": "Logout",
+    "scenario": "Logout user session session termination scenario 3",
+    "expected": "Terminates active session, rendering Sign Out message window",
+    "severity": "High",
+    "data": {
+      "logoutIndex": 3
+    }
+  },
+  {
+    "id": "TC-104",
+    "module": "Logout",
+    "scenario": "Logout user session session termination scenario 4",
+    "expected": "Terminates active session, rendering Sign Out message window",
+    "severity": "High",
+    "data": {
+      "logoutIndex": 4
+    }
+  },
+  {
+    "id": "TC-105",
+    "module": "Logout",
+    "scenario": "Logout user session session termination scenario 5",
+    "expected": "Terminates active session, rendering Sign Out message window",
+    "severity": "High",
+    "data": {
+      "logoutIndex": 5
+    }
+  },
+  {
+    "id": "TC-106",
+    "module": "Security Validation",
+    "scenario": "Inject script HTML tag in registration form name input",
+    "expected": "Input escaped correctly without executing and layout is safe",
+    "severity": "High",
+    "data": {
+      "type": "reg_xss",
+      "name": "<script>alert(1)</script>",
+      "email": "xss1@fitwave.com",
+      "password": "Password123!"
+    }
+  },
+  {
+    "id": "TC-107",
+    "module": "Security Validation",
+    "scenario": "Inject iframe tags in profile details email input",
+    "expected": "Details either validated or output sanitized properly",
+    "severity": "High",
+    "data": {
+      "type": "profile_xss",
+      "name": "Safe Name",
+      "email": "<iframe src='javascript:alert(1)'></iframe>",
+      "phone": "123"
+    }
+  },
+  {
+    "id": "TC-108",
+    "module": "Security Validation",
+    "scenario": "Attempt SQL injection payload in Login username text input",
+    "expected": "System displays SQL Injection Attempt Detected blocking user login",
+    "severity": "High",
+    "data": {
+      "type": "login_sql",
+      "username": "admin@fitwave.com' OR 1=1--",
+      "password": "bad"
+    }
+  },
+  {
+    "id": "TC-109",
+    "module": "Security Validation",
+    "scenario": "Verify registration weak password rules rejection",
+    "expected": "Displays password complexity error panel alert",
+    "severity": "High",
+    "data": {
+      "type": "reg_weak",
+      "name": "Sec Test",
+      "email": "sec@fitwave.com",
+      "password": "weak"
+    }
+  },
+  {
+    "id": "TC-110",
+    "module": "Security Validation",
+    "scenario": "Register with complexity missing digit requirement validation",
+    "expected": "Complexity warning message displayed",
+    "severity": "High",
+    "data": {
+      "type": "reg_nodigit",
+      "name": "No Digit",
+      "email": "nodigit@fitwave.com",
+      "password": "NoDigitPassword!"
+    }
+  },
+  {
+    "id": "TC-111",
+    "module": "Security Validation",
+    "scenario": "Register with complexity missing special characters requirement validation",
+    "expected": "Complexity warning message displayed",
+    "severity": "High",
+    "data": {
+      "type": "reg_nospec",
+      "name": "No Spec",
+      "email": "nospec@fitwave.com",
+      "password": "NoSpecPassword123"
+    }
+  },
+  {
+    "id": "TC-112",
+    "module": "Responsive UI Validation",
+    "scenario": "Validate UI layouts under viewport: 1280x800 (Desktop resolution layout check)",
+    "expected": "Grid cells rearrange, sidebar collapses or is hidden, menu hamburger buttons function",
+    "severity": "Medium",
+    "data": {
+      "width": 1280,
+      "height": 800
+    }
+  },
+  {
+    "id": "TC-113",
+    "module": "Responsive UI Validation",
+    "scenario": "Validate UI layouts under viewport: 1024x768 (Laptop/Large tablet resolution layout check)",
+    "expected": "Grid cells rearrange, sidebar collapses or is hidden, menu hamburger buttons function",
+    "severity": "Medium",
+    "data": {
+      "width": 1024,
+      "height": 768
+    }
+  },
+  {
+    "id": "TC-114",
+    "module": "Responsive UI Validation",
+    "scenario": "Validate UI layouts under viewport: 768x1024 (Medium tablet vertical viewport check)",
+    "expected": "Grid cells rearrange, sidebar collapses or is hidden, menu hamburger buttons function",
+    "severity": "Medium",
+    "data": {
+      "width": 768,
+      "height": 1024
+    }
+  },
+  {
+    "id": "TC-115",
+    "module": "Responsive UI Validation",
+    "scenario": "Validate UI layouts under viewport: 375x812 (Mobile portrait resolution layout check)",
+    "expected": "Grid cells rearrange, sidebar collapses or is hidden, menu hamburger buttons function",
+    "severity": "Medium",
+    "data": {
+      "width": 375,
+      "height": 812
+    }
+  },
+  {
+    "id": "TC-116",
+    "module": "Responsive UI Validation",
+    "scenario": "Validate UI layouts under viewport: 414x896 (Large mobile portrait viewport check)",
+    "expected": "Grid cells rearrange, sidebar collapses or is hidden, menu hamburger buttons function",
+    "severity": "Medium",
+    "data": {
+      "width": 414,
+      "height": 896
+    }
+  },
+  {
+    "id": "TC-117",
+    "module": "Responsive UI Validation",
+    "scenario": "Validate UI layouts under viewport: 320x568 (Small mobile screen resolution check)",
+    "expected": "Grid cells rearrange, sidebar collapses or is hidden, menu hamburger buttons function",
+    "severity": "Medium",
+    "data": {
+      "width": 320,
+      "height": 568
+    }
+  },
+  {
+    "id": "TC-118",
+    "module": "Responsive UI Validation",
+    "scenario": "Validate UI layouts under viewport: 1440x900 (Ultra-wide desktop screen check)",
+    "expected": "Grid cells rearrange, sidebar collapses or is hidden, menu hamburger buttons function",
+    "severity": "Medium",
+    "data": {
+      "width": 1440,
+      "height": 900
+    }
+  },
+  {
+    "id": "TC-119",
+    "module": "Complete Business Flow Testing",
+    "scenario": "Complete End-to-End Business Scenario Flow 1: User Registration to Operations and Logout",
+    "expected": "Full lifecycle executes sequentially: registration -> login -> add workout -> search & filter -> update settings -> file actions -> logout successfully",
+    "severity": "High",
+    "data": {
+      "flowId": 1
+    }
+  },
+  {
+    "id": "TC-120",
+    "module": "Complete Business Flow Testing",
+    "scenario": "Complete End-to-End Business Scenario Flow 2: User Registration to Operations and Logout",
+    "expected": "Full lifecycle executes sequentially: registration -> login -> add workout -> search & filter -> update settings -> file actions -> logout successfully",
+    "severity": "High",
+    "data": {
+      "flowId": 2
+    }
+  },
+  {
+    "id": "TC-121",
+    "module": "Complete Business Flow Testing",
+    "scenario": "Complete End-to-End Business Scenario Flow 3: User Registration to Operations and Logout",
+    "expected": "Full lifecycle executes sequentially: registration -> login -> add workout -> search & filter -> update settings -> file actions -> logout successfully",
+    "severity": "High",
+    "data": {
+      "flowId": 3
+    }
+  },
+  {
+    "id": "TC-122",
+    "module": "Complete Business Flow Testing",
+    "scenario": "Complete End-to-End Business Scenario Flow 4: User Registration to Operations and Logout",
+    "expected": "Full lifecycle executes sequentially: registration -> login -> add workout -> search & filter -> update settings -> file actions -> logout successfully",
+    "severity": "High",
+    "data": {
+      "flowId": 4
+    }
+  },
+  {
+    "id": "TC-123",
+    "module": "Complete Business Flow Testing",
+    "scenario": "Complete End-to-End Business Scenario Flow 5: User Registration to Operations and Logout",
+    "expected": "Full lifecycle executes sequentially: registration -> login -> add workout -> search & filter -> update settings -> file actions -> logout successfully",
+    "severity": "High",
+    "data": {
+      "flowId": 5
+    }
+  },
+  {
+    "id": "TC-124",
+    "module": "Complete Business Flow Testing",
+    "scenario": "Complete End-to-End Business Scenario Flow 6: User Registration to Operations and Logout",
+    "expected": "Full lifecycle executes sequentially: registration -> login -> add workout -> search & filter -> update settings -> file actions -> logout successfully",
+    "severity": "High",
+    "data": {
+      "flowId": 6
+    }
+  },
+  {
+    "id": "TC-125",
+    "module": "Complete Business Flow Testing",
+    "scenario": "Complete End-to-End Business Scenario Flow 7: User Registration to Operations and Logout",
+    "expected": "Full lifecycle executes sequentially: registration -> login -> add workout -> search & filter -> update settings -> file actions -> logout successfully",
+    "severity": "High",
+    "data": {
+      "flowId": 7
+    }
+  }
+]

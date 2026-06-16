@@ -1,0 +1,11 @@
+{
+  "id": "TC-036",
+  "module": "Settings",
+  "scenario": "Save settings configurations check case 4",
+  "expected": "Selected theme, alert state, and summaries saved and visible on page load",
+  "actual": "Theme dropdown value did not save correctly. Expected: light, Got: dark",
+  "status": "FAIL",
+  "duration": 1775,
+  "severity": "Medium",
+  "screenshotPath": "C:\\Users\\harsh\\Downloads\\Fitwave\\selenium-automation\\screenshots\\TC-036_1781596282564.png"
+}

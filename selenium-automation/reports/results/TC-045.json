@@ -1,0 +1,11 @@
+{
+  "id": "TC-045",
+  "module": "Search",
+  "scenario": "Search exercises matching term \"Heavy\"",
+  "expected": "Table renders only items containing the query string \"Heavy\"",
+  "actual": "Search for \"Heavy\" returned 1 rows, all matching the keyword criteria.",
+  "status": "PASS",
+  "duration": 1347,
+  "severity": "High",
+  "screenshotPath": null
+}

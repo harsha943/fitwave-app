@@ -1,0 +1,11 @@
+{
+  "id": "TC-043",
+  "module": "Search",
+  "scenario": "Search exercises matching term \"Yoga\"",
+  "expected": "Table renders only items containing the query string \"Yoga\"",
+  "actual": "Search for \"Yoga\" returned 1 rows, all matching the keyword criteria.",
+  "status": "PASS",
+  "duration": 1340,
+  "severity": "High",
+  "screenshotPath": null
+}

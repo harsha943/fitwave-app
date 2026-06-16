@@ -1,0 +1,11 @@
+{
+  "id": "TC-120",
+  "module": "Complete Business Flow Testing",
+  "scenario": "Complete End-to-End Business Scenario Flow 2: User Registration to Operations and Logout",
+  "expected": "Full lifecycle executes sequentially: registration -> login -> add workout -> search & filter -> update settings -> file actions -> logout successfully",
+  "actual": "Business Flow: Created workout not found in search results",
+  "status": "FAIL",
+  "duration": 24321,
+  "severity": "High",
+  "screenshotPath": "C:\\Users\\harsh\\Downloads\\Fitwave\\selenium-automation\\screenshots\\TC-120_1781595318914.png"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "TC-033",
+  "module": "Settings",
+  "scenario": "Save settings configurations check case 1",
+  "expected": "Selected theme, alert state, and summaries saved and visible on page load",
+  "actual": "Configuration Saved: Theme=dark, Alerts=enabled, WeeklySummary=yes.",
+  "status": "PASS",
+  "duration": 1806,
+  "severity": "Medium",
+  "screenshotPath": null
+}

@@ -1,0 +1,11 @@
+{
+  "id": "TC-089",
+  "module": "Notifications",
+  "scenario": "Mark notification item ID 5 as read",
+  "expected": "Badge count decreases and row vanishes",
+  "actual": "Read single notification ID: 1. Count decreased from 2.",
+  "status": "PASS",
+  "duration": 4321,
+  "severity": "Low",
+  "screenshotPath": null
+}

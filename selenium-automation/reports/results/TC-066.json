@@ -1,0 +1,11 @@
+{
+  "id": "TC-066",
+  "module": "CRUD Operations",
+  "scenario": "Delete routine record operation test case 10",
+  "expected": "Workout row deleted",
+  "actual": "Deleted workout routine ID: 3. Current workout count: 2.",
+  "status": "PASS",
+  "duration": 1196,
+  "severity": "High",
+  "screenshotPath": null
+}

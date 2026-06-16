@@ -1,0 +1,11 @@
+{
+  "id": "TC-041",
+  "module": "Search",
+  "scenario": "Search exercises matching term \"Cardio\"",
+  "expected": "Table renders only items containing the query string \"Cardio\"",
+  "actual": "Search for \"Cardio\" returned 1 rows, all matching the keyword criteria.",
+  "status": "PASS",
+  "duration": 1299,
+  "severity": "High",
+  "screenshotPath": null
+}
