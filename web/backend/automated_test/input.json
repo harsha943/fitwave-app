@@ -1,0 +1,7 @@
+{
+  "baseUrl": "http://localhost:5000",
+  "_comment": "Fill in tokens below after logging in. Leave empty string if role does not exist.",
+  "admin": "",
+  "user": "",
+  "guest": ""
+}
