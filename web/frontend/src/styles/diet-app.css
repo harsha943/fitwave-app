@@ -1,0 +1,108 @@
+/* ===== FITWAVE DIET WEB APP CSS ===== */
+:root { --sidebar-w: 240px; }
+
+body, html { height: 100%; overflow: hidden; background: var(--bg-primary); }
+
+#web-layout { display: flex; height: 100vh; width: 100%; }
+
+/* ── SIDEBAR ── */
+.sidebar { width: var(--sidebar-w); height: 100vh; background: var(--bg-surface); border-right: 1px solid var(--border-color); display: flex; flex-direction: column; flex-shrink: 0; }
+.sidebar-brand { padding: 26px 24px 20px; font-family: var(--font-display); font-size: 1.4rem; font-weight: 900; color: #fff; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 10px; }
+.sidebar-brand span { color: var(--accent-green); }
+.sidebar-brand-icon { width: 32px; height: 32px; border-radius: 8px; background: linear-gradient(135deg, var(--accent-green), var(--accent-blue)); display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+.sidebar-section-label { padding: 18px 24px 8px; font-size: 0.7rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; }
+.sidebar-nav { padding: 0 12px; flex: 1; overflow-y: auto; }
+.s-nav-item { display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 10px; color: var(--text-secondary); cursor: pointer; transition: all 0.2s; font-weight: 600; font-size: 0.88rem; margin-bottom: 2px; text-decoration: none; }
+.s-nav-item:hover { background: rgba(255,255,255,0.05); color: var(--text-primary); }
+.s-nav-item.active { background: rgba(198,241,53,0.12); color: var(--accent-green); }
+.s-nav-icon { width: 18px; height: 18px; flex-shrink: 0; }
+.sidebar-user { padding: 16px; border-top: 1px solid var(--border-color); display: flex; align-items: center; gap: 12px; }
+.sidebar-avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-green), var(--accent-blue)); display: flex; align-items: center; justify-content: center; font-weight: 700; color: #000; font-size: 0.9rem; flex-shrink: 0; }
+.sidebar-user-name { font-weight: 700; font-size: 0.85rem; }
+.sidebar-user-role { font-size: 0.72rem; color: var(--text-muted); }
+
+/* ── MAIN ── */
+.main-area { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+.topbar { height: 64px; flex-shrink: 0; background: rgba(11,13,19,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-color); display: flex; align-items: center; padding: 0 28px; gap: 16px; }
+.topbar-title { font-family: var(--font-display); font-weight: 800; font-size: 1.1rem; flex: 1; }
+.topbar-subtitle { font-size: 0.8rem; color: var(--text-muted); font-weight: 400; margin-left: 8px; }
+.topbar-actions { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+.topbar-btn { width: 36px; height: 36px; border-radius: 10px; background: var(--bg-surface); border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--text-secondary); transition: all 0.2s; text-decoration: none; }
+.topbar-btn:hover { color: var(--text-primary); border-color: var(--text-muted); }
+
+#app-container { flex: 1; overflow: hidden; position: relative; }
+
+/* ── SPA SCREENS ── */
+.app-screen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow-y: auto; overflow-x: hidden; background: var(--bg-primary); transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.4,0,0.2,1); padding: 32px 36px; z-index: 10; }
+.app-screen.active { transform: translateX(0); }
+.app-screen.exit { transform: translateX(-15%); opacity: 0.3; pointer-events: none; }
+.app-screen.root { z-index: 5; }
+.app-screen::-webkit-scrollbar { width: 5px; }
+.app-screen::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 3px; }
+
+/* ── SCREEN HEADER ── */
+.screen-header { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; padding-bottom: 20px; border-bottom: 1px solid var(--border-color); }
+.header-left { display: flex; align-items: center; gap: 14px; }
+.back-btn { width: 38px; height: 38px; border-radius: 10px; background: var(--bg-surface); border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; color: var(--text-primary); }
+.back-btn:hover { background: var(--accent-green); border-color: var(--accent-green); color: #000; }
+.header-title { font-family: var(--font-display); font-weight: 800; font-size: 1.5rem; }
+
+/* ── CARDS ── */
+.card { background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 16px; padding: 22px; margin-bottom: 18px; transition: border-color 0.2s; }
+.card:hover { border-color: rgba(255,255,255,0.1); }
+.cards-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.cards-3col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; }
+
+/* ── DIET SPECIFIC ── */
+.tag { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+.tag.green { background: rgba(198,241,53,0.15); color: var(--accent-green); border: 1px solid rgba(198,241,53,0.3); }
+.tag.blue { background: rgba(79,110,247,0.15); color: var(--accent-blue); border: 1px solid rgba(79,110,247,0.3); }
+
+.macro-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.m-item { text-align: center; background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 14px; padding: 16px 8px; }
+.m-circle { width: 50px; height: 50px; border-radius: 50%; margin: 0 auto 8px; position: relative; display: flex; align-items: center; justify-content: center; }
+.m-circle svg { position: absolute; inset: -4px; width: calc(100% + 8px); height: calc(100% + 8px); transform: rotate(-90deg); }
+.m-circle circle { fill: none; stroke-width: 4; stroke-linecap: round; }
+.m-circle circle.bg { stroke: var(--border-color); }
+.m-circle circle.fill { stroke-dasharray: 175; stroke-dashoffset: 40; }
+.m-icon { font-size: 1.2rem; position: relative; z-index: 2; }
+.m-val { font-weight: 800; font-family: var(--font-display); font-size: 1.1rem; }
+.m-lbl { font-size: 0.7rem; color: var(--text-muted); font-weight: 600; }
+
+.meal-list { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 24px; }
+.meal-card { background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 14px; padding: 16px; cursor: pointer; transition: all 0.2s; }
+.meal-card:hover { border-color: var(--accent-green); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.3); }
+.meal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.meal-title { font-family: var(--font-display); font-size: 1rem; font-weight: 800; }
+.meal-cal { font-weight: 700; color: var(--accent-green); font-size: 0.9rem; }
+.food-item { display: flex; align-items: center; gap: 12px; padding: 8px 0; border-top: 1px solid var(--border-color); }
+.food-img { width: 40px; height: 40px; border-radius: 10px; background-size: cover; background-position: center; }
+.food-name { font-weight: 600; font-size: 0.88rem; }
+.food-macros { font-size: 0.73rem; color: var(--text-muted); margin-top: 2px; }
+
+.sug-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+.sug-card { background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 14px; overflow: hidden; cursor: pointer; transition: all 0.2s; position: relative; }
+.sug-card:hover { border-color: var(--accent-green); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+.sug-img { width: 100%; height: 140px; background-size: cover; background-position: center; }
+.sug-content { padding: 14px; }
+.sug-title { font-weight: 700; font-size: 0.92rem; margin-bottom: 4px; }
+.sug-cal { font-size: 0.8rem; color: var(--accent-green); font-weight: 700; }
+.sug-add { position: absolute; top: 12px; right: 12px; width: 30px; height: 30px; border-radius: 50%; background: var(--accent-green); display: flex; align-items: center; justify-content: center; border: none; color: #000; font-size: 1.2rem; font-weight: 700; cursor: pointer; }
+
+.bar-chart { display: flex; align-items: flex-end; justify-content: space-between; height: 160px; margin-top: 24px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; gap: 8px; }
+.bar-wrap { display: flex; flex-direction: column; align-items: center; gap: 8px; flex: 1; }
+.bar-fill { width: 20px; background: var(--accent-green); border-radius: 4px 4px 0 0; }
+.bar-lbl { font-size: 0.7rem; color: var(--text-muted); font-weight: 600; }
+
+.track-wrap { margin-top: 12px; }
+.track-info { display: flex; justify-content: space-between; font-size: 0.78rem; margin-bottom: 6px; color: var(--text-secondary); font-weight: 600; }
+.track-bar { height: 7px; background: var(--border-color); border-radius: 4px; overflow: hidden; }
+.track-fill { height: 100%; border-radius: 4px; transition: width 1s ease; }
+
+.water-glass-wrap { display: flex; justify-content: center; margin: 24px 0; }
+.water-glass { width: 120px; height: 160px; border: 4px solid var(--border-color); border-top: none; border-radius: 8px 8px 28px 28px; position: relative; overflow: hidden; display: flex; align-items: flex-end; }
+.water-liquid { width: 100%; background: linear-gradient(180deg, #4fc3f7, var(--accent-blue)); transition: height 0.6s ease; }
+.water-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+
+.anim-item { animation: slideUpFade 0.4s ease both; }
+@keyframes slideUpFade { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
