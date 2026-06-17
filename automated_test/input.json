@@ -1,0 +1,96 @@
+{
+  "test_suite": "Fitwave Android Application Vulnerability Test Cases",
+  "version": "1.0",
+  "description": "Automated and manual vulnerability test cases mapping application routes, features, and implementations to common security vulnerabilities.",
+  "test_cases": [
+    {
+      "id": "VULN-001",
+      "category": "Insecure Data Storage",
+      "title": "Plaintext Password Storage in SharedPreferences",
+      "description": "Verify if the application stores sensitive user authentication credentials (like passwords) in plaintext within the local shared preferences file.",
+      "target_class": "com.example.fitwave.data.AuthState",
+      "associated_file": "Fitwave/app/src/main/java/com/example/fitwave/data/AuthState.kt",
+      "severity": "High",
+      "input_parameters": {
+        "preferences_name": "fitwave_prefs",
+        "key": "password",
+        "sample_value": "UserSecurePassword123"
+      },
+      "verification_steps": [
+        "Register a new account on the device / emulator with the password 'UserSecurePassword123'.",
+        "Access the device storage shell or device file explorer.",
+        "Navigate to '/data/data/com.example.fitwave/shared_prefs/fitwave_prefs.xml'.",
+        "Read the contents of the XML file and search for the key 'password'."
+      ],
+      "expected_result": "The password must NOT be stored in plaintext. It should either be encrypted using EncryptedSharedPreferences or not stored locally at all.",
+      "remediation": "Replace standard SharedPreferences with Jetpack Security's EncryptedSharedPreferences to encrypt stored keys and values automatically at rest."
+    },
+    {
+      "id": "VULN-002",
+      "category": "Improper Input Validation",
+      "title": "Weak Password Complexity Verification",
+      "description": "Check if registration allows weak passwords that do not meet standard complexity criteria (e.g. only minimum length check).",
+      "target_class": "com.example.fitwave.ui.screens.RegisterScreen",
+      "associated_file": "Fitwave/app/src/main/java/com/example/fitwave/ui/screens/RegisterScreen.kt",
+      "severity": "Medium",
+      "input_parameters": {
+        "password_inputs": [
+          "123456",
+          "aaaaaa",
+          "password"
+        ]
+      },
+      "verification_steps": [
+        "Navigate to the registration screen.",
+        "Enter a valid name and email.",
+        "Enter a password of length 6 consisting of sequential digits (e.g., '123456').",
+        "Submit the registration form."
+      ],
+      "expected_result": "The application should reject overly simple, sequential, or easily guessable passwords and enforce a password complexity policy (numbers, uppercase, lowercase, special characters).",
+      "remediation": "Implement regex validation in RegisterScreen to enforce stronger complexity requirements (e.g., matching '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\\\S+$).{8,}$')."
+    },
+    {
+      "id": "VULN-003",
+      "category": "Insecure Intent Redirection & Link Validation",
+      "title": "Unvalidated URL Redirection in Workout Routine Cards",
+      "description": "Verify whether clicking on a workout routine item redirects to arbitrary external links without URL scheme/host validation, potentially leading to phishing or arbitrary content loading.",
+      "target_class": "com.example.fitwave.ui.screens.WorkoutCard",
+      "associated_file": "Fitwave/app/src/main/java/com/example/fitwave/ui/screens/WorkoutPlanScreen.kt",
+      "severity": "Low",
+      "input_parameters": {
+        "malicious_url": "javascript:alert(1)",
+        "untrusted_scheme_url": "file:///etc/hosts"
+      },
+      "verification_steps": [
+        "Intercept or modify a Workout object's videoUrl to an untrusted scheme or non-youtube domain.",
+        "Navigate to the Workout Plan screen.",
+        "Click the workout card to trigger the view Intent.",
+        "Observe if the system opens arbitrary, non-HTTPS protocols or file schemes."
+      ],
+      "expected_result": "The application must sanitize and validate external URLs, ensuring they use 'https' and belong to trusted domains (like youtube.com) before launching an external viewer Intent.",
+      "remediation": "Before executing the ACTION_VIEW intent, validate the URI scheme using `uri.scheme == \"https\"` and verify that the host belongs to a pre-defined whitelist."
+    },
+    {
+      "id": "VULN-004",
+      "category": "Improper Input Sanitization",
+      "title": "Lack of Sanitization in Local Database or State Fields",
+      "description": "Ensure profile inputs are sanitized to prevent injection attacks or layout breakage from long/special character payloads.",
+      "target_class": "com.example.fitwave.data.AuthState",
+      "associated_file": "Fitwave/app/src/main/java/com/example/fitwave/data/AuthState.kt",
+      "severity": "Low",
+      "input_parameters": {
+        "malicious_inputs": {
+          "name": "<script>alert(1)</script>",
+          "phone": "A".repeat(1000)
+        }
+      },
+      "verification_steps": [
+        "Go to the Profile / Edit Details screen.",
+        "Insert the script tag or the overflow string in the name/phone fields and click save.",
+        "Verify if the UI breaks, displays unescaped code, or crashes due to buffer overflow/storage limits."
+      ],
+      "expected_result": "Input strings must be properly validated and length-limited prior to local state updates.",
+      "remediation": "Apply length constraint validation and sanitization filters to strip dangerous HTML/XML characters before saving properties."
+    }
+  ]
+}

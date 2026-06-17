@@ -1,0 +1,11 @@
+{
+  "id": "TC-021",
+  "module": "Dashboard",
+  "scenario": "Dashboard UI element presence check case 5",
+  "expected": "Metrics show total active workouts, total minutes, and sidebar structures correctly",
+  "actual": "Verified total duration KPI card metric: \"135m\"",
+  "status": "PASS",
+  "duration": 70,
+  "severity": "Medium",
+  "screenshotPath": null
+}

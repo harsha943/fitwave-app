@@ -1,0 +1,11 @@
+{
+  "id": "TC-028",
+  "module": "User Profile",
+  "scenario": "Update profile details check case 4",
+  "expected": "Profile inputs saved; sidebar displays updated member profile name",
+  "actual": "Successfully updated profile details to: Name=Harsha Profile 4, Email=profile_edit_4@fitwave.com, Phone=+15550114. Changes correctly synced in sidebar.",
+  "status": "PASS",
+  "duration": 1650,
+  "severity": "High",
+  "screenshotPath": null
+}

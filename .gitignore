@@ -1,33 +1,87 @@
-# Dependencies
+# ── Logs ──────────────────────────────────────────────────────────────────────
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# ── Runtime data ───────────────────────────────────────────────────────────────
+pids
+*.pid
+*.seed
+*.pid.lock
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# ── Dependencies ───────────────────────────────────────────────────────────────
 node_modules/
+jspm_packages/
+web_modules/
+bower_components/
 .pnp
 .pnp.js
 
-# Environment files
+# ── Coverage / testing ─────────────────────────────────────────────────────────
+coverage
+*.lcov
+.nyc_output
+lib-cov
+.grunt
+
+# ── Build outputs ──────────────────────────────────────────────────────────────
+dist
+build/
+build/Release
+.next
+out
+.nuxt
+.vuepress/dist
+.serverless/
+.fusebox/
+
+# ── Caches ─────────────────────────────────────────────────────────────────────
+.npm
+.eslintcache
+.stylelintcache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+.cache
+.parcel-cache
+.dynamodb/
+.tern-port
+
+# ── TypeScript ─────────────────────────────────────────────────────────────────
+*.tsbuildinfo
+
+# ── Environment & secrets ──────────────────────────────────────────────────────
 .env
 .env.local
+.env.test
+.env.production
 .env.development.local
 .env.test.local
 .env.production.local
 
-# Build outputs
-dist/
-build/
-.next/
-out/
+# ── Yarn ───────────────────────────────────────────────────────────────────────
+.yarn-integrity
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+.lock-wscript
 
-# Logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-*.log
+# ── Packaging ──────────────────────────────────────────────────────────────────
+*.tgz
 
-# OS files
+# ── OS / IDE ───────────────────────────────────────────────────────────────────
 .DS_Store
 Thumbs.db
 desktop.ini
-
-# IDE
+.vscode-test
 .vscode/
 .idea/
 *.suo
@@ -36,10 +90,16 @@ desktop.ini
 *.sln
 *.sw?
 
-# Test artifacts (keep scripts, exclude binary reports)
+# ── REPL ───────────────────────────────────────────────────────────────────────
+.node_repl_history
+
+# ── Test artifacts (binary) ────────────────────────────────────────────────────
 **/*.xlsx
 **/*.xls
 
-# Coverage
-coverage/
-.nyc_output/
+# ── Fitwave project specific ───────────────────────────────────────────────────
+reports/screenshots/
+reports/results/
+app/build/
+.gradle/
+*.apk

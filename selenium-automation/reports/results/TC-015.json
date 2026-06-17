@@ -1,0 +1,11 @@
+{
+  "id": "TC-015",
+  "module": "Registration",
+  "scenario": "Register screen redirects back to Sign In page check",
+  "expected": "Login page view is rendered to the user",
+  "actual": "Redirected successfully to login page.",
+  "status": "PASS",
+  "duration": 686,
+  "severity": "Medium",
+  "screenshotPath": null
+}

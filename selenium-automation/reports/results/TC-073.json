@@ -1,0 +1,11 @@
+{
+  "id": "TC-073",
+  "module": "File Upload",
+  "scenario": "Upload exercise template tracker document scenario 5",
+  "expected": "Redirects to upload success page showing Succeeded notification details",
+  "actual": "Successfully uploaded file attachment \"template_excel_5.xlsx\". Verified success notification: \"Upload Succeeded\"",
+  "status": "PASS",
+  "duration": 1405,
+  "severity": "Medium",
+  "screenshotPath": null
+}

@@ -1,0 +1,11 @@
+{
+  "id": "TC-084",
+  "module": "File Download",
+  "scenario": "Download file payload scenario 8: check report or backup URL",
+  "expected": "Server serves resource file attachments without routing errors",
+  "actual": "Successfully validated download link href: \"http://localhost:3000/download/backup\". Endpoint responded correctly without errors.",
+  "status": "PASS",
+  "duration": 105,
+  "severity": "Medium",
+  "screenshotPath": null
+}

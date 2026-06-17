@@ -1,0 +1,11 @@
+{
+  "id": "TC-003",
+  "module": "Login",
+  "scenario": "Login with valid username and invalid password",
+  "expected": "System displays Authentication Failure warning page",
+  "actual": "Login correctly rejected with error message: \"Authentication Failure\"",
+  "status": "PASS",
+  "duration": 2273,
+  "severity": "Medium",
+  "screenshotPath": null
+}

@@ -1,0 +1,11 @@
+{
+  "id": "TC-005",
+  "module": "Login",
+  "scenario": "Login with empty email address field",
+  "expected": "HTML validation blocks login form submission",
+  "actual": "Form submission blocked or user remained on the login screen.",
+  "status": "PASS",
+  "duration": 1829,
+  "severity": "Medium",
+  "screenshotPath": null
+}

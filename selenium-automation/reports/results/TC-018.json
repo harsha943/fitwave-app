@@ -1,0 +1,11 @@
+{
+  "id": "TC-018",
+  "module": "Dashboard",
+  "scenario": "Dashboard UI element presence check case 2",
+  "expected": "Metrics show total active workouts, total minutes, and sidebar structures correctly",
+  "actual": "Welcome banner user name matches: \"Harsha Vardhan\"",
+  "status": "PASS",
+  "duration": 72,
+  "severity": "Medium",
+  "screenshotPath": null
+}

@@ -1,0 +1,11 @@
+{
+  "id": "TC-020",
+  "module": "Dashboard",
+  "scenario": "Dashboard UI element presence check case 4",
+  "expected": "Metrics show total active workouts, total minutes, and sidebar structures correctly",
+  "actual": "Sidebar member footer name verified: \"Harsha Vardhan\"",
+  "status": "PASS",
+  "duration": 64,
+  "severity": "Medium",
+  "screenshotPath": null
+}

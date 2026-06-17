@@ -1,0 +1,11 @@
+{
+  "id": "TC-001",
+  "module": "Login",
+  "scenario": "Login with valid credentials",
+  "expected": "User redirected to dashboard, welcome banner displays member name",
+  "actual": "Login success verified, redirected to dashboard.",
+  "status": "PASS",
+  "duration": 2347,
+  "severity": "High",
+  "screenshotPath": null
+}

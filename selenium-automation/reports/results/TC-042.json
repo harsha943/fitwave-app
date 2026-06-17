@@ -1,0 +1,11 @@
+{
+  "id": "TC-042",
+  "module": "Search",
+  "scenario": "Search exercises matching term \"Squat\"",
+  "expected": "Table renders only items containing the query string \"Squat\"",
+  "actual": "Search for \"Squat\" returned 1 rows, all matching the keyword criteria.",
+  "status": "PASS",
+  "duration": 1320,
+  "severity": "High",
+  "screenshotPath": null
+}

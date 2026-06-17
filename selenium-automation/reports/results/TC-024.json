@@ -1,0 +1,11 @@
+{
+  "id": "TC-024",
+  "module": "Dashboard",
+  "scenario": "Dashboard UI element presence check case 8",
+  "expected": "Metrics show total active workouts, total minutes, and sidebar structures correctly",
+  "actual": "Main workspace panel grid structure validated successfully.",
+  "status": "PASS",
+  "duration": 56,
+  "severity": "Medium",
+  "screenshotPath": null
+}
