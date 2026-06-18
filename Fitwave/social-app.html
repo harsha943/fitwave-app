@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>Fitwave — Social</title>
+  <link rel="stylesheet" href="css/global.css"/>
+  <link rel="stylesheet" href="css/social-app.css"/>
+</head>
+<body>
+
+<div id="app-container">
+
+  <!-- ==========================================
+       1. FITNESS COMMUNITY (ROOT)
+  =========================================== -->
+  <div class="app-screen root active" id="s-community" data-screen="community">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+      <h1 style="font-family:var(--font-display, 'Inter');font-size:1.6rem;font-weight:800;">Community</h1>
+      <div style="width:40px;height:40px;border-radius:50%;background:rgba(155,93,229,0.1);border:1px solid rgba(155,93,229,0.3);display:flex;align-items:center;justify-content:center;color:var(--accent-purple,#9b5de5);cursor:pointer;" onclick="go('share')">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <div class="tab active" onclick="go('community')">Feed</div>
+      <div class="tab" onclick="go('challenges')">Challenges</div>
+      <div class="tab" onclick="go('leaderboard')">Leaderboard</div>
+      <div class="tab" onclick="go('badges')">Badges</div>
+    </div>
+
+    <!-- Feed Post 1 -->
+    <div class="post anim-item" style="animation-delay:0.1s;">
+      <div class="post-header">
+        <div class="post-avatar" style="background:var(--accent-pink,#f72585);">S</div>
+        <div>
+          <div class="post-user">Sarah Jenkins</div>
+          <div class="post-time">2 hours ago</div>
+        </div>
+      </div>
+      <div class="post-content">
+        Just crushed my 5K personal best! Thanks to the Fitwave AI Coach for pushing me today. 🏃‍♀️🔥
+      </div>
+      <div class="post-media">
+        🏅
+      </div>
+      <div class="post-actions">
+        <div class="post-action" onclick="this.style.color='var(--accent-pink,#f72585)'"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 24</div>
+        <div class="post-action"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg> 5</div>
+      </div>
+    </div>
+
+    <!-- Feed Post 2 -->
+    <div class="post anim-item" style="animation-delay:0.2s;">
+      <div class="post-header">
+        <div class="post-avatar" style="background:var(--accent-blue,#4f6ef7);">M</div>
+        <div>
+          <div class="post-user">Mike T.</div>
+          <div class="post-time">5 hours ago</div>
+        </div>
+      </div>
+      <div class="post-content">
+        First day trying the new bulking diet plan. It's tough getting all these calories in! 🥩💪
+      </div>
+      <div class="post-actions">
+        <div class="post-action" onclick="this.style.color='var(--accent-pink,#f72585)'"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 12</div>
+        <div class="post-action"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg> 2</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       2. FRIENDS CHALLENGE
+  =========================================== -->
+  <div class="app-screen" id="s-challenges" data-screen="challenges">
+    <div class="screen-header">
+      <div class="back-btn" onclick="goBack()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+      <div class="header-title">Challenges</div>
+    </div>
+
+    <!-- Active Challenge -->
+    <div class="card anim-item" style="border-color:var(--accent-orange,#f77f00);background:linear-gradient(135deg,rgba(247,127,0,0.1),var(--bg-card));">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;">
+        <div>
+          <div style="font-size:0.75rem;color:var(--accent-orange,#f77f00);font-weight:700;text-transform:uppercase;margin-bottom:4px;">Active Challenge</div>
+          <h3 style="font-family:var(--font-display,'Inter');font-size:1.2rem;">May 100K Steps</h3>
+        </div>
+        <div style="background:var(--bg-secondary);padding:4px 8px;border-radius:12px;font-size:0.75rem;font-weight:700;">4 days left</div>
+      </div>
+      
+      <div style="margin-bottom:8px;display:flex;justify-content:space-between;font-size:0.85rem;">
+        <span>You</span><span style="font-weight:700;color:var(--accent-orange,#f77f00);">72,400 / 100k</span>
+      </div>
+      <div style="height:8px;background:var(--border);border-radius:4px;overflow:hidden;margin-bottom:16px;">
+        <div style="height:100%;width:72%;background:var(--accent-orange,#f77f00);border-radius:4px;"></div>
+      </div>
+
+      <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:12px;">Rank 3 of 12 friends</div>
+      <div style="display:flex;align-items:center;margin-left:8px;">
+        <div style="width:28px;height:28px;border-radius:50%;background:var(--accent-blue);margin-left:-8px;border:2px solid var(--bg-card);"></div>
+        <div style="width:28px;height:28px;border-radius:50%;background:var(--accent-pink);margin-left:-8px;border:2px solid var(--bg-card);"></div>
+        <div style="width:28px;height:28px;border-radius:50%;background:var(--accent-green);margin-left:-8px;border:2px solid var(--bg-card);"></div>
+        <div style="width:28px;height:28px;border-radius:50%;background:var(--bg-secondary);margin-left:-8px;border:2px solid var(--bg-card);display:flex;align-items:center;justify-content:center;font-size:0.6rem;font-weight:700;">+9</div>
+      </div>
+    </div>
+
+    <!-- Upcoming Challenge -->
+    <div class="card anim-item" style="animation-delay:0.1s;">
+      <h3 style="font-family:var(--font-display,'Inter');font-size:1rem;margin-bottom:8px;">June Summer Shred</h3>
+      <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:16px;">Burn 10,000 active calories in June. Compete with your friends!</p>
+      <button class="btn btn-primary" style="padding:8px;font-size:0.85rem;" onclick="showToast('Joined challenge!', 'success')">Join Challenge</button>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       3. LEADERBOARD
+  =========================================== -->
+  <div class="app-screen" id="s-leaderboard" data-screen="leaderboard">
+    <div class="screen-header">
+      <div class="back-btn" onclick="goBack()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+      <div class="header-title">Global Top</div>
+    </div>
+
+    <div style="display:flex;justify-content:center;gap:16px;margin-bottom:32px;margin-top:16px;align-items:flex-end;height:140px;">
+      <!-- Rank 2 -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+        <div style="width:50px;height:50px;border-radius:50%;background:var(--accent-blue);display:flex;align-items:center;justify-content:center;font-weight:bold;border:3px solid #C0C0C0;">A</div>
+        <div style="background:#C0C0C0;color:#000;width:50px;height:70px;border-radius:8px 8px 0 0;display:flex;justify-content:center;padding-top:8px;font-weight:900;font-size:1.5rem;">2</div>
+      </div>
+      <!-- Rank 1 -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+        <div style="width:60px;height:60px;border-radius:50%;background:var(--accent-pink);display:flex;align-items:center;justify-content:center;font-weight:bold;border:3px solid #FFD700;">D</div>
+        <div style="background:#FFD700;color:#000;width:60px;height:100px;border-radius:8px 8px 0 0;display:flex;justify-content:center;padding-top:12px;font-weight:900;font-size:2rem;">1</div>
+      </div>
+      <!-- Rank 3 -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+        <div style="width:50px;height:50px;border-radius:50%;background:var(--accent-purple);display:flex;align-items:center;justify-content:center;font-weight:bold;border:3px solid #CD7F32;">M</div>
+        <div style="background:#CD7F32;color:#000;width:50px;height:50px;border-radius:8px 8px 0 0;display:flex;justify-content:center;padding-top:8px;font-weight:900;font-size:1.5rem;">3</div>
+      </div>
+    </div>
+
+    <div class="lb-row top-1 anim-item" style="animation-delay:0.1s;">
+      <div class="lb-rank">1</div>
+      <div class="post-avatar" style="background:var(--accent-pink);">D</div>
+      <div style="font-weight:600;">David W.</div>
+      <div class="lb-score">14,250</div>
+    </div>
+    <div class="lb-row top-2 anim-item" style="animation-delay:0.15s;">
+      <div class="lb-rank">2</div>
+      <div class="post-avatar" style="background:var(--accent-blue);">A</div>
+      <div style="font-weight:600;">Alex (You)</div>
+      <div class="lb-score">12,840</div>
+    </div>
+    <div class="lb-row top-3 anim-item" style="animation-delay:0.2s;">
+      <div class="lb-rank">3</div>
+      <div class="post-avatar" style="background:var(--accent-purple);">M</div>
+      <div style="font-weight:600;">Mike T.</div>
+      <div class="lb-score">11,900</div>
+    </div>
+    <div class="lb-row anim-item" style="animation-delay:0.25s;">
+      <div class="lb-rank">4</div>
+      <div class="post-avatar" style="background:var(--accent-green);color:#000;">S</div>
+      <div style="font-weight:600;">Sarah J.</div>
+      <div class="lb-score" style="color:var(--text-primary);">10,420</div>
+    </div>
+    <div class="lb-row anim-item" style="animation-delay:0.3s;">
+      <div class="lb-rank">5</div>
+      <div class="post-avatar" style="background:var(--accent-orange);color:#000;">E</div>
+      <div style="font-weight:600;">Emma R.</div>
+      <div class="lb-score" style="color:var(--text-primary);">9,800</div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       4. ACHIEVEMENT BADGES
+  =========================================== -->
+  <div class="app-screen" id="s-badges" data-screen="badges">
+    <div class="screen-header">
+      <div class="back-btn" onclick="goBack()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+      <div class="header-title">Trophy Room</div>
+    </div>
+
+    <div class="badges-grid">
+      <!-- Unlocked -->
+      <div class="badge-item unlocked anim-item">
+        <div class="badge-icon">🔥</div>
+        <div class="badge-name">7 Day Streak</div>
+      </div>
+      <div class="badge-item unlocked anim-item" style="animation-delay:0.05s;">
+        <div class="badge-icon">💪</div>
+        <div class="badge-name">First Workout</div>
+      </div>
+      <div class="badge-item unlocked anim-item" style="animation-delay:0.1s;">
+        <div class="badge-icon">🏃</div>
+        <div class="badge-name">5K Runner</div>
+      </div>
+      <div class="badge-item unlocked anim-item" style="animation-delay:0.15s;">
+        <div class="badge-icon">💧</div>
+        <div class="badge-name">Hydration Pro</div>
+      </div>
+      
+      <!-- Locked -->
+      <div class="badge-item anim-item" style="animation-delay:0.2s;">
+        <div class="badge-icon">🌟</div>
+        <div class="badge-name">30 Day Streak</div>
+      </div>
+      <div class="badge-item anim-item" style="animation-delay:0.25s;">
+        <div class="badge-icon">🏋️</div>
+        <div class="badge-name">10K Club</div>
+      </div>
+      <div class="badge-item anim-item" style="animation-delay:0.3s;">
+        <div class="badge-icon">👑</div>
+        <div class="badge-name">Top 1 Global</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       5. SHARE PROGRESS
+  =========================================== -->
+  <div class="app-screen" id="s-share" data-screen="share">
+    <div class="screen-header">
+      <div class="back-btn" onclick="goBack()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+      <div class="header-title">Share Win</div>
+    </div>
+
+    <div class="share-preview anim-item">
+      <div class="share-label">Workout Completed</div>
+      <div class="share-stat">45 min</div>
+      <div style="font-size:1.2rem;font-weight:700;color:var(--accent-pink,#f72585);margin-top:8px;">640 kcal burned</div>
+      <div style="font-size:0.8rem;color:rgba(255,255,255,0.7);margin-top:16px;">#FitwaveJourney</div>
+    </div>
+
+    <div class="card anim-item" style="animation-delay:0.1s;">
+      <textarea style="width:100%;background:transparent;border:none;color:#fff;font-family:inherit;font-size:0.95rem;resize:none;outline:none;" rows="3" placeholder="Add a caption..."></textarea>
+    </div>
+
+    <button class="btn btn-primary anim-item" style="animation-delay:0.2s;margin-top:16px;" onclick="postUpdate()">Post to Community</button>
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav">
+    <div class="b-nav-item" onclick="window.location.href='dashboard-app.html'">
+      <div class="b-nav-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
+      <div class="b-nav-label">Dash</div>
+    </div>
+    <div class="b-nav-item" onclick="showToast('Workout Module coming in Phase 2!', 'info')">
+      <div class="b-nav-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div>
+      <div class="b-nav-label">Workout</div>
+    </div>
+    <div class="b-nav-item active" onclick="go('community')">
+      <div class="b-nav-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+      <div class="b-nav-label">Social</div>
+    </div>
+    <div class="b-nav-item" onclick="showToast('Diet Module coming in Phase 3!', 'info')">
+      <div class="b-nav-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+      <div class="b-nav-label">Diet</div>
+    </div>
+  </nav>
+
+</div>
+
+<!-- TOAST -->
+<div class="toast-container" id="toast-container"></div>
+
+<script>
+// ── SPA ROUTING ──
+const historyStack = ['community'];
+
+function go(screenId) {
+  const current = document.getElementById('s-' + historyStack[historyStack.length-1]);
+  const next = document.getElementById('s-' + screenId);
+  if(!next || current === next) return;
+  
+  // Make sure next is prepped
+  next.classList.remove('exit');
+  next.classList.add('active');
+  
+  if(current.id !== 's-community') current.classList.add('exit');
+  
+  historyStack.push(screenId);
+
+  // Update tabs if returning to root
+  if(['community', 'challenges', 'leaderboard', 'badges'].includes(screenId)) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelector(`.tab[onclick="go('${screenId}')"]`)?.classList.add('active');
+  }
+}
+
+function goBack() {
+  if(historyStack.length <= 1) return;
+  const currentId = historyStack.pop();
+  const current = document.getElementById('s-' + currentId);
+  current.classList.remove('active');
+  
+  const prevId = historyStack[historyStack.length-1];
+  const prev = document.getElementById('s-' + prevId);
+  prev.classList.remove('exit');
+}
+
+// ── TOAST ──
+function showToast(msg, type='info', duration=3000){
+  const c = document.getElementById('toast-container'); if(!c) return;
+  const t = document.createElement('div'); t.className = `toast ${type}`;
+  t.innerHTML = `<span>${msg}</span>`; c.appendChild(t);
+  setTimeout(()=>{ t.style.opacity='0'; t.style.transform='translateY(-8px)'; t.style.transition='0.3s'; setTimeout(()=>t.remove(),300); }, duration);
+}
+
+function postUpdate() {
+  showToast('Posted to Community!', 'success');
+  setTimeout(() => goBack(), 1000);
+}
+
+</script>
+</body>
+</html>

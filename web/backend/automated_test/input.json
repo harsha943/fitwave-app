@@ -1,7 +1,7 @@
 {
   "baseUrl": "http://localhost:5000",
-  "_comment": "Fill in tokens below after logging in. Leave empty string if role does not exist.",
-  "admin": "",
-  "user": "",
-  "guest": ""
+  "_comment": "Auto-generated tokens — valid for 7 days. Regenerate with: node automated_test/gen-tokens.js",
+  "admin": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJhZG1pbkBmaXR3YXZlLmNvbSIsInJvbGUiOiJhZG1pbiIsIm5hbWUiOiJBZG1pbiBVc2VyIiwiZXhwIjoxNzgyMzYxNTk3LCJpYXQiOjE3ODE3NTY3OTd9.GgGTtcxoTpK6hHFZcFYcbTjFhFJDP_mbe_F6qYVj4Ms",
+  "user": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyIiwiZW1haWwiOiJ1c2VyQGZpdHdhdmUuY29tIiwicm9sZSI6InVzZXIiLCJuYW1lIjoiUmVndWxhciBVc2VyIiwiZXhwIjoxNzgyMzYxNTk3LCJpYXQiOjE3ODE3NTY3OTd9.1U3ZNgf-6I7sDAFQ_JOvVQXAX7a3Ii9KVA3trVhfLOA",
+  "guest": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzIiwiZW1haWwiOiJndWVzdEBmaXR3YXZlLmNvbSIsInJvbGUiOiJndWVzdCIsIm5hbWUiOiJHdWVzdCBVc2VyIiwiZXhwIjoxNzgyMzYxNTk3LCJpYXQiOjE3ODE3NTY3OTd9.O73baazfJOpcNhliKLNzO2rgz6nBLNmPTPeXBMIiyEU"
 }

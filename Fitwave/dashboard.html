@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fitwave — Dashboard</title>
+  <meta name="description" content="Your Fitwave daily performance dashboard. Track activity, health metrics, nutrition and recent workouts."/>
+  <link rel="stylesheet" href="css/global.css"/>
+  <link rel="stylesheet" href="css/dashboard.css"/>
+</head>
+<body>
+
+<!-- NAVBAR (also serves as .top-nav for test selectors) -->
+<nav class="navbar top-nav">
+  <a class="nav-brand" href="landing.html">Fit<span>wave</span></a>
+  <div class="nav-links">
+    <a class="nav-link active" href="dashboard.html">Dashboard</a>
+    <a class="nav-link" href="workout.html">Workout</a>
+    <a class="nav-link" href="diet.html">Nutrition</a>
+    <a class="nav-link" href="profile.html">Profile</a>
+  </div>
+  <div class="nav-actions" style="display:flex;align-items:center;gap:12px;">
+    <div class="nav-search" style="position:relative;">
+      <input type="text" placeholder="Search workouts…" aria-label="Search" id="nav-search-input"
+        style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:7px 12px 7px 34px;font-size:0.85rem;color:var(--text-primary,#fff);outline:none;width:180px;"/>
+      <svg style="position:absolute;left:10px;top:50%;transform:translateY(-50%);opacity:0.5;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    </div>
+    <div class="nav-icon-btn" title="Notifications" id="notif-btn">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      <span id="notif-dot" style="position:absolute;top:7px;right:7px;width:7px;height:7px;background:var(--accent-pink);border-radius:50%;border:2px solid var(--bg-primary);"></span>
+    </div>
+    <a href="profile.html" class="nav-icon-btn" title="Profile" style="text-decoration:none;">
+      <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--accent-blue),var(--accent-purple));display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:800;font-family:var(--font-display);color:#fff;" id="nav-avatar">A</div>
+    </a>
+  </div>
+</nav>
+
+<div class="dashboard-page main-content">
+
+  <!-- AI Banner -->
+  <div class="ai-banner anim-fade-up">
+    <div class="ai-banner-icon">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+    </div>
+    <div class="ai-banner-text">
+      <div class="ai-banner-label">⚡ AI Insight</div>
+      <div class="ai-banner-msg">Your recovery score is <strong>92%</strong> — perfect day for a high-intensity session. <strong>Push Day recommended.</strong></div>
+    </div>
+    <a href="workout.html" class="btn btn-primary btn-sm">View Plan</a>
+  </div>
+
+  <!-- HEADER -->
+  <div class="dashboard-header">
+    <div class="dashboard-header-left">
+      <div class="dashboard-date">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <span id="dash-date">Wednesday, Oct 23</span>
+        <span class="badge badge-green" style="font-size:0.7rem;">High Kinetic Output Detected</span>
+      </div>
+      <h1 class="dashboard-title">Daily Performance</h1>
+    </div>
+    <button class="btn btn-primary" onclick="window.location.href='workout.html'" id="btn-log-workout">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      LOG WORKOUT
+    </button>
+  </div>
+
+  <!-- MAIN GRID -->
+  <div class="dashboard-grid">
+
+    <!-- LEFT: Activity + Bottom -->
+    <div style="display:flex;flex-direction:column;gap:20px;">
+
+      <!-- Daily Activity Card -->
+      <div class="activity-card anim-fade-up delay-1">
+        <div class="activity-card-header">
+          <h2 class="activity-card-title">Daily Activity</h2>
+          <span class="badge badge-green">+12% vs Yesterday</span>
+        </div>
+        <div class="activity-rings">
+          <!-- Steps Ring -->
+          <div class="ring-chart-wrap">
+            <div class="ring-chart">
+              <svg width="110" height="110" viewBox="0 0 110 110">
+                <circle cx="55" cy="55" r="46" fill="none" stroke="var(--border)" stroke-width="8"/>
+                <circle cx="55" cy="55" r="46" fill="none" stroke="var(--accent-blue)" stroke-width="8"
+                  stroke-dasharray="289" stroke-dashoffset="289" stroke-linecap="round"
+                  id="ring-steps" style="transition:stroke-dashoffset 1.4s cubic-bezier(0.4,0,0.2,1)"/>
+              </svg>
+              <div class="ring-chart-label">
+                <span class="ring-chart-value" id="val-steps">0</span>
+                <span class="ring-chart-unit">STEPS</span>
+              </div>
+            </div>
+            <span class="ring-chart-goal" id="goal-steps">Goal: 10,000</span>
+          </div>
+          <!-- Calories Ring -->
+          <div class="ring-chart-wrap">
+            <div class="ring-chart">
+              <svg width="110" height="110" viewBox="0 0 110 110">
+                <circle cx="55" cy="55" r="46" fill="none" stroke="var(--border)" stroke-width="8"/>
+                <circle cx="55" cy="55" r="46" fill="none" stroke="var(--accent-green)" stroke-width="8"
+                  stroke-dasharray="289" stroke-dashoffset="289" stroke-linecap="round"
+                  id="ring-cal" style="transition:stroke-dashoffset 1.4s cubic-bezier(0.4,0,0.2,1) 0.2s"/>
+              </svg>
+              <div class="ring-chart-label">
+                <span class="ring-chart-value" id="val-cal">0</span>
+                <span class="ring-chart-unit">KCAL</span>
+              </div>
+            </div>
+            <span class="ring-chart-goal">Goal: 800</span>
+          </div>
+          <!-- Minutes Ring -->
+          <div class="ring-chart-wrap">
+            <div class="ring-chart">
+              <svg width="110" height="110" viewBox="0 0 110 110">
+                <circle cx="55" cy="55" r="46" fill="none" stroke="var(--border)" stroke-width="8"/>
+                <circle cx="55" cy="55" r="46" fill="none" stroke="var(--accent-purple)" stroke-width="8"
+                  stroke-dasharray="289" stroke-dashoffset="289" stroke-linecap="round"
+                  id="ring-min" style="transition:stroke-dashoffset 1.4s cubic-bezier(0.4,0,0.2,1) 0.4s"/>
+              </svg>
+              <div class="ring-chart-label">
+                <span class="ring-chart-value" id="val-min">0</span>
+                <span class="ring-chart-unit">MIN</span>
+              </div>
+            </div>
+            <span class="ring-chart-goal">Goal: 60</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Row: Nutrition + Workouts -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+
+        <!-- Nutrition Hub -->
+        <div class="nutrition-card anim-fade-up delay-3">
+          <div class="nutrition-header">
+            <h3 class="nutrition-title">Nutrition Hub</h3>
+            <span class="nutrition-edit">Edit Plan</span>
+          </div>
+          <div class="nutrition-macros">
+            <div class="macro-row">
+              <div class="macro-label-row"><span class="macro-name">Protein</span><span class="macro-val">142g / 180g</span></div>
+              <div class="progress-track"><div class="progress-fill progress-blue" id="prog-protein" style="width:0%"></div></div>
+            </div>
+            <div class="macro-row">
+              <div class="macro-label-row"><span class="macro-name">Carbs</span><span class="macro-val">210g / 250g</span></div>
+              <div class="progress-track"><div class="progress-fill progress-green" id="prog-carbs" style="width:0%"></div></div>
+            </div>
+            <div class="macro-row">
+              <div class="macro-label-row"><span class="macro-name">Fats</span><span class="macro-val">52g / 70g</span></div>
+              <div class="progress-track"><div class="progress-fill progress-pink" id="prog-fats" style="width:0%"></div></div>
+            </div>
+          </div>
+          <div class="nutrition-tip">
+            <div class="nutrition-tip-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </div>
+            <p class="nutrition-tip-text">Increase protein by 38g to hit your muscle recovery target for today's session.</p>
+          </div>
+        </div>
+
+        <!-- Recent Workouts -->
+        <div class="workouts-card anim-fade-up delay-4">
+          <div class="workouts-header">
+            <h3 class="workouts-title">Recent Workouts</h3>
+            <div style="color:var(--text-muted);cursor:pointer;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+            </div>
+          </div>
+          <div class="workouts-list">
+            <div class="workout-item" onclick="window.location.href='workout.html'">
+              <div class="workout-icon blue">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              </div>
+              <div class="workout-info">
+                <div class="workout-name">HIIT Hyper-Drive</div>
+                <div class="workout-meta">Yesterday • 45 min</div>
+              </div>
+              <div class="workout-score">
+                <div class="workout-score-val">94</div>
+                <div class="workout-score-label">Score</div>
+              </div>
+            </div>
+            <div class="workout-item" onclick="window.location.href='workout.html'">
+              <div class="workout-icon purple">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div class="workout-info">
+                <div class="workout-name">Endurance Run: Level 4</div>
+                <div class="workout-meta">Oct 21 • 32 min</div>
+              </div>
+              <div class="workout-score">
+                <div class="workout-score-val">88</div>
+                <div class="workout-score-label">Score</div>
+              </div>
+            </div>
+            <div class="workout-item" onclick="window.location.href='workout.html'">
+              <div class="workout-icon green">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+              </div>
+              <div class="workout-info">
+                <div class="workout-name">Flow Yoga Recovery</div>
+                <div class="workout-meta">Oct 20 • 20 min</div>
+              </div>
+              <div class="workout-score">
+                <div class="workout-score-val" style="color:var(--accent-purple);">76</div>
+                <div class="workout-score-label">Score</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- RIGHT SIDEBAR -->
+    <div class="dashboard-sidebar">
+
+      <!-- Heart Rate -->
+      <div class="metric-card anim-fade-up delay-2">
+        <div class="metric-card-header">
+          <span class="metric-label">Heart Rate</span>
+          <div class="metric-icon-btn" title="Favourite">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </div>
+        </div>
+        <div class="metric-value">72 <span>BPM</span></div>
+        <div class="hr-bars" id="hr-bars"></div>
+      </div>
+
+      <!-- Sleep Quality -->
+      <div class="metric-card anim-fade-up delay-3">
+        <div class="metric-card-header">
+          <span class="metric-label">Sleep Quality</span>
+          <div class="metric-icon-btn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          </div>
+        </div>
+        <div class="metric-value">8h <span>12m</span></div>
+        <div class="sleep-score">
+          <div class="progress-track" style="flex:1;"><div class="progress-fill progress-green" id="prog-sleep" style="width:0%"></div></div>
+          <span class="sleep-score-val">92% Score</span>
+        </div>
+        <div class="sleep-detail"><span>2h 15m REM</span> • Highly Restorative</div>
+      </div>
+
+      <!-- Water Intake -->
+      <div class="metric-card anim-fade-up delay-4" style="cursor:pointer;" onclick="this.querySelector('.metric-value').style.color='var(--accent-blue)'">
+        <div class="metric-card-header">
+          <span class="metric-label">Hydration</span>
+          <div class="metric-icon-btn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+          </div>
+        </div>
+        <div class="metric-value" style="color:var(--accent-blue);">1.8 <span>/ 3L</span></div>
+        <div class="progress-track"><div class="progress-fill progress-blue" id="prog-water" style="width:0%"></div></div>
+        <div class="sleep-detail" style="margin-top:8px;">Add <span style="color:var(--accent-blue);font-weight:600;">1.2L</span> more to reach today's goal</div>
+      </div>
+
+      <!-- Body Weight -->
+      <div class="metric-card anim-fade-up delay-5">
+        <div class="metric-card-header">
+          <span class="metric-label">Body Weight</span>
+          <span class="badge badge-green" style="font-size:0.68rem;">↓ 0.3kg</span>
+        </div>
+        <div class="metric-value">74.2 <span>kg</span></div>
+        <div style="display:flex;align-items:flex-end;gap:4px;height:36px;margin-top:8px;" id="weight-chart"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  <span class="footer-brand">Fit<span style="color:var(--accent-blue);">wave</span></span>
+  <span class="footer-copy">© 2024 Fitwave AI. All rights reserved.</span>
+  <div class="footer-links">
+    <a href="#">Support</a><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Contact</a>
+  </div>
+</footer>
+
+<div class="toast-container" id="toast-container"></div>
+<script type="module" src="js/db.js"></script>
+<script type="module" src="js/dashboard.js"></script>
+</body>
+</html>

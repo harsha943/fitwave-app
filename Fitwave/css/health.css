@@ -1,0 +1,69 @@
+/* ===== FITWAVE HEALTH CSS ===== */
+
+/* Header */
+.health-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 24px; }
+.health-title-sub { font-size: 0.85rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+.health-title { font-family: var(--font-display); font-size: 2rem; font-weight: 800; line-height: 1.1; }
+
+/* AI Status Card */
+.ai-status-card {
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-xl);
+  padding: 24px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px;
+  position: relative; overflow: hidden;
+}
+.ai-status-card::before { content:''; position:absolute; inset:0; background:radial-gradient(circle at right, rgba(79,110,247,0.1), transparent 50%); pointer-events: none; }
+.ai-status-info { display: flex; align-items: center; gap: 20px; }
+.ai-status-pulse { position: relative; width: 64px; height: 64px; border-radius: 50%; background: rgba(79,110,247,0.1); display: flex; align-items: center; justify-content: center; }
+.ai-status-pulse::after { content:''; position:absolute; inset:-8px; border-radius:50%; border:2px solid rgba(79,110,247,0.2); animation:pulse-ring 2s infinite; }
+.ai-status-text h3 { font-family: var(--font-display); font-size: 1.3rem; font-weight: 800; margin-bottom: 4px; }
+.ai-status-text p { font-size: 0.9rem; color: var(--text-secondary); max-width: 400px; line-height: 1.5; }
+.ai-status-score { text-align: right; }
+.ai-status-score-val { font-family: var(--font-display); font-size: 2.8rem; font-weight: 900; color: var(--accent-green); line-height: 1; }
+.ai-status-score-lbl { font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+
+/* Grid Layout */
+.health-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; margin-bottom: 32px; }
+
+/* Live Heart Rate Chart */
+.chart-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 24px; }
+.chart-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; }
+.chart-title { font-family: var(--font-display); font-size: 1.2rem; font-weight: 800; margin-bottom: 4px; }
+.chart-sub { font-size: 0.85rem; color: var(--text-muted); }
+.live-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; background: rgba(247,37,133,0.1); border: 1px solid rgba(247,37,133,0.2); border-radius: var(--radius-full); color: var(--accent-pink); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+.live-badge::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--accent-pink); animation:flash 1.5s infinite; }
+@keyframes flash { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+.hr-display { font-family: var(--font-display); font-size: 2.4rem; font-weight: 900; color: var(--accent-pink); line-height: 1; margin-bottom: 16px; display: flex; align-items: baseline; gap: 8px; }
+.hr-display span { font-size: 1rem; color: var(--text-muted); font-weight: 500; }
+.ecg-container { height: 140px; position: relative; width: 100%; overflow: hidden; border-bottom: 1px dashed var(--border-light); }
+.ecg-line { position: absolute; bottom: 50px; left: 0; width: 200%; height: 2px; background: var(--accent-pink); filter: drop-shadow(0 0 4px var(--accent-pink)); }
+.ecg-points { position: absolute; inset: 0; display: flex; align-items: center; width: 200%; animation: slide-left 4s linear infinite; }
+.ecg-points svg { height: 100px; width: 100%; preserveAspectRatio: none; overflow: visible; }
+.ecg-path { fill: none; stroke: var(--accent-pink); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 6px rgba(247,37,133,0.5)); }
+@keyframes slide-left { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+/* Metrics Sidebar */
+.metrics-col { display: flex; flex-direction: column; gap: 16px; }
+.metric-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 18px; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s; }
+.metric-box:hover { border-color: var(--border-light); transform: translateY(-2px); }
+.metric-icon { width: 44px; height: 44px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+.metric-box-info { flex: 1; margin: 0 16px; }
+.metric-box-title { font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; margin-bottom: 4px; }
+.metric-box-val { font-family: var(--font-display); font-size: 1.4rem; font-weight: 800; line-height: 1; }
+.metric-trend { font-size: 0.85rem; font-weight: 600; display: flex; align-items: center; gap: 4px; }
+.metric-trend.up { color: var(--accent-green); }
+.metric-trend.down { color: var(--accent-pink); }
+.metric-trend.neutral { color: var(--text-muted); }
+
+/* Sleep & Recovery Grid */
+.recovery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.recovery-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 24px; }
+.sleep-bars { display: flex; align-items: flex-end; gap: 8px; height: 120px; margin-top: 24px; }
+.sleep-bar-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.sleep-bar { width: 100%; border-radius: 4px; background: linear-gradient(180deg, var(--accent-purple), var(--accent-blue)); position: relative; transition: height 1s ease; }
+.sleep-bar:hover::after { content: attr(data-val); position: absolute; top: -25px; left: 50%; transform: translateX(-50%); font-size: 0.75rem; background: var(--text-primary); color: var(--bg-primary); padding: 2px 6px; border-radius: 4px; font-weight: 700; pointer-events: none; }
+.sleep-day { font-size: 0.75rem; color: var(--text-muted); font-weight: 600; }
+
+@media(max-width: 1024px) {
+  .health-grid { grid-template-columns: 1fr; }
+  .recovery-grid { grid-template-columns: 1fr; }
+}

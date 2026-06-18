@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fitwave — Onboarding</title>
+  <meta name="description" content="Get started with Fitwave — AI-powered personalized gym training and real-time health analysis."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+/* ============================================================
+   FITWAVE ONBOARDING — FULL DESIGN SYSTEM
+   ============================================================ */
+:root {
+  --bg:        #0b0d13;
+  --bg2:       #13161f;
+  --bg3:       #181b26;
+  --bg4:       #1e2233;
+  --border:    #252a3a;
+  --border2:   #2e3448;
+  --blue:      #4f6ef7;
+  --blue2:     #6a84ff;
+  --green:     #c6f135;
+  --green2:    #a8d422;
+  --purple:    #9b5de5;
+  --pink:      #f72585;
+  --orange:    #f97316;
+  --text:      #f0f2ff;
+  --text2:     #8a90a8;
+  --text3:     #555c78;
+  --grad-blue: linear-gradient(135deg,#4f6ef7,#9b5de5);
+  --grad-green:linear-gradient(135deg,#c6f135,#4fc3f7);
+  --r-sm: 8px; --r-md: 12px; --r-lg: 16px; --r-xl: 24px; --r-full: 9999px;
+  --ease: cubic-bezier(0.4,0,0.2,1);
+  --bounce: cubic-bezier(0.34,1.56,0.64,1);
+  --font-d: 'Outfit', sans-serif;
+  --font-b: 'Inter', sans-serif;
+}
+
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+html,body { height:100%; overflow:hidden; }
+body {
+  font-family: var(--font-b);
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── SCREEN SYSTEM ── */
+#app {
+  width: 100%; height: 100vh;
+  position: relative; overflow: hidden;
+}
+.screen {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.45s var(--ease);
+  overflow-y: auto; overflow-x: hidden;
+}
+.screen.active  { transform: translateX(0); }
+.screen.exit    { transform: translateX(-100%); }
+.screen.no-anim { transition: none; }
+
+/* ── SCROLLBAR ── */
+.screen::-webkit-scrollbar { width:4px; }
+.screen::-webkit-scrollbar-track { background:transparent; }
+.screen::-webkit-scrollbar-thumb { background:var(--border2); border-radius:2px; }
+
+/* ── SHARED LAYOUT ── */
+.screen-inner {
+  flex:1; display:flex; flex-direction:column;
+  padding: 0 24px 32px;
+  max-width: 480px; margin: 0 auto; width: 100%;
+}
+
+/* ── TOP BAR ── */
+.top-bar {
+  display: flex; align-items: center;
+  padding: 52px 24px 0;
+  max-width: 480px; margin: 0 auto; width: 100%;
+  gap: 12px;
+}
+.back-btn {
+  width:40px; height:40px; border-radius:50%;
+  background:var(--bg3); border:1px solid var(--border2);
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition:all 0.2s; flex-shrink:0;
+  color: var(--text2);
+}
+.back-btn:hover { background:var(--bg4); color:var(--text); border-color:var(--blue); }
+.step-info { flex:1; }
+.step-label { font-size:0.72rem; color:var(--text3); font-weight:600; text-transform:uppercase; letter-spacing:0.08em; }
+.step-progress-track { height:3px; background:var(--border); border-radius:2px; margin-top:6px; overflow:hidden; }
+.step-progress-fill { height:100%; background:var(--blue); border-radius:2px; transition:width 0.5s var(--ease); }
+.step-skip { font-size:0.85rem; color:var(--text3); font-weight:500; cursor:pointer; transition:color 0.2s; white-space:nowrap; }
+.step-skip:hover { color:var(--text2); }
+
+/* ── HEADINGS ── */
+.screen-title {
+  font-family:var(--font-d); font-weight:900;
+  font-size:clamp(1.7rem,6vw,2.2rem);
+  line-height:1.1; letter-spacing:-0.02em;
+  margin-bottom:8px;
+}
+.screen-sub { font-size:0.95rem; color:var(--text2); line-height:1.6; margin-bottom:32px; }
+.screen-sub strong { color:var(--text); }
+
+/* ── BRAND ── */
+.brand {
+  font-family:var(--font-d); font-weight:800;
+  font-size:1.6rem; letter-spacing:-0.02em; color:var(--text);
+}
+.brand span { color:var(--blue); }
+
+/* ── BUTTONS ── */
+.btn {
+  display:flex; align-items:center; justify-content:center;
+  gap:8px; padding:15px 24px; border-radius:var(--r-lg);
+  font-family:var(--font-d); font-weight:700; font-size:1rem;
+  cursor:pointer; border:none; transition:all 0.2s var(--ease);
+  text-decoration:none; white-space:nowrap; width:100%;
+}
+.btn-primary { background:var(--blue); color:#fff; box-shadow:0 4px 20px rgba(79,110,247,0.4); }
+.btn-primary:hover { background:var(--blue2); transform:translateY(-2px); box-shadow:0 8px 28px rgba(79,110,247,0.55); }
+.btn-primary:active { transform:translateY(0); }
+.btn-green { background:var(--green); color:#0b0d13; box-shadow:0 4px 20px rgba(198,241,53,0.3); }
+.btn-green:hover { background:var(--green2); transform:translateY(-2px); }
+.btn-ghost { background:transparent; color:var(--text); border:1.5px solid var(--border2); }
+.btn-ghost:hover { background:var(--bg3); border-color:var(--blue); }
+.btn-glass { background:rgba(255,255,255,0.07); color:var(--text); border:1px solid rgba(255,255,255,0.1); backdrop-filter:blur(12px); }
+.btn-glass:hover { background:rgba(255,255,255,0.12); }
+.btn-sm { padding:11px 20px; font-size:0.9rem; }
+.btn-icon { width:48px; height:48px; padding:0; border-radius:50%; }
+.btn-loading { opacity:0.7; pointer-events:none; }
+.btn-row { display:flex; gap:12px; }
+.btn-row .btn { flex:1; }
+
+/* ── INPUTS ── */
+.form-group { display:flex; flex-direction:column; gap:6px; margin-bottom:16px; }
+.form-label { font-size:0.85rem; font-weight:600; color:var(--text2); font-family:var(--font-d); }
+.form-input {
+  background:var(--bg3); border:1.5px solid var(--border2);
+  border-radius:var(--r-md); padding:14px 16px;
+  color:var(--text); font-size:0.95rem; font-family:var(--font-b);
+  transition:all 0.2s; width:100%; outline:none;
+}
+.form-input::placeholder { color:var(--text3); }
+.form-input:focus { border-color:var(--blue); background:#1c2035; box-shadow:0 0 0 3px rgba(79,110,247,0.15); }
+.input-wrap { position:relative; }
+.input-wrap .form-input { padding-right:46px; }
+.input-icon { position:absolute; right:14px; top:50%; transform:translateY(-50%); color:var(--text3); cursor:pointer; transition:color 0.2s; }
+.input-icon:hover { color:var(--text2); }
+
+/* ── SOCIAL BTNS ── */
+.social-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px; }
+.social-btn {
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  padding:12px; background:var(--bg3); border:1.5px solid var(--border2);
+  border-radius:var(--r-md); color:var(--text); font-size:0.9rem;
+  font-weight:600; font-family:var(--font-d); cursor:pointer;
+  transition:all 0.2s;
+}
+.social-btn:hover { background:var(--bg4); border-color:rgba(255,255,255,0.15); transform:translateY(-1px); }
+
+/* ── DIVIDER ── */
+.divider { display:flex; align-items:center; gap:10px; color:var(--text3); font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; margin:4px 0 20px; }
+.divider::before,.divider::after { content:''; flex:1; height:1px; background:var(--border); }
+
+/* ── CHECKBOX / RADIO ── */
+.check-card {
+  display:flex; align-items:center; gap:14px;
+  padding:16px; background:var(--bg3); border:1.5px solid var(--border);
+  border-radius:var(--r-lg); cursor:pointer; transition:all 0.2s;
+  margin-bottom:10px;
+}
+.check-card:hover { background:var(--bg4); border-color:var(--border2); }
+.check-card.selected { border-color:var(--blue); background:rgba(79,110,247,0.08); }
+.check-card-icon { width:44px; height:44px; border-radius:var(--r-md); display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:1.3rem; }
+.check-card-info { flex:1; }
+.check-card-title { font-family:var(--font-d); font-weight:700; font-size:0.95rem; margin-bottom:2px; }
+.check-card-sub { font-size:0.8rem; color:var(--text2); }
+.check-box { width:22px; height:22px; border-radius:6px; border:2px solid var(--border2); flex-shrink:0; display:flex; align-items:center; justify-content:center; transition:all 0.2s; }
+.check-card.selected .check-box { background:var(--blue); border-color:var(--blue); }
+.radio-dot { width:22px; height:22px; border-radius:50%; border:2px solid var(--border2); flex-shrink:0; display:flex; align-items:center; justify-content:center; transition:all 0.2s; }
+.check-card.selected .radio-dot { border-color:var(--blue); }
+.radio-inner { width:10px; height:10px; border-radius:50%; background:var(--blue); opacity:0; transform:scale(0); transition:all 0.2s var(--bounce); }
+.check-card.selected .radio-inner { opacity:1; transform:scale(1); }
+
+/* ── GENDER CARDS ── */
+.gender-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:24px; }
+.gender-card {
+  display:flex; flex-direction:column; align-items:center;
+  padding:24px 16px; background:var(--bg3); border:2px solid var(--border);
+  border-radius:var(--r-xl); cursor:pointer; transition:all 0.25s var(--bounce);
+}
+.gender-card:hover { transform:translateY(-4px); border-color:var(--border2); }
+.gender-card.selected { border-color:var(--blue); background:rgba(79,110,247,0.1); transform:translateY(-4px); box-shadow:0 8px 24px rgba(79,110,247,0.2); }
+.gender-emoji { font-size:2.4rem; margin-bottom:10px; }
+.gender-label { font-family:var(--font-d); font-weight:700; font-size:0.95rem; }
+.gender-card.selected .gender-label { color:var(--blue2); }
+
+/* ── GOAL CARDS ── */
+.goal-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:24px; }
+.goal-card {
+  padding:20px 16px; background:var(--bg3); border:2px solid var(--border);
+  border-radius:var(--r-xl); cursor:pointer; transition:all 0.25s var(--bounce);
+  display:flex; flex-direction:column; align-items:center; text-align:center;
+}
+.goal-card:hover { transform:translateY(-3px); border-color:var(--border2); }
+.goal-card.selected { border-color:var(--blue); background:rgba(79,110,247,0.1); transform:translateY(-3px); }
+.goal-emoji { font-size:2rem; margin-bottom:8px; }
+.goal-title { font-family:var(--font-d); font-weight:700; font-size:0.9rem; margin-bottom:4px; }
+.goal-desc { font-size:0.75rem; color:var(--text2); line-height:1.4; }
+.goal-card.selected .goal-title { color:var(--blue2); }
+
+/* ── SLIDER ── */
+.slider-wrap { margin-bottom:24px; }
+.slider-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+.slider-label { font-size:0.85rem; font-weight:600; color:var(--text2); font-family:var(--font-d); }
+.slider-val { font-family:var(--font-d); font-size:1.4rem; font-weight:800; }
+.slider-val span { font-size:0.8rem; color:var(--text2); font-weight:500; margin-left:3px; }
+input[type=range] {
+  -webkit-appearance:none; width:100%; height:5px;
+  border-radius:var(--r-full); background:var(--border2);
+  outline:none; cursor:pointer;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance:none; width:22px; height:22px; border-radius:50%;
+  background:var(--blue); cursor:pointer;
+  box-shadow:0 0 0 4px rgba(79,110,247,0.2);
+  transition:box-shadow 0.2s;
+}
+input[type=range]::-webkit-slider-thumb:hover { box-shadow:0 0 0 6px rgba(79,110,247,0.3); }
+
+/* ── OTP ── */
+.otp-row { display:flex; gap:10px; justify-content:center; margin:24px 0; }
+.otp-box {
+  width:52px; height:60px; background:var(--bg3);
+  border:2px solid var(--border2); border-radius:var(--r-md);
+  color:var(--text); font-size:1.5rem; font-weight:800; font-family:var(--font-d);
+  text-align:center; outline:none; transition:all 0.2s;
+}
+.otp-box:focus { border-color:var(--blue); background:#1c2035; box-shadow:0 0 0 3px rgba(79,110,247,0.15); }
+.otp-box.filled { border-color:var(--blue); }
+
+/* ── PLAN CARDS ── */
+.plan-card {
+  padding:22px 20px; background:var(--bg3); border:2px solid var(--border);
+  border-radius:var(--r-xl); cursor:pointer; transition:all 0.25s var(--bounce);
+  margin-bottom:12px; position:relative; overflow:hidden;
+}
+.plan-card:hover { border-color:var(--border2); transform:translateY(-2px); }
+.plan-card.selected { border-color:var(--blue); background:rgba(79,110,247,0.08); }
+.plan-card.popular { border-color:var(--blue); }
+.plan-popular-badge {
+  position:absolute; top:14px; right:14px;
+  background:var(--blue); color:#fff;
+  font-size:0.68rem; font-weight:700; font-family:var(--font-d);
+  padding:3px 10px; border-radius:var(--r-full); letter-spacing:0.06em;
+}
+.plan-row { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px; }
+.plan-name { font-family:var(--font-d); font-weight:800; font-size:1.05rem; }
+.plan-price { font-family:var(--font-d); font-weight:900; font-size:1.4rem; }
+.plan-price span { font-size:0.8rem; font-weight:500; color:var(--text2); }
+.plan-desc { font-size:0.82rem; color:var(--text2); margin-bottom:12px; }
+.plan-features { display:flex; flex-wrap:wrap; gap:6px; }
+.plan-tag { font-size:0.72rem; font-weight:600; padding:3px 8px; border-radius:var(--r-full); background:rgba(79,110,247,0.12); color:var(--blue2); }
+.plan-tag.green { background:rgba(198,241,53,0.12); color:var(--green); }
+
+/* ── TUTORIAL SLIDES ── */
+.tutorial-slides { position:relative; flex:1; }
+.tutorial-slide { display:none; flex-direction:column; align-items:center; padding:20px 0; animation:fadeInUp 0.4s var(--ease) both; }
+.tutorial-slide.active { display:flex; }
+.tutorial-illustration {
+  width:220px; height:220px; border-radius:var(--r-xl);
+  display:flex; align-items:center; justify-content:center;
+  font-size:5rem; margin-bottom:28px; position:relative; overflow:hidden;
+}
+.tutorial-title { font-family:var(--font-d); font-size:1.5rem; font-weight:900; text-align:center; margin-bottom:10px; }
+.tutorial-sub { font-size:0.92rem; color:var(--text2); text-align:center; line-height:1.7; max-width:320px; }
+.dots { display:flex; gap:8px; justify-content:center; margin:20px 0; }
+.dot { width:8px; height:8px; border-radius:var(--r-full); background:var(--border2); transition:all 0.3s var(--bounce); cursor:pointer; }
+.dot.active { background:var(--blue); width:24px; }
+
+/* ── AI SETUP ── */
+.ai-setup-visual {
+  width:160px; height:160px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  margin:0 auto 28px; position:relative;
+  background:rgba(79,110,247,0.08); border:2px solid rgba(79,110,247,0.2);
+}
+.ai-pulse-ring {
+  position:absolute; inset:-12px; border-radius:50%;
+  border:2px solid rgba(79,110,247,0.2);
+  animation:aiPulse 2s ease-in-out infinite;
+}
+.ai-pulse-ring:nth-child(2) { inset:-24px; border-color:rgba(79,110,247,0.12); animation-delay:0.5s; }
+.ai-pulse-ring:nth-child(3) { inset:-36px; border-color:rgba(79,110,247,0.06); animation-delay:1s; }
+@keyframes aiPulse { 0%,100%{transform:scale(1);opacity:1;} 50%{transform:scale(1.05);opacity:0.6;} }
+.ai-tasks { display:flex; flex-direction:column; gap:10px; margin-bottom:28px; }
+.ai-task {
+  display:flex; align-items:center; gap:12px;
+  padding:14px 16px; background:var(--bg3); border:1px solid var(--border);
+  border-radius:var(--r-md); transition:all 0.3s;
+}
+.ai-task.done { border-color:rgba(198,241,53,0.3); background:rgba(198,241,53,0.05); }
+.ai-task-icon { width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.ai-task-text { flex:1; font-size:0.88rem; font-weight:500; }
+.ai-task-spinner { width:16px; height:16px; border:2px solid var(--border2); border-top-color:var(--blue); border-radius:50%; animation:spin 0.8s linear infinite; }
+.ai-task-check { color:var(--green); font-size:1rem; }
+@keyframes spin { to { transform:rotate(360deg); } }
+
+/* ── HEALTH TAGS ── */
+.health-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:24px; }
+.health-tag {
+  display:flex; align-items:center; gap:10px;
+  padding:14px; background:var(--bg3); border:1.5px solid var(--border);
+  border-radius:var(--r-md); cursor:pointer; transition:all 0.2s;
+}
+.health-tag:hover { border-color:var(--border2); }
+.health-tag.selected { border-color:var(--pink); background:rgba(247,37,133,0.07); }
+.health-tag-emoji { font-size:1.3rem; }
+.health-tag-text { font-size:0.85rem; font-weight:600; font-family:var(--font-d); }
+.health-check { width:20px; height:20px; border-radius:5px; border:2px solid var(--border2); margin-left:auto; flex-shrink:0; display:flex; align-items:center; justify-content:center; transition:all 0.2s; }
+.health-tag.selected .health-check { background:var(--pink); border-color:var(--pink); }
+
+/* ── PROFILE PHOTO ── */
+.photo-upload {
+  width:110px; height:110px; border-radius:50%;
+  border:3px dashed var(--border2); display:flex;
+  align-items:center; justify-content:center; cursor:pointer;
+  margin:0 auto 28px; transition:all 0.2s; position:relative;
+  background:var(--bg3); flex-direction:column; gap:4px;
+  font-size:0.75rem; color:var(--text3); font-weight:600;
+}
+.photo-upload:hover { border-color:var(--blue); background:rgba(79,110,247,0.05); }
+.photo-upload-preview {
+  position:absolute; inset:3px; border-radius:50%;
+  object-fit:cover; display:none;
+}
+.photo-upload.has-photo .photo-upload-preview { display:block; }
+
+/* ── ACTIVITY LEVELS ── */
+.activity-levels { display:flex; flex-direction:column; gap:10px; margin-bottom:24px; }
+.activity-item {
+  display:flex; align-items:center; gap:14px;
+  padding:16px; background:var(--bg3); border:2px solid var(--border);
+  border-radius:var(--r-lg); cursor:pointer; transition:all 0.2s;
+}
+.activity-item:hover { border-color:var(--border2); }
+.activity-item.selected { border-color:var(--blue); background:rgba(79,110,247,0.08); }
+.activity-bars { display:flex; align-items:flex-end; gap:2px; height:20px; flex-shrink:0; }
+.activity-bar { width:5px; border-radius:2px 2px 0 0; background:var(--border2); transition:background 0.2s; }
+.activity-item.selected .activity-bar { background:var(--blue); }
+.activity-info { flex:1; }
+.activity-name { font-family:var(--font-d); font-weight:700; font-size:0.92rem; }
+.activity-desc { font-size:0.78rem; color:var(--text2); margin-top:2px; }
+
+/* ── SPLASH SCREEN ── */
+.splash {
+  background: linear-gradient(160deg, #0b0d13 0%, #131828 50%, #0d1220 100%);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:24px;
+}
+.splash-logo {
+  width:90px; height:90px; background:var(--blue); border-radius:28px;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 0 60px rgba(79,110,247,0.5);
+  animation:splashPop 0.6s var(--bounce) both 0.3s;
+}
+@keyframes splashPop { from{transform:scale(0);opacity:0;} to{transform:scale(1);opacity:1;} }
+.splash-brand { font-family:var(--font-d); font-size:2rem; font-weight:900; animation:fadeInUp 0.5s var(--ease) both 0.8s; }
+.splash-tagline { color:var(--text2); font-size:0.9rem; text-align:center; animation:fadeInUp 0.5s var(--ease) both 1s; }
+.splash-loader { width:200px; height:3px; background:var(--border); border-radius:2px; overflow:hidden; margin-top:40px; animation:fadeIn 0.4s both 1.2s; }
+.splash-loader-fill { height:100%; background:linear-gradient(90deg,var(--blue),var(--purple)); border-radius:2px; animation:loadProgress 2.2s var(--ease) both 1.2s; }
+@keyframes loadProgress { from{width:0;} to{width:100%;} }
+.splash-orb {
+  position:absolute; border-radius:50%;
+  background:radial-gradient(circle, rgba(79,110,247,0.2), transparent 70%);
+}
+.splash-orb1 { width:400px; height:400px; top:-100px; right:-100px; }
+.splash-orb2 { width:300px; height:300px; bottom:-80px; left:-80px; background:radial-gradient(circle,rgba(155,93,229,0.15),transparent 70%); }
+
+/* ── WELCOME SCREEN ── */
+.welcome {
+  background:linear-gradient(160deg,#0b0d13,#131828,#0d1220);
+  position:relative; overflow:hidden;
+}
+.welcome-visual {
+  flex:1; display:flex; align-items:center; justify-content:center;
+  padding:60px 24px 24px; position:relative;
+}
+.welcome-card {
+  background:var(--bg3); border:1px solid var(--border2);
+  border-radius:var(--r-xl); padding:24px; width:100%; max-width:340px;
+  box-shadow:0 24px 60px rgba(0,0,0,0.6);
+  animation:float 4s ease-in-out infinite;
+}
+.welcome-bpm { font-family:var(--font-d); font-size:2.8rem; font-weight:900; color:var(--pink); line-height:1; }
+.welcome-pulse { display:flex; align-items:flex-end; gap:3px; height:40px; margin:12px 0; }
+.pulse-b { width:4px; border-radius:2px; background:linear-gradient(180deg,var(--pink),var(--purple)); animation:pB 1.2s ease-in-out infinite; }
+@keyframes pB { 0%,100%{height:6px;opacity:0.4;} 50%{height:var(--h,28px);opacity:1;} }
+.welcome-bottom { padding:24px; max-width:480px; margin:0 auto; width:100%; }
+.welcome-orb { position:absolute; border-radius:50%; pointer-events:none; }
+.w-orb1 { width:350px; height:350px; top:-80px; right:-80px; background:radial-gradient(circle,rgba(79,110,247,0.15),transparent 70%); }
+.w-orb2 { width:250px; height:250px; bottom:200px; left:-60px; background:radial-gradient(circle,rgba(155,93,229,0.12),transparent 70%); }
+
+/* ── PROFILE PHOTO LETTERS ── */
+.avatar-initials {
+  width:90px; height:90px; border-radius:50%;
+  background:var(--grad-blue); display:flex; align-items:center; justify-content:center;
+  font-family:var(--font-d); font-size:2rem; font-weight:900; color:#fff;
+  margin:0 auto 20px; border:3px solid rgba(255,255,255,0.1);
+}
+
+/* ── AI LOADING BAR ── */
+.ai-progress-wrap { margin-bottom:20px; }
+.ai-progress-label { display:flex; justify-content:space-between; font-size:0.82rem; color:var(--text2); margin-bottom:6px; }
+.ai-progress-track { height:6px; background:var(--border); border-radius:var(--r-full); overflow:hidden; }
+.ai-progress-fill { height:100%; border-radius:var(--r-full); background:linear-gradient(90deg,var(--blue),var(--purple)); transition:width 0.4s var(--ease); }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeInUp { from{opacity:0;transform:translateY(20px);} to{opacity:1;transform:translateY(0);} }
+@keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
+@keyframes float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-8px);} }
+
+/* ── TOAST ── */
+.toast-container { position:fixed; bottom:24px; left:50%; transform:translateX(-50%); z-index:999; display:flex; flex-direction:column; align-items:center; gap:8px; pointer-events:none; }
+.toast { background:var(--bg3); border:1px solid var(--border2); border-radius:var(--r-md); padding:11px 18px; font-size:0.85rem; box-shadow:0 8px 24px rgba(0,0,0,0.5); animation:fadeInUp 0.3s var(--ease); white-space:nowrap; display:flex; align-items:center; gap:8px; }
+
+/* ── RESPONSIVE ── */
+@media(min-height:800px) { .screen-inner { padding-bottom:48px; } }
+@media(max-height:600px) { .screen-title { font-size:1.4rem; } .splash-logo { width:70px; height:70px; } }
+  </style>
+</head>
+<body>
+<div id="app">
+
+  <!-- ═══════════════════════════════════════════════════
+       S1 — SPLASH SCREEN
+  ═══════════════════════════════════════════════════ -->
+  <div class="screen active no-anim" id="s-splash" data-screen="splash">
+    <div class="splash" style="flex:1;position:relative;">
+      <div class="splash-orb splash-orb1"></div>
+      <div class="splash-orb splash-orb2"></div>
+      <div class="splash-logo">
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      </div>
+      <div class="splash-brand">Fit<span style="color:var(--blue);">wave</span></div>
+      <p class="splash-tagline">AI-Powered Fitness, Tailored to You</p>
+      <div class="splash-loader"><div class="splash-loader-fill"></div></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       S2 — WELCOME SCREEN
+  ═══════════════════════════════════════════════════ -->
+  <div class="screen" id="s-welcome" data-screen="welcome">
+    <div class="welcome" style="flex:1;display:flex;flex-direction:column;">
+      <div class="welcome-orb w-orb1"></div>
+      <div class="welcome-orb w-orb2"></div>
+      <div class="welcome-visual">
+        <div style="width:100%;max-width:340px;position:relative;">
+          <!-- Float badges -->
+          <div style="position:absolute;top:-16px;left:-10px;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r-md);padding:10px 14px;z-index:2;animation:float 3.5s ease-in-out infinite 0.5s;">
+            <div style="font-size:0.68rem;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;">AI Coach</div>
+            <div style="font-family:var(--font-d);font-weight:700;font-size:0.85rem;color:var(--green);margin-top:2px;">🔥 Push harder today!</div>
+          </div>
+          <div class="welcome-card">
+            <div style="font-size:0.7rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.1em;font-weight:700;margin-bottom:4px;">Live Heart Rate</div>
+            <div class="welcome-bpm" id="welcome-bpm">144 <span style="font-size:1rem;color:var(--text2);font-weight:500;">BPM</span></div>
+            <div class="welcome-pulse" id="welcome-pulse"></div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding-top:14px;border-top:1px solid var(--border);">
+              <div style="text-align:center;"><div style="font-family:var(--font-d);font-weight:800;font-size:1rem;color:var(--green);">94%</div><div style="font-size:0.68rem;color:var(--text3);">Recovery</div></div>
+              <div style="text-align:center;"><div style="font-family:var(--font-d);font-weight:800;font-size:1rem;color:var(--blue2);">642</div><div style="font-size:0.68rem;color:var(--text3);">kcal</div></div>
+              <div style="text-align:center;"><div style="font-family:var(--font-d);font-weight:800;font-size:1rem;color:var(--purple);">8.4K</div><div style="font-size:0.68rem;color:var(--text3);">steps</div></div>
+            </div>
+          </div>
+          <div style="position:absolute;bottom:-16px;right:-10px;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r-md);padding:10px 14px;z-index:2;animation:float 3s ease-in-out infinite 1s;">
+            <div style="font-size:0.68rem;color:var(--text3);font-weight:700;text-transform:uppercase;">Weekly Gain</div>
+            <div style="font-family:var(--font-d);font-weight:800;font-size:1.2rem;color:var(--green);">+12.5%</div>
+          </div>
+        </div>
+      </div>
+      <div class="welcome-bottom">
+        <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.12em;color:var(--blue2);text-transform:uppercase;margin-bottom:10px;">Next-Gen Performance</div>
+        <h1 class="screen-title">Train Smarter,<br/>Not Harder.</h1>
+        <p class="screen-sub">AI that adapts to your body, your goals, and your lifestyle — all in one platform.</p>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <button class="btn btn-primary" id="welcome-signup" onclick="go('signup')">Get Started Free</button>
+          <button class="btn btn-ghost" onclick="go('login')">I Already Have an Account</button>
+        </div>
+        <p style="text-align:center;font-size:0.78rem;color:var(--text3);margin-top:14px;">No credit card required · Free 14-day trial</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       S3 — SIGN UP SCREEN
+  ═══════════════════════════════════════════════════ -->
+  <div class="screen" id="s-signup" data-screen="signup">
+    <div class="top-bar">
+      <div class="back-btn" onclick="go('welcome')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      </div>
+      <div class="step-info">
+        <div class="step-label">Step 1 of 12</div>
+        <div class="step-progress-track"><div class="step-progress-fill" style="width:8%"></div></div>
+      </div>
+    </div>
+    <div class="screen-inner" style="padding-top:24px;">
+      <h1 class="screen-title">Create Account</h1>
+      <p class="screen-sub">Join 12,000+ athletes already transforming their fitness.</p>
+      <div class="social-row">
+        <button class="social-btn" onclick="socialSign()">
+          <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+          Google
+        </button>
+        <button class="social-btn" onclick="socialSign()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          Apple
+        </button>
+      </div>
+      <div class="divider">or sign up with email</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div class="form-group"><label class="form-label">First Name</label><input class="form-input" id="su-first" type="text" placeholder="Alex"/></div>
+        <div class="form-group"><label class="form-label">Last Name</label><input class="form-input" id="su-last" type="text" placeholder="Jordan"/></div>
+      </div>
+      <div class="form-group"><label class="form-label">Email Address</label><input class="form-input" id="su-email" type="email" placeholder="name@example.com"/></div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <div class="input-wrap">
+          <input class="form-input" id="su-pwd" type="password" placeholder="Min. 8 characters"/>
+          <span class="input-icon" onclick="togglePwd('su-pwd',this)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg></span>
+        </div>
+        <div style="height:3px;background:var(--border);border-radius:2px;margin-top:6px;overflow:hidden;"><div id="su-strength" style="height:100%;width:0;border-radius:2px;transition:all 0.3s;"></div></div>
+      </div>
+      <button class="btn btn-primary" style="margin-top:8px;" onclick="handleSignup()">Create Account →</button>
+      <p style="text-align:center;font-size:0.83rem;color:var(--text3);margin-top:14px;">Already have an account? <a href="#" onclick="go('login');return false;" style="color:var(--blue2);font-weight:600;">Log In</a></p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       S4 — LOGIN SCREEN
+  ═══════════════════════════════════════════════════ -->
+  <div class="screen" id="s-login" data-screen="login">
+    <div class="top-bar">
+      <div class="back-btn" onclick="go('welcome')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+      <div class="step-info"><div class="step-label">Welcome Back</div></div>
+    </div>
+    <div class="screen-inner" style="padding-top:24px;">
+      <h1 class="screen-title">Welcome back 👋</h1>
+      <p class="screen-sub">Enter your details to continue your fitness journey.</p>
+      <div class="social-row">
+        <button class="social-btn" onclick="socialSign()">
+          <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+          Google
+        </button>
+        <button class="social-btn" onclick="socialSign()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          Apple
+        </button>
+      </div>
+      <div class="divider">or continue with email</div>
+      <div class="form-group"><label class="form-label">Email Address</label><input class="form-input" id="li-email" type="email" placeholder="name@example.com"/></div>
+      <div class="form-group">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+          <label class="form-label" style="margin:0;">Password</label>
+          <a href="#" onclick="go('forgot');return false;" style="font-size:0.82rem;color:var(--blue2);font-weight:500;">Forgot password?</a>
+        </div>
+        <div class="input-wrap">
+          <input class="form-input" id="li-pwd" type="password" placeholder="••••••••"/>
+          <span class="input-icon" onclick="togglePwd('li-pwd',this)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg></span>
+        </div>
+      </div>
+      <button class="btn btn-primary" style="margin-top:8px;" onclick="handleLogin()">Log In →</button>
+      <p style="text-align:center;font-size:0.83rem;color:var(--text3);margin-top:14px;">Don't have an account? <a href="#" onclick="go('signup');return false;" style="color:var(--blue2);font-weight:600;">Sign Up Free</a></p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       S5 — FORGOT PASSWORD
+  ═══════════════════════════════════════════════════ -->
+  <div class="screen" id="s-forgot" data-screen="forgot">
+    <div class="top-bar">
+      <div class="back-btn" onclick="go('login')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+    </div>
+    <div class="screen-inner" style="padding-top:24px;">
+      <div style="width:64px;height:64px;border-radius:var(--r-lg);background:rgba(79,110,247,0.12);border:1px solid rgba(79,110,247,0.25);display:flex;align-items:center;justify-content:center;margin-bottom:20px;">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--blue2)" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+      </div>
+      <h1 class="screen-title">Forgot Password?</h1>
+      <p class="screen-sub">No worries! Enter your email and we'll send you a 6-digit reset code.</p>
+      <div class="form-group"><label class="form-label">Email Address</label><input class="form-input" id="fp-email" type="email" placeholder="name@example.com"/></div>
+      <button class="btn btn-primary" style="margin-top:8px;" onclick="handleForgot()">Send Reset Code →</button>
+      <p style="text-align:center;font-size:0.83rem;color:var(--text3);margin-top:16px;">Remember it? <a href="#" onclick="go('login');return false;" style="color:var(--blue2);font-weight:600;">Back to Login</a></p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       S6 — OTP VERIFICATION
+  ═══════════════════════════════════════════════════ -->
+  <div class="screen" id="s-otp" data-screen="otp">
+    <div class="top-bar">
+      <div class="back-btn" onclick="go('forgot')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+    </div>
+    <div class="screen-inner" style="padding-top:24px;">
+      <div style="width:64px;height:64px;border-radius:var(--r-lg);background:rgba(198,241,53,0.1);border:1px solid rgba(198,241,53,0.25);display:flex;align-items:center;justify-content:center;margin-bottom:20px;">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h1 class="screen-title">Check Your Email</h1>
+      <p class="screen-sub">We sent a 6-digit verification code to <strong id="otp-email-display">your email</strong>. Enter it below.</p>
+      <div class="otp-row" id="otp-inputs">
+        <input class="otp-box" maxlength="1" type="text" inputmode="numeric" id="o0"/>
+        <input class="otp-box" maxlength="1" type="text" inputmode="numeric" id="o1"/>
+        <input class="otp-box" maxlength="1" type="text" inputmode="numeric" id="o2"/>
+        <input class="otp-box" maxlength="1" type="text" inputmode="numeric" id="o3"/>
+        <input class="otp-box" maxlength="1" type="text" inputmode="numeric" id="o4"/>
+        <input class="otp-box" maxlength="1" type="text" inputmode="numeric" id="o5"/>
+      </div>
+      <button class="btn btn-primary" onclick="verifyOTP()">Verify Code →</button>
+      <p style="text-align:center;font-size:0.83rem;color:var(--text3);margin-top:16px;">Didn't receive it? <a href="#" onclick="resendOTP();return false;" style="color:var(--blue2);font-weight:600;">Resend Code</a> <span id="otp-timer" style="color:var(--green);font-weight:600;"></span></p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       S7 — CREATE PROFILE
+  ═══════════════════════════════════════════════════ -->
+  <div class="screen" id="s-profile" data-screen="profile">
+    <div class="top-bar">
+      <div class="back-btn" onclick="go('signup')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+      <div class="step-info">
+        <div class="step-label">Step 2 of 12</div>
+        <div class="step-progress-track"><div class="step-progress-fill" style="width:16%"></div></div>
+      </div>
+      <span class="step-skip" onclick="go('gender')">Skip</span>
+    </div>
+    <div class="screen-inner" style="padding-top:24px;">
+      <h1 class="screen-title">Create Your Profile</h1>
+      <p class="screen-sub">Let's personalize your experience. Add a photo and your details.</p>
+      <div style="text-align:center;margin-bottom:24px;">
+        <div class="photo-upload" id="photo-upload" onclick="triggerPhotoUpload()">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--text3)" stroke-width="1.5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+          <span style="font-size:0.72rem;">Add Photo</span>
+          <img class="photo-upload-preview" id="photo-preview" src="" alt="preview"/>
+        </div>
+      </div>
+      <input type="file" id="photo-input" accept="image/*" style="display:none" onchange="handlePhotoUpload(event)"/>
+      <div class="form-group"><label class="form-label">Display Name</label><input class="form-input" id="prof-name" type="text" placeholder="e.g. Alex Jordan"/></div>
+      <div class="form-group"><label class="form-label">Username</label><div class="input-wrap"><span style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:0.95rem;">@</span><input class="form-input" id="prof-username" type="text" placeholder="alexjordan" style="padding-left:32px;"/></div></div>
+      <div class="form-group"><label class="form-label">Bio <span style="color:var(--text3);font-weight:400;">(optional)</span></label><textarea class="form-input" id="prof-bio" rows="3" placeholder="Tell us about your fitness journey…" style="resize:none;line-height:1.5;"></textarea></div>
+      <button class="btn btn-primary" onclick="go('gender')">Continue →</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       S8 — GENDER SELECTION
+  ═══════════════════════════════════════════════════ -->
+  <div class="screen" id="s-gender" data-screen="gender">
+    <div class="top-bar">
+      <div class="back-btn" onclick="go('profile')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+      <div class="step-info">
+        <div class="step-label">Step 3 of 12</div>
+        <div class="step-progress-track"><div class="step-progress-fill" style="width:25%"></div></div>
+      </div>
+      <span class="step-skip" onclick="go('measurements')">Skip</span>
+    </div>
+    <div class="screen-inner" style="padding-top:24px;">
+      <h1 class="screen-title">What's Your Gender?</h1>
+      <p class="screen-sub">We use this to accurately calculate your metabolic rate and personalize your training plan.</p>
+      <div class="gender-grid">
+        <div class="gender-card" id="g-male" onclick="selectGender('male')"><div class="gender-emoji">♂️</div><div class="gender-label">Male</div></div>
+        <div class="gender-card" id="g-female" onclick="selectGender('female')"><div class="gender-emoji">♀️</div><div class="gender-label">Female</div></div>
+        <div class="gender-card" id="g-other" onclick="selectGender('other')"><div class="gender-emoji">⚧️</div><div class="gender-label">Other</div></div>
+      </div>
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--r-md);padding:14px 16px;display:flex;gap:10px;align-items:flex-start;margin-bottom:24px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--blue2)" stroke-width="2" style="flex-shrink:0;margin-top:1px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <p style="font-size:0.8rem;color:var(--text2);line-height:1.5;">Your gender information is kept private and only used to improve AI workout recommendations.</p>
+      </div>
+      <button class="btn btn-primary" onclick="go('measurements')">Continue →</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       S9 — AGE & HEIGHT / WEIGHT
+  ═══════════════════════════════════════════════════ -->
+  <div class="screen" id="s-measurements" data-screen="measurements">
+    <div class="top-bar">
+      <div class="back-btn" onclick="go('gender')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+      <div class="step-info">
+        <div class="step-label">Step 4 of 12</div>
+        <div class="step-progress-track"><div class="step-progress-fill" style="width:33%"></div></div>
+      </div>
+    </div>
+    <div class="screen-inner" style="padding-top:24px;">
+      <h1 class="screen-title">Your Measurements</h1>
+      <p class="screen-sub">Used to calculate your BMI, TDEE, and personalized calorie targets.</p>
+      <!-- Age -->
+      <div class="slider-wrap">
+        <div class="slider-header">
+          <span class="slider-label">Age</span>
+          <span class="slider-val" id="val-age">25 <span>years</span></span>
+        </div>
+        <input type="range" id="sl-age" min="13" max="80" value="25" oninput="document.getElementById('val-age').innerHTML=this.value+' <span>years</span>'"/>
+      </div>
+      <!-- Height -->
+      <div style="display:flex;gap:8px;margin-bottom:8px;">
+        <button class="btn btn-sm" id="unit-cm" onclick="setHeightUnit('cm')" style="flex:1;background:var(--blue);color:#fff;border-color:var(--blue);">cm</button>
+        <button class="btn btn-ghost btn-sm" id="unit-ft" onclick="setHeightUnit('ft')" style="flex:1;">ft / in</button>
+      </div>
+      <div class="slider-wrap">
+        <div class="slider-header">
+          <span class="slider-label">Height</span>
+          <span class="slider-val" id="val-height">175 <span>cm</span></span>
+        </div>
+        <input type="range" id="sl-height" min="140" max="220" value="175" oninput="updateHeight(this.value)"/>
+      </div>
+      <!-- Weight -->
+      <div style="display:flex;gap:8px;margin-bottom:8px;">
+        <button class="btn btn-sm" id="unit-kg" onclick="setWeightUnit('kg')" style="flex:1;background:var(--blue);color:#fff;border-color:var(--blue);">kg</button>
+        <button class="btn btn-ghost btn-sm" id="unit-lbs" onclick="setWeightUnit('lbs')" style="flex:1;">lbs</button>
+      </div>
+      <div class="slider-wrap">
+        <div class="slider-header">
+          <span class="slider-label">Weight</span>
+          <span class="slider-val" id="val-weight">70 <span>kg</span></span>
+        </div>
+        <input type="range" id="sl-weight" min="30" max="200" value="70" oninput="updateWeight(this.value)"/>
+      </div>
+      <!-- BMI Preview -->
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--r-lg);padding:16px;display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+        <div><div style="font-size:0.75rem;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;">Estimated BMI</div><div style="font-family:var(--font-d);font-size:1.6rem;font-weight:900;" id="bmi-val">22.9</div></div>
+        <div style="text-align:right;"><div style="font-size:0.8rem;color:var(--green);font-weight:600;" id="bmi-cat">Normal</div><div style="font-size:0.75rem;color:var(--text3);">Healthy range</div></div>
+      </div>
+      <button class="btn btn-primary" onclick="go('goals')">Continue →</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       S10 — FITNESS GOAL SELECTION
+  ═══════════════════════════════════════════════════ -->
+  <div class="screen" id="s-goals" data-screen="goals">
+    <div class="top-bar">
+      <div class="back-btn" onclick="go('measurements')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+      <div class="step-info">
+        <div class="step-label">Step 5 of 12</div>
+        <div class="step-progress-track"><div class="step-progress-fill" style="width:41%"></div></div>
+      </div>
+    </div>
+    <div class="screen-inner" style="padding-top:24px;">
+      <h1 class="screen-title">What's Your Goal?</h1>
+      <p class="screen-sub">Select all that apply. Your AI coach will build a personalized plan for you.</p>
+      <div class="goal-grid" id="goal-grid">
+        <div class="goal-card" id="goal-loss" onclick="toggleGoal('loss')"><div class="goal-emoji">🔥</div><div class="goal-title">Lose Weight</div><div class="goal-desc">Burn fat & tone up</div></div>
+        <div class="goal-card" id="goal-muscle" onclick="toggleGoal('muscle')"><div class="goal-emoji">💪</div><div class="goal-title">Build Muscle</div><div class="goal-desc">Gain strength & size</div></div>
+        <div class="goal-card" id="goal-endurance" onclick="toggleGoal('endurance')"><div class="goal-emoji">🏃</div><div class="goal-title">Endurance</div><div class="goal-desc">Run faster & longer</div></div>
+        <div class="goal-card" id="goal-flex" onclick="toggleGoal('flex')"><div class="goal-emoji">🧘</div><div class="goal-title">Flexibility</div><div class="goal-desc">Yoga & mobility</div></div>
+        <div class="goal-card" id="goal-health" onclick="toggleGoal('health')"><div class="goal-emoji">❤️</div><div class="goal-title">Stay Healthy</div><div class="goal-desc">General wellness</div></div>
+        <div class="goal-card" id="goal-sport" onclick="toggleGoal('sport')"><div class="goal-emoji">⚡</div><div class="goal-title">Sport Perf.</div><div class="goal-desc">Athletic training</div></div>
+      </div>
+      <button class="btn btn-primary" onclick="go('activity')">Continue →</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       S11 — ACTIVITY LEVEL SELECTION
+  ═══════════════════════════════════════════════════ -->
+  <div class="screen" id="s-activity" data-screen="activity">
+    <div class="top-bar">
+      <div class="back-btn" onclick="go('goals')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+      <div class="step-info">
+        <div class="step-label">Step 6 of 12</div>
+        <div class="step-progress-track"><div class="step-progress-fill" style="width:50%"></div></div>
+      </div>
+    </div>
+    <div class="screen-inner" style="padding-top:24px;">
+      <h1 class="screen-title">Activity Level</h1>
+      <p class="screen-sub">How active are you currently? Be honest — this helps us calibrate your starting point.</p>
+      <div class="activity-levels">
+        <div class="activity-item" id="act-sedentary" onclick="selectActivity('sedentary')">
+          <div class="activity-bars"><div class="activity-bar" style="height:6px;"></div><div class="activity-bar" style="height:6px;"></div><div class="activity-bar" style="height:6px;"></div><div class="activity-bar" style="height:6px;"></div><div class="activity-bar" style="height:6px;"></div></div>
+          <div class="activity-info"><div class="activity-name">Sedentary</div><div class="activity-desc">Little or no exercise, desk job</div></div>
+          <div class="radio-dot"><div class="radio-inner"></div></div>
+        </div>
+        <div class="activity-item" id="act-light" onclick="selectActivity('light')">
+          <div class="activity-bars"><div class="activity-bar" style="height:10px;"></div><div class="activity-bar" style="height:10px;"></div><div class="activity-bar" style="height:8px;"></div><div class="activity-bar" style="height:6px;"></div><div class="activity-bar" style="height:6px;"></div></div>
+          <div class="activity-info"><div class="activity-name">Lightly Active</div><div class="activity-desc">Light exercise 1–3 days/week</div></div>
+          <div class="radio-dot"><div class="radio-inner"></div></div>
+        </div>
+        <div class="activity-item" id="act-moderate" onclick="selectActivity('moderate')">
+          <div class="activity-bars"><div class="activity-bar" style="height:14px;"></div><div class="activity-bar" style="height:12px;"></div><div class="activity-bar" style="height:14px;"></div><div class="activity-bar" style="height:10px;"></div><div class="activity-bar" style="height:8px;"></div></div>
+          <div class="activity-info"><div class="activity-name">Moderately Active</div><div class="activity-desc">Moderate exercise 3–5 days/week</div></div>
+          <div class="radio-dot"><div class="radio-inner"></div></div>
+        </div>
+        <div class="activity-item" id="act-active" onclick="selectActivity('active')">
+          <div class="activity-bars"><div class="activity-bar" style="height:18px;"></div><div class="activity-bar" style="height:16px;"></div><div class="activity-bar" style="height:18px;"></div><div class="activity-bar" style="height:16px;"></div><div class="activity-bar" style="height:12px;"></div></div>
+          <div class="activity-info"><div class="activity-name">Very Active</div><div class="activity-desc">Hard exercise 6–7 days/week</div></div>
+          <div class="radio-dot"><div class="radio-inner"></div></div>
+        </div>
+        <div class="activity-item" id="act-extreme" onclick="selectActivity('extreme')">
+          <div class="activity-bars"><div class="activity-bar" style="height:20px;"></div><div class="activity-bar" style="height:20px;"></div><div class="activity-bar" style="height:20px;"></div><div class="activity-bar" style="height:20px;"></div><div class="activity-bar" style="height:20px;"></div></div>
+          <div class="activity-info"><div class="activity-name">Athlete / Pro</div><div class="activity-desc">Twice daily training or physical job</div></div>
+          <div class="radio-dot"><div class="radio-inner"></div></div>
+        </div>
+      </div>
+      <button class="btn btn-primary" onclick="go('health')">Continue →</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       S12 — HEALTH CONDITIONS
+  ═══════════════════════════════════════════════════ -->
+  <div class="screen" id="s-health" data-screen="health">
+    <div class="top-bar">
+      <div class="back-btn" onclick="go('activity')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+      <div class="step-info">
+        <div class="step-label">Step 7 of 12</div>
+        <div class="step-progress-track"><div class="step-progress-fill" style="width:58%"></div></div>
+      </div>
+      <span class="step-skip" onclick="go('ai-setup')">Skip</span>
+    </div>
+    <div class="screen-inner" style="padding-top:24px;">
+      <h1 class="screen-title">Health Conditions</h1>
+      <p class="screen-sub">Select any that apply so your AI coach can safely adapt your program.</p>
+      <div class="health-grid">
+        <div class="health-tag" id="hc-diabetes" onclick="toggleHealth('diabetes')"><span class="health-tag-emoji">🩸</span><span class="health-tag-text">Diabetes</span><div class="health-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div></div>
+        <div class="health-tag" id="hc-bp" onclick="toggleHealth('bp')"><span class="health-tag-emoji">❤️</span><span class="health-tag-text">High BP</span><div class="health-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div></div>
+        <div class="health-tag" id="hc-asthma" onclick="toggleHealth('asthma')"><span class="health-tag-emoji">🫁</span><span class="health-tag-text">Asthma</span><div class="health-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div></div>
+        <div class="health-tag" id="hc-joint" onclick="toggleHealth('joint')"><span class="health-tag-emoji">🦴</span><span class="health-tag-text">Joint Pain</span><div class="health-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div></div>
+        <div class="health-tag" id="hc-back" onclick="toggleHealth('back')"><span class="health-tag-emoji">🔙</span><span class="health-tag-text">Back Issues</span><div class="health-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div></div>
+        <div class="health-tag" id="hc-heart" onclick="toggleHealth('heart')"><span class="health-tag-emoji">💔</span><span class="health-tag-text">Heart Condition</span><div class="health-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div></div>
+        <div class="health-tag" id="hc-thyroid" onclick="toggleHealth('thyroid')"><span class="health-tag-emoji">🦋</span><span class="health-tag-text">Thyroid</span><div class="health-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div></div>
+        <div class="health-tag" id="hc-none" onclick="toggleHealth('none')"><span class="health-tag-emoji">✅</span><span class="health-tag-text">None of above</span><div class="health-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div></div>
+      </div>
+      <div style="background:rgba(247,37,133,0.06);border:1px solid rgba(247,37,133,0.2);border-radius:var(--r-md);padding:13px 15px;display:flex;gap:10px;align-items:flex-start;margin-bottom:24px;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--pink)" stroke-width="2" style="flex-shrink:0;margin-top:1px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <p style="font-size:0.78rem;color:var(--text2);line-height:1.5;">Always consult a healthcare professional before starting a new fitness program if you have medical conditions.</p>
+      </div>
+      <button class="btn btn-primary" onclick="go('ai-setup')">Continue →</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       S13 — AI PERSONALIZATION SETUP
+  ═══════════════════════════════════════════════════ -->
+  <div class="screen" id="s-ai-setup" data-screen="ai-setup">
+    <div class="screen-inner" style="padding-top:64px;justify-content:center;">
+      <div class="ai-setup-visual">
+        <div class="ai-pulse-ring"></div>
+        <div class="ai-pulse-ring"></div>
+        <div class="ai-pulse-ring"></div>
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--blue2)" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      </div>
+      <h1 class="screen-title" style="text-align:center;">Building Your AI Plan</h1>
+      <p class="screen-sub" style="text-align:center;">Our AI is analyzing your profile to create a hyper-personalized fitness program.</p>
+      <div class="ai-tasks" id="ai-tasks">
+        <div class="ai-task" id="ait-0">
+          <div class="ai-task-icon" style="background:rgba(79,110,247,0.15);"><div class="ai-task-spinner"></div></div>
+          <div class="ai-task-text">Analyzing body metrics & BMI…</div>
+        </div>
+        <div class="ai-task" id="ait-1">
+          <div class="ai-task-icon" style="background:rgba(79,110,247,0.08);"><div style="width:16px;height:16px;border:2px solid var(--border2);border-radius:50%;"></div></div>
+          <div class="ai-task-text" style="color:var(--text3);">Calibrating workout intensity…</div>
+        </div>
+        <div class="ai-task" id="ait-2">
+          <div class="ai-task-icon" style="background:rgba(79,110,247,0.08);"><div style="width:16px;height:16px;border:2px solid var(--border2);border-radius:50%;"></div></div>
+          <div class="ai-task-text" style="color:var(--text3);">Generating nutrition targets…</div>
+        </div>
+        <div class="ai-task" id="ait-3">
+          <div class="ai-task-icon" style="background:rgba(79,110,247,0.08);"><div style="width:16px;height:16px;border:2px solid var(--border2);border-radius:50%;"></div></div>
+          <div class="ai-task-text" style="color:var(--text3);">Building 12-week program…</div>
+        </div>
+      </div>
+      <div class="ai-progress-wrap">
+        <div class="ai-progress-label"><span>Processing</span><span id="ai-pct">0%</span></div>
+        <div class="ai-progress-track"><div class="ai-progress-fill" id="ai-fill" style="width:0%"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       S14 — SUBSCRIPTION PLAN
+  ═══════════════════════════════════════════════════ -->
+  <div class="screen" id="s-subscription" data-screen="subscription">
+    <div class="top-bar">
+      <div class="back-btn" onclick="go('ai-setup')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+      <div class="step-info">
+        <div class="step-label">Step 11 of 12</div>
+        <div class="step-progress-track"><div class="step-progress-fill" style="width:91%"></div></div>
+      </div>
+      <span class="step-skip" onclick="go('tutorial')">Skip</span>
+    </div>
+    <div class="screen-inner" style="padding-top:24px;">
+      <h1 class="screen-title">Choose Your Plan</h1>
+      <p class="screen-sub">Start with a 14-day free trial. Cancel anytime, no credit card required.</p>
+      <div class="plan-card" id="plan-free" onclick="selectPlan('free')" style="border-color:var(--blue);">
+        <div class="plan-row">
+          <div class="plan-name">🆓 Starter</div>
+          <div class="plan-price">$0 <span>/month</span></div>
+        </div>
+        <div class="plan-desc">Perfect to get started with AI fitness</div>
+        <div class="plan-features">
+          <span class="plan-tag">5 AI sessions/month</span>
+          <span class="plan-tag">Basic tracking</span>
+          <span class="plan-tag">Nutrition log</span>
+        </div>
+      </div>
+      <div class="plan-card popular" id="plan-pro" onclick="selectPlan('pro')">
+        <div class="plan-popular-badge">Most Popular</div>
+        <div class="plan-row">
+          <div class="plan-name">⚡ Pro</div>
+          <div class="plan-price">$9<span>.99 /month</span></div>
+        </div>
+        <div class="plan-desc">Unlimited AI coaching + health monitoring</div>
+        <div class="plan-features">
+          <span class="plan-tag green">Unlimited AI</span>
+          <span class="plan-tag green">Live health monitor</span>
+          <span class="plan-tag green">Smart nutrition</span>
+          <span class="plan-tag green">Advanced analytics</span>
+        </div>
+      </div>
+      <div class="plan-card" id="plan-elite" onclick="selectPlan('elite')">
+        <div class="plan-row">
+          <div class="plan-name">👑 Elite</div>
+          <div class="plan-price">$24<span>.99 /month</span></div>
+        </div>
+        <div class="plan-desc">Full access + 1-on-1 AI coach + priority support</div>
+        <div class="plan-features">
+          <span class="plan-tag">Everything in Pro</span>
+          <span class="plan-tag">1-on-1 coach</span>
+          <span class="plan-tag">Lab analytics</span>
+          <span class="plan-tag">24/7 support</span>
+        </div>
+      </div>
+      <button class="btn btn-primary" style="margin-top:8px;" id="plan-cta" onclick="go('tutorial')">Start Free Trial →</button>
+      <p style="text-align:center;font-size:0.78rem;color:var(--text3);margin-top:10px;">No payment needed during trial · Cancel anytime</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       S15 — INTRO TUTORIAL
+  ═══════════════════════════════════════════════════ -->
+  <div class="screen" id="s-tutorial" data-screen="tutorial">
+    <div class="screen-inner" style="padding-top:60px;justify-content:space-between;flex:1;">
+      <div class="tutorial-slides">
+        <div class="tutorial-slide active" id="tut-0">
+          <div class="tutorial-illustration" style="background:linear-gradient(135deg,rgba(79,110,247,0.15),rgba(155,93,229,0.15));border:1px solid rgba(79,110,247,0.2);">
+            <span>🤖</span>
+            <div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(79,110,247,0.15),transparent 70%);border-radius:var(--r-xl);"></div>
+          </div>
+          <h2 class="tutorial-title">Meet Your AI Coach</h2>
+          <p class="tutorial-sub">Your personal AI analyzes every rep, every meal, and every heartbeat to build a plan that evolves with you.</p>
+        </div>
+        <div class="tutorial-slide" id="tut-1">
+          <div class="tutorial-illustration" style="background:linear-gradient(135deg,rgba(198,241,53,0.12),rgba(79,195,247,0.12));border:1px solid rgba(198,241,53,0.2);">
+            <span>📊</span>
+          </div>
+          <h2 class="tutorial-title">Real-Time Health Data</h2>
+          <p class="tutorial-sub">Live heart rate, sleep quality, recovery score, and metabolic data — all in one beautiful dashboard updated in real time.</p>
+        </div>
+        <div class="tutorial-slide" id="tut-2">
+          <div class="tutorial-illustration" style="background:linear-gradient(135deg,rgba(155,93,229,0.15),rgba(247,37,133,0.12));border:1px solid rgba(155,93,229,0.2);">
+            <span>🥗</span>
+          </div>
+          <h2 class="tutorial-title">Smart Nutrition Tracking</h2>
+          <p class="tutorial-sub">Log meals in seconds. Our AI auto-adjusts your macro targets based on your workout intensity and recovery needs each day.</p>
+        </div>
+        <div class="tutorial-slide" id="tut-3">
+          <div class="tutorial-illustration" style="background:linear-gradient(135deg,rgba(249,115,22,0.12),rgba(198,241,53,0.1));border:1px solid rgba(249,115,22,0.2);">
+            <span>🏆</span>
+          </div>
+          <h2 class="tutorial-title">Track Every Achievement</h2>
+          <p class="tutorial-sub">Badges, streaks, leaderboards, and personal records. Gamified progress that keeps you coming back for more every day.</p>
+        </div>
+      </div>
+      <div style="padding-bottom:16px;">
+        <div class="dots" id="tutorial-dots">
+          <div class="dot active" onclick="goTut(0)"></div>
+          <div class="dot" onclick="goTut(1)"></div>
+          <div class="dot" onclick="goTut(2)"></div>
+          <div class="dot" onclick="goTut(3)"></div>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn-ghost" id="tut-prev" onclick="prevTut()" style="display:none;">← Back</button>
+          <button class="btn btn-primary" id="tut-next" onclick="nextTut()">Next →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- TOAST -->
+<div class="toast-container" id="toast-container"></div>
+
+<script>
+/* ============================================================
+   FITWAVE ONBOARDING JS
+   ============================================================ */
+
+// ── SCREEN NAVIGATION ──
+let currentScreen = 'splash';
+const screens = {};
+document.querySelectorAll('.screen').forEach(s => screens[s.dataset.screen] = s);
+
+function go(name) {
+  if (!screens[name]) return;
+  const cur = screens[currentScreen];
+  const nxt = screens[name];
+  cur.classList.add('exit');
+  cur.classList.remove('active');
+  nxt.classList.remove('exit');
+  nxt.classList.add('active');
+  nxt.scrollTop = 0;
+  currentScreen = name;
+  // remove exit class after transition
+  setTimeout(() => cur.classList.remove('exit'), 460);
+  // Run screen init
+  if (onEnter[name]) onEnter[name]();
+}
+
+// screen entry hooks
+const onEnter = {
+  'welcome':      initWelcome,
+  'otp':          initOTP,
+  'measurements': initMeasurements,
+  'ai-setup':     runAISetup,
+  'tutorial':     () => goTut(0),
+};
+
+// ── SPLASH AUTO-ADVANCE ──
+setTimeout(() => go('welcome'), 3600);
+
+// ── TOAST ──
+function toast(msg, type='info', dur=3200){
+  const c=document.getElementById('toast-container');
+  const t=document.createElement('div'); t.className='toast';
+  const colors={success:'var(--green)',error:'var(--pink)',info:'var(--blue2)'};
+  t.style.borderLeft=`3px solid ${colors[type]||colors.info}`;
+  t.textContent=msg; c.appendChild(t);
+  setTimeout(()=>{t.style.opacity='0';t.style.transform='translateY(8px)';t.style.transition='0.3s';setTimeout(()=>t.remove(),300);},dur);
+}
+
+// ── PASSWORD TOGGLE ──
+function togglePwd(id,icon){
+  const inp=document.getElementById(id);
+  const vis=inp.type==='password';
+  inp.type=vis?'text':'password';
+  icon.innerHTML=vis
+    ?`<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`
+    :`<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>`;
+}
+
+// ── WELCOME ANIMATIONS ──
+function initWelcome(){
+  // Pulse bars
+  const wrap = document.getElementById('welcome-pulse');
+  if(wrap && !wrap.childElementCount){
+    [10,22,36,24,44,30,14,40,26,18,42,28,12,38,20].forEach((h,i)=>{
+      const b=document.createElement('div');
+      b.className='pulse-b';
+      b.style.setProperty('--h',h+'px');
+      b.style.animationDelay=(i*0.09)+'s';
+      wrap.appendChild(b);
+    });
+  }
+  // BPM flicker
+  const bpms=[138,142,147,144,151,148];
+  let bi=0;
+  clearInterval(window._bpmInt);
+  window._bpmInt=setInterval(()=>{
+    const el=document.getElementById('welcome-bpm');
+    if(el) el.innerHTML=bpms[bi++%bpms.length]+' <span style="font-size:1rem;color:var(--text2);font-weight:500;">BPM</span>';
+  },1800);
+}
+
+// ── SIGNUP ──
+function handleSignup(){
+  const first=document.getElementById('su-first').value.trim();
+  const email=document.getElementById('su-email').value.trim();
+  const pwd=document.getElementById('su-pwd').value;
+  if(!first||!email||!pwd){ toast('Please fill in all fields.','error'); return; }
+  if(!/\S+@\S+\.\S+/.test(email)){ toast('Please enter a valid email.','error'); return; }
+  if(pwd.length<8){ toast('Password must be at least 8 characters.','error'); return; }
+  localStorage.setItem('fw_ob',JSON.stringify({name:first,email}));
+  go('otp');
+  const el=document.getElementById('otp-email-display');
+  if(el) el.textContent=email;
+}
+
+// Strength meter
+document.addEventListener('DOMContentLoaded',()=>{
+  const inp=document.getElementById('su-pwd');
+  if(inp) inp.addEventListener('input',function(){
+    const s=this.value;
+    let score=0;
+    if(s.length>=8) score++;
+    if(/[A-Z]/.test(s)) score++;
+    if(/[0-9]/.test(s)) score++;
+    if(/[^A-Za-z0-9]/.test(s)) score++;
+    const fill=document.getElementById('su-strength');
+    const colors=['','#ef4444','#f97316','#eab308','#22c55e'];
+    const widths=['0%','25%','50%','75%','100%'];
+    if(fill){fill.style.width=widths[score];fill.style.background=colors[score]||'transparent';}
+  });
+});
+
+// ── LOGIN ──
+function handleLogin(){
+  const email=document.getElementById('li-email').value.trim();
+  const pwd=document.getElementById('li-pwd').value;
+  if(!email||!pwd){ toast('Please fill in all fields.','error'); return; }
+  toast('Logging in…','info',1500);
+  setTimeout(()=>{
+    localStorage.setItem('fw_ob',JSON.stringify({email,name:email.split('@')[0]}));
+    go('profile');
+  },1600);
+}
+
+// ── FORGOT ──
+function handleForgot(){
+  const email=document.getElementById('fp-email').value.trim();
+  if(!email||!/\S+@\S+\.\S+/.test(email)){ toast('Please enter a valid email.','error'); return; }
+  toast('Sending code to '+email+'…','info',1500);
+  setTimeout(()=>{
+    const el=document.getElementById('otp-email-display');
+    if(el) el.textContent=email;
+    go('otp');
+    // demo autofill
+    setTimeout(()=>['1','2','3','4','5','6'].forEach((d,i)=>{const inp=document.getElementById('o'+i);if(inp){inp.value=d;inp.classList.add('filled');}}),700);
+  },1500);
+}
+
+// ── OTP ──
+function initOTP(){
+  // Keyboard navigation
+  for(let i=0;i<6;i++){
+    const inp=document.getElementById('o'+i);
+    if(!inp) continue;
+    inp.addEventListener('input',function(){
+      this.classList.toggle('filled',!!this.value);
+      if(this.value&&i<5) document.getElementById('o'+(i+1))?.focus();
+    });
+    inp.addEventListener('keydown',function(e){
+      if(e.key==='Backspace'&&!this.value&&i>0) document.getElementById('o'+(i-1))?.focus();
+    });
+    inp.addEventListener('paste',function(e){
+      const data=e.clipboardData.getData('text').replace(/\D/g,'').slice(0,6);
+      data.split('').forEach((d,j)=>{const el=document.getElementById('o'+j);if(el){el.value=d;el.classList.add('filled');}});
+      e.preventDefault();
+    });
+  }
+  startOTPTimer();
+}
+
+let otpTimerInt=null;
+function startOTPTimer(){
+  let s=60; const el=document.getElementById('otp-timer');
+  clearInterval(otpTimerInt);
+  otpTimerInt=setInterval(()=>{
+    if(!el) return;
+    if(s<=0){clearInterval(otpTimerInt);el.textContent='';return;}
+    el.textContent=`(${s}s)`; s--;
+  },1000);
+}
+function resendOTP(){
+  toast('Resending code…','info');
+  startOTPTimer();
+  for(let i=0;i<6;i++){const inp=document.getElementById('o'+i);if(inp){inp.value='';inp.classList.remove('filled');}}
+  document.getElementById('o0')?.focus();
+}
+function verifyOTP(){
+  const code=Array.from({length:6},(_,i)=>document.getElementById('o'+i)?.value||'').join('');
+  if(code.length<6){ toast('Please enter the complete code.','error'); return; }
+  toast('Verifying…','info',1200);
+  setTimeout(()=>{
+    clearInterval(otpTimerInt);
+    go('profile');
+    toast('Email verified! ✅','success');
+  },1200);
+}
+
+// ── PHOTO UPLOAD ──
+function triggerPhotoUpload(){ document.getElementById('photo-input')?.click(); }
+function handlePhotoUpload(e){
+  const file=e.target.files[0];
+  if(!file) return;
+  const reader=new FileReader();
+  reader.onload=(ev)=>{
+    const preview=document.getElementById('photo-preview');
+    const wrap=document.getElementById('photo-upload');
+    if(preview){ preview.src=ev.target.result; }
+    if(wrap){ wrap.classList.add('has-photo'); }
+    toast('Photo added! 📸','success');
+  };
+  reader.readAsDataURL(file);
+}
+
+// ── GENDER ──
+function selectGender(g){
+  ['male','female','other'].forEach(x=>document.getElementById('g-'+x)?.classList.remove('selected'));
+  document.getElementById('g-'+g)?.classList.add('selected');
+}
+
+// ── MEASUREMENTS ──
+let heightUnit='cm', weightUnit='kg';
+function initMeasurements(){ updateBMI(); }
+function setHeightUnit(u){
+  heightUnit=u;
+  const val=parseInt(document.getElementById('sl-height').value);
+  if(u==='ft'){
+    const totalIn=Math.round(val/2.54);
+    const ft=Math.floor(totalIn/12), inch=totalIn%12;
+    document.getElementById('val-height').innerHTML=`${ft}' ${inch}" <span>ft/in</span>`;
+  } else {
+    document.getElementById('val-height').innerHTML=val+' <span>cm</span>';
+  }
+  document.getElementById('unit-cm').style.background=u==='cm'?'var(--blue)':'transparent';
+  document.getElementById('unit-cm').style.color=u==='cm'?'#fff':'var(--text)';
+  document.getElementById('unit-ft').style.background=u==='ft'?'var(--blue)':'transparent';
+  document.getElementById('unit-ft').style.color=u==='ft'?'#fff':'var(--text)';
+  updateBMI();
+}
+function updateHeight(v){
+  if(heightUnit==='ft'){
+    const totalIn=Math.round(v/2.54);
+    const ft=Math.floor(totalIn/12),inch=totalIn%12;
+    document.getElementById('val-height').innerHTML=`${ft}' ${inch}" <span>ft/in</span>`;
+  } else {
+    document.getElementById('val-height').innerHTML=v+' <span>cm</span>';
+  }
+  updateBMI();
+}
+function setWeightUnit(u){
+  weightUnit=u;
+  const val=parseInt(document.getElementById('sl-weight').value);
+  if(u==='lbs'){
+    document.getElementById('val-weight').innerHTML=Math.round(val*2.205)+' <span>lbs</span>';
+  } else {
+    document.getElementById('val-weight').innerHTML=val+' <span>kg</span>';
+  }
+  document.getElementById('unit-kg').style.background=u==='kg'?'var(--blue)':'transparent';
+  document.getElementById('unit-kg').style.color=u==='kg'?'#fff':'var(--text)';
+  document.getElementById('unit-lbs').style.background=u==='lbs'?'var(--blue)':'transparent';
+  document.getElementById('unit-lbs').style.color=u==='lbs'?'#fff':'var(--text)';
+  updateBMI();
+}
+function updateWeight(v){
+  if(weightUnit==='lbs') document.getElementById('val-weight').innerHTML=Math.round(v*2.205)+' <span>lbs</span>';
+  else document.getElementById('val-weight').innerHTML=v+' <span>kg</span>';
+  updateBMI();
+}
+function updateBMI(){
+  const h=parseInt(document.getElementById('sl-height')?.value||175)/100;
+  const w=parseInt(document.getElementById('sl-weight')?.value||70);
+  if(!h||!w) return;
+  const bmi=(w/(h*h)).toFixed(1);
+  const el=document.getElementById('bmi-val');
+  const cat=document.getElementById('bmi-cat');
+  if(el) el.textContent=bmi;
+  if(cat){
+    if(bmi<18.5){cat.textContent='Underweight';cat.style.color='var(--blue2)';}
+    else if(bmi<25){cat.textContent='Normal';cat.style.color='var(--green)';}
+    else if(bmi<30){cat.textContent='Overweight';cat.style.color='var(--orange)';}
+    else{cat.textContent='Obese';cat.style.color='var(--pink)';}
+  }
+}
+
+// ── GOALS (multi-select) ──
+const selectedGoals=new Set();
+function toggleGoal(g){
+  const el=document.getElementById('goal-'+g);
+  if(!el) return;
+  if(selectedGoals.has(g)){ selectedGoals.delete(g); el.classList.remove('selected'); }
+  else { selectedGoals.add(g); el.classList.add('selected'); }
+}
+
+// ── ACTIVITY LEVEL ──
+function selectActivity(a){
+  document.querySelectorAll('.activity-item').forEach(el=>el.classList.remove('selected'));
+  document.getElementById('act-'+a)?.classList.add('selected');
+}
+
+// ── HEALTH CONDITIONS ──
+const selectedHealth=new Set();
+function toggleHealth(h){
+  const el=document.getElementById('hc-'+h);
+  if(!el) return;
+  if(h==='none'){
+    selectedHealth.clear();
+    document.querySelectorAll('.health-tag').forEach(t=>t.classList.remove('selected'));
+    selectedHealth.add('none');
+    el.classList.add('selected');
+  } else {
+    selectedHealth.delete('none');
+    document.getElementById('hc-none')?.classList.remove('selected');
+    if(selectedHealth.has(h)){ selectedHealth.delete(h); el.classList.remove('selected'); }
+    else { selectedHealth.add(h); el.classList.add('selected'); }
+  }
+}
+
+// ── SOCIAL SIGN ──
+function socialSign(){
+  toast('Connecting…','info',1400);
+  setTimeout(()=>{
+    localStorage.setItem('fw_ob',JSON.stringify({name:'Alex Jordan',email:'alex@google.com'}));
+    go('profile');
+    toast('Connected! Let\'s set up your profile.','success');
+  },1500);
+}
+
+// ── AI SETUP ANIMATION ──
+function runAISetup(){
+  const tasks=[
+    {id:'ait-0',msg:'Analyzing body metrics & BMI…'},
+    {id:'ait-1',msg:'Calibrating workout intensity…'},
+    {id:'ait-2',msg:'Generating nutrition targets…'},
+    {id:'ait-3',msg:'Building 12-week program…'},
+  ];
+  const pcts=[22,48,74,100];
+  let step=0;
+  // Reset
+  tasks.forEach((t,i)=>{
+    const el=document.getElementById(t.id);
+    if(!el) return;
+    el.classList.remove('done');
+    el.querySelector('.ai-task-icon').innerHTML=i===0
+      ?'<div class="ai-task-spinner"></div>'
+      :'<div style="width:16px;height:16px;border:2px solid var(--border2);border-radius:50%;"></div>';
+    el.querySelector('.ai-task-text').style.color=i===0?'var(--text)':'var(--text3)';
+  });
+  document.getElementById('ai-fill').style.width='0%';
+  document.getElementById('ai-pct').textContent='0%';
+
+  function advance(){
+    if(step>=tasks.length){ setTimeout(()=>go('subscription'),600); return; }
+    const t=tasks[step];
+    const el=document.getElementById(t.id);
+    if(el){
+      el.classList.add('done');
+      el.querySelector('.ai-task-icon').innerHTML='<span class="ai-task-check">✓</span>';
+      el.querySelector('.ai-task-text').style.color='var(--text)';
+      el.style.borderColor='rgba(198,241,53,0.3)';
+      el.style.background='rgba(198,241,53,0.05)';
+    }
+    const fill=document.getElementById('ai-fill');
+    const pct=document.getElementById('ai-pct');
+    if(fill) fill.style.width=pcts[step]+'%';
+    if(pct) pct.textContent=pcts[step]+'%';
+    step++;
+    if(step<tasks.length){
+      const next=document.getElementById(tasks[step].id);
+      if(next){
+        next.querySelector('.ai-task-icon').innerHTML='<div class="ai-task-spinner"></div>';
+        next.querySelector('.ai-task-text').style.color='var(--text)';
+      }
+      setTimeout(advance,1600);
+    } else {
+      setTimeout(()=>go('subscription'),800);
+    }
+  }
+  setTimeout(advance,1000);
+}
+
+// ── PLAN SELECTION ──
+let selectedPlan='free';
+function selectPlan(p){
+  selectedPlan=p;
+  ['free','pro','elite'].forEach(x=>{
+    const el=document.getElementById('plan-'+x);
+    if(!el) return;
+    el.classList.toggle('selected', x===p);
+    if(x===p && x!=='pro') el.style.borderColor='var(--blue)';
+    else if(x!=='pro') el.style.borderColor='var(--border)';
+  });
+  const cta=document.getElementById('plan-cta');
+  if(cta){
+    const labels={free:'Continue with Free →',pro:'Start Pro Trial →',elite:'Start Elite Trial →'};
+    cta.textContent=labels[p]||'Continue →';
+  }
+}
+
+// ── TUTORIAL ──
+let tutStep=0, totalTut=4;
+function goTut(n){
+  document.querySelectorAll('.tutorial-slide').forEach((s,i)=>{
+    s.classList.toggle('active',i===n);
+  });
+  document.querySelectorAll('.dot').forEach((d,i)=>{
+    d.classList.toggle('active',i===n);
+  });
+  tutStep=n;
+  const prev=document.getElementById('tut-prev');
+  const next=document.getElementById('tut-next');
+  if(prev) prev.style.display=n>0?'flex':'none';
+  if(next) next.textContent=n===totalTut-1?"Let's Go! 🚀":'Next →';
+}
+function nextTut(){
+  if(tutStep===totalTut-1){ finishOnboarding(); return; }
+  goTut(tutStep+1);
+}
+function prevTut(){ if(tutStep>0) goTut(tutStep-1); }
+
+function finishOnboarding(){
+  toast('Welcome to Fitwave! 🎉','success',4000);
+  setTimeout(()=>window.location.href='dashboard.html',1400);
+}
+</script>
+</body>
+</html>
