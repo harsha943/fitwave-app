@@ -117,6 +117,12 @@ jobs:
           npm install --legacy-peer-deps 2>/dev/null || npm install --force 2>/dev/null || echo "npm install had warnings (non-fatal)"
           echo "✅ Frontend dependencies installed"
 
+      - name: Build Frontend
+        working-directory: web/frontend
+        run: |
+          npm run build
+          echo "✅ Frontend built successfully"
+
       - name: Install Backend dependencies
         working-directory: web/backend
         run: npm install
@@ -334,3 +340,39 @@ jobs:
         with:
           name: Appium-Mobile-Test-Report
           path: appium-tests/FitWave_Appium_Test_Report.xlsx
+
+  # ─────────────────────────────────────────────────────────────
+  # 6. DEPLOY – Deploy frontend to GitHub Pages branch
+  # ─────────────────────────────────────────────────────────────
+  deploy:
+    name: 6. Deploy – GitHub Pages Deployment
+    runs-on: ubuntu-latest
+    needs: [validation, deployment-status, api-tests, selenium-tests, appium-tests]
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Frontend dependencies
+        working-directory: web/frontend
+        run: |
+          npm install --legacy-peer-deps 2>/dev/null || npm install --force 2>/dev/null || echo "npm install had warnings (non-fatal)"
+          echo "✅ Frontend dependencies installed"
+
+      - name: Build Frontend
+        working-directory: web/frontend
+        run: |
+          npm run build
+          echo "✅ Frontend built successfully"
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: web/frontend/dist
+          branch: gh-pages
