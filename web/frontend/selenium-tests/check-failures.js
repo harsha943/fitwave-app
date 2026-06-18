@@ -16,6 +16,9 @@ async function checkFailures() {
     }
   });
   console.log(`Total Failures: ${failCount}`);
+  if (failCount > 0) {
+    process.exit(1);
+  }
 }
 
 checkFailures();

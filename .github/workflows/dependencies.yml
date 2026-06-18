@@ -1,4 +1,4 @@
-name: CI – Install Dependencies & Validate
+name: CI – Enterprise Test Suites Integration
 
 on:
   push:
@@ -7,13 +7,10 @@ on:
     branches: [ "main" ]
 
 jobs:
-  backend-deps:
-    name: Backend – Install & Smoke Test
+  # 1. Validation Job
+  validation:
+    name: 1. Validation – Syntax & Linting Checks
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: web/backend
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -26,20 +23,92 @@ jobs:
           cache-dependency-path: web/backend/package-lock.json
 
       - name: Install backend dependencies
+        working-directory: web/backend
         run: npm ci --prefer-offline || npm install
 
-      - name: Verify backend entry point loads
-        run: node -e "require('./index.js'); setTimeout(()=>process.exit(0),500);"
+      - name: Run Syntax Validation (Backend)
+        working-directory: web/backend
+        run: npm run validate
+
+      - name: Install web frontend selenium-tests dependencies
+        working-directory: web/frontend/selenium-tests
+        run: npm ci --prefer-offline || npm install
+
+      - name: Run Syntax Validation (Frontend Tests)
+        working-directory: web/frontend/selenium-tests
+        run: |
+          node -c run-tests.js
+          find tests -name "*.js" -exec node -c {} \;
+          node -c check-failures.js
+
+      - name: Install selenium-automation dependencies
+        working-directory: selenium-automation
+        run: npm ci --prefer-offline || npm install
+
+      - name: Run Syntax Validation (Selenium Automation)
+        working-directory: selenium-automation
+        run: |
+          node -c runner.js
+          node -c server.js
+          find testcases -name "*.js" -exec node -c {} \;
+          node -c generateAllPassReport.js
+
+      - name: Install appium-tests dependencies
+        working-directory: appium-tests
+        run: npm ci --prefer-offline || npm install
+
+      - name: Run Syntax Validation (Appium Automation & Tests)
+        run: |
+          node -c appium-automation/wdio.conf.js
+          find appium-automation/tests -name "*.js" -exec node -c {} \;
+          node -c appium-tests/run-appium-tests.js
+          node -c appium-tests/AppiumExcelReporter.js
+
+  # 2. Deployment Status Job
+  deployment-status:
+    name: 2. Deployment Status – Build & Health Checks
+    runs-on: ubuntu-latest
+    needs: validation
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install & Build Frontend
+        working-directory: web/frontend
+        run: |
+          npm ci --prefer-offline || npm install
+          npm run build --if-present
+
+      - name: Install Backend
+        working-directory: web/backend
+        run: |
+          npm ci --prefer-offline || npm install
+
+      - name: Spin up Backend & Verify Health Check
+        working-directory: web/backend
+        run: |
+          node index.js &
+          # Wait up to 15 seconds for backend to start and reply
+          for i in {1..15}; do
+            curl -s http://localhost:5000/api/health && exit 0
+            echo "Waiting for backend health check..."
+            sleep 1
+          done
+          echo "Backend health check failed"
+          exit 1
         env:
           PORT: 5000
 
-  frontend-deps:
-    name: Frontend – Install & Build Check
+  # 3. API Job
+  api-tests:
+    name: 3. API – Backend DAST Security Tests
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: web/frontend
-
+    needs: validation
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -48,55 +117,58 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
-          cache-dependency-path: web/frontend/package-lock.json
 
-      - name: Install frontend dependencies
-        run: npm ci --prefer-offline || npm install
+      - name: Install & Run Backend in Background
+        working-directory: web/backend
+        run: |
+          npm ci --prefer-offline || npm install
+          node index.js &
+          # Give the server a moment to start
+          sleep 3
 
-      - name: Lint check
-        run: npm run lint --if-present || true
+      - name: Run API Security Tests (DAST Runner)
+        working-directory: web/backend
+        run: |
+          npm run dast
+          # Display report details
+          cat automated_test/report.json
 
-      - name: Build frontend
-        run: npm run build --if-present || true
-
-  selenium-deps:
-    name: Selenium Tests – Dependency Check
+  # 4. Selenium Job
+  selenium-tests:
+    name: 4. Selenium – Headless Browser E2E Tests
     runs-on: ubuntu-latest
-    defaults:
-      run:
+    needs: validation
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run Selenium E2E Web Tests (selenium-automation)
+        working-directory: selenium-automation
+        run: |
+          npm ci --prefer-offline || npm install
+          npm test
+        env:
+          HEADLESS: "true"
+
+      - name: Run Selenium E2E Static HTML Tests (web/frontend/selenium-tests)
         working-directory: web/frontend/selenium-tests
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js 20
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-          cache-dependency-path: web/frontend/selenium-tests/package-lock.json
-
-      - name: Install Selenium test dependencies
-        run: npm ci --prefer-offline || npm install
-
-      - name: Verify test scripts are valid JS
         run: |
-          node -c tests/auth.test.js
-          node -c tests/dashboard.test.js
-          node -c tests/diet.test.js
-          node -c tests/workout.test.js
-          node -c run-tests.js
-          echo "All selenium test files are valid JavaScript."
+          npm ci --prefer-offline || npm install
+          npm test
+          node check-failures.js
+        env:
+          HEADLESS: "true"
 
-  dast-deps:
-    name: DAST Suite – Dependency Check
+  # 5. Appium Job
+  appium-tests:
+    name: 5. Appium – Mobile UI Simulation Tests
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: web/backend/automated_test
-
+    needs: validation
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -106,15 +178,14 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Verify DAST test scripts are valid JS
+      - name: Run Mobile Simulation Tests (appium-tests)
+        working-directory: appium-tests
         run: |
-          node -c tests/cat1_authn_bypass.js
-          node -c tests/cat2_authz_privesc.js
-          node -c tests/cat3_idor.js
-          node -c tests/cat4_rbac_matrix.js
-          node -c tests/cat5_token_tampering.js
-          node -c tests/cat6_injection.js
-          node -c tests/cat7_rate_limit.js
-          node -c runner.js
-          node -c discover.js
-          echo "All DAST test files are valid JavaScript."
+          npm ci --prefer-offline || npm install
+          npm test
+
+      - name: Upload Mobile Test Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: Appium-Mobile-Test-Report
+          path: appium-tests/FitWave_Appium_Test_Report.xlsx

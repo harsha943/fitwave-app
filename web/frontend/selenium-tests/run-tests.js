@@ -1,4 +1,5 @@
 const { Builder, By, until } = require('selenium-webdriver');
+const chrome = require('selenium-webdriver/chrome');
 const ExcelReporter = require('./ExcelReporter');
 const path = require('path');
 
@@ -16,7 +17,15 @@ async function main() {
 
   try {
     console.log('Starting Chrome Driver...');
-    driver = await new Builder().forBrowser('chrome').build();
+    const options = new chrome.Options();
+    if (process.env.HEADLESS === 'true') {
+      options.addArguments('--headless=new');
+      options.addArguments('--no-sandbox');
+      options.addArguments('--disable-dev-shm-usage');
+      options.addArguments('--disable-gpu');
+      options.addArguments('--window-size=1280,800');
+    }
+    driver = await new Builder().forBrowser('chrome').setChromeOptions(options).build();
     
     // Maximize window for consistent UI tests
     await driver.manage().window().maximize();
