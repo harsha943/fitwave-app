@@ -5,7 +5,7 @@
   "expected": "Full lifecycle executes sequentially: registration -> login -> add workout -> search & filter -> update settings -> file actions -> logout successfully",
   "actual": "Business Flow: Created workout not found in search results",
   "status": "FAIL",
-  "duration": 22833,
+  "duration": 21314,
   "severity": "High",
-  "screenshotPath": "C:\\Users\\harsh\\Downloads\\Fitwave\\selenium-automation\\screenshots\\TC-119_1781595267710.png"
+  "screenshotPath": "C:\\Users\\harsh\\OneDrive\\Desktop\\harsha pdd\\selenium-automation\\screenshots\\TC-119_1781758642436.png"
 }

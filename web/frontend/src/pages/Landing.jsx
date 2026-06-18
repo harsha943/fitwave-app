@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/style.css'; // Assuming this is the main style file
+import '../styles/global.css'; // Assuming this is the main style file
 
 const Landing = () => {
   return (

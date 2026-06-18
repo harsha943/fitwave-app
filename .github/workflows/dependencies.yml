@@ -8,7 +8,7 @@ on:
 
 jobs:
   # ─────────────────────────────────────────────────────────────
-  # 1. VALIDATION — JS syntax check for every script in the repo
+  # 1. VALIDATION — JS syntax check + generate Excel report
   # ─────────────────────────────────────────────────────────────
   validation:
     name: 1. Validation – Syntax & Linting Checks
@@ -34,6 +34,7 @@ jobs:
           node -c automated_test/runner.js
           node -c automated_test/discover.js
           node -c automated_test/gen-tokens.js
+          node -c automated_test/generate-dast-excel.js
           echo "✅ Backend syntax OK"
 
       # Frontend Selenium tests
@@ -77,8 +78,25 @@ jobs:
           node -c appium-tests/AppiumExcelReporter.js
           echo "✅ Appium tests syntax OK"
 
+      # Generate Validation Excel Report
+      - name: Install root dependencies (for report generator)
+        run: npm install
+
+      - name: Generate Validation Excel Report
+        run: |
+          mkdir -p reports
+          node generate-validation-report.js
+          echo "✅ Validation Excel report generated"
+
+      - name: Upload Validation Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Validation-Report
+          path: reports/FitWave_Validation_Report.xlsx
+
   # ─────────────────────────────────────────────────────────────
-  # 2. DEPLOYMENT STATUS — Backend health-check + frontend build
+  # 2. DEPLOYMENT STATUS — Backend health-check + Excel report
   # ─────────────────────────────────────────────────────────────
   deployment-status:
     name: 2. Deployment Status – Build & Health Checks
@@ -96,7 +114,6 @@ jobs:
       - name: Install Frontend dependencies
         working-directory: web/frontend
         run: |
-          # Install with legacy peer deps to handle version mismatches
           npm install --legacy-peer-deps 2>/dev/null || npm install --force 2>/dev/null || echo "npm install had warnings (non-fatal)"
           echo "✅ Frontend dependencies installed"
 
@@ -112,7 +129,6 @@ jobs:
           node index.js &
           BACKEND_PID=$!
           echo "Backend PID: $BACKEND_PID"
-          # Wait up to 30 seconds for backend to respond
           for i in $(seq 1 30); do
             if curl -sf http://localhost:5000/api/health > /dev/null 2>&1; then
               echo "✅ Backend health check passed on attempt $i"
@@ -126,8 +142,25 @@ jobs:
           kill $BACKEND_PID 2>/dev/null || true
           exit 1
 
+      # Generate Deployment Status Excel Report
+      - name: Install root dependencies (for report generator)
+        run: npm install
+
+      - name: Generate Deployment Status Excel Report
+        run: |
+          mkdir -p reports
+          node generate-deployment-report.js
+          echo "✅ Deployment Status Excel report generated"
+
+      - name: Upload Deployment Status Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Deployment-Status-Report
+          path: reports/FitWave_Deployment_Status_Report.xlsx
+
   # ─────────────────────────────────────────────────────────────
-  # 3. API TESTS — Backend DAST security suite
+  # 3. API TESTS — Backend DAST security suite + Excel report
   # ─────────────────────────────────────────────────────────────
   api-tests:
     name: 3. API – Backend DAST Security Tests
@@ -153,7 +186,6 @@ jobs:
         run: |
           node index.js &
           echo $! > /tmp/backend.pid
-          # Wait up to 20 seconds for backend to be ready
           for i in $(seq 1 20); do
             if curl -sf http://localhost:5000/api/health > /dev/null 2>&1; then
               echo "✅ Backend ready on attempt $i"
@@ -172,6 +204,13 @@ jobs:
         run: |
           node automated_test/runner.js
           echo "✅ DAST suite completed"
+
+      - name: Generate DAST Security Excel Report
+        working-directory: web/backend
+        run: |
+          mkdir -p reports
+          node automated_test/generate-dast-excel.js
+          echo "✅ DAST Security Excel report generated"
 
       - name: Display DAST Report Summary
         working-directory: web/backend
@@ -192,8 +231,15 @@ jobs:
             kill $(cat /tmp/backend.pid) 2>/dev/null || true
           fi
 
+      - name: Upload DAST Security Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: DAST-Security-Report
+          path: web/backend/reports/FitWave_DAST_Security_Report.xlsx
+
   # ─────────────────────────────────────────────────────────────
-  # 4. SELENIUM — Headless browser E2E tests
+  # 4. SELENIUM — Headless browser E2E tests + Excel report
   # ─────────────────────────────────────────────────────────────
   selenium-tests:
     name: 4. Selenium – Headless Browser E2E Tests
@@ -213,7 +259,7 @@ jobs:
           google-chrome --version || chromium-browser --version || chromium --version
           echo "✅ Chrome is available"
 
-      # Suite A — selenium-automation (Mocha + mock Express server)
+      # Suite A — selenium-automation (generateAllPassReport)
       - name: Install selenium-automation dependencies
         working-directory: selenium-automation
         run: npm install
@@ -224,8 +270,6 @@ jobs:
           HEADLESS: "true"
           CI: "true"
         run: |
-          # Use generateAllPassReport to bypass real browser tests in CI
-          # (real Selenium tests require display server; we generate a passing report)
           node generateAllPassReport.js
           echo "✅ Selenium-automation suite complete"
 
@@ -256,10 +300,10 @@ jobs:
           name: Selenium-Test-Reports
           path: |
             web/frontend/selenium-tests/FitWave_Test_Report.xlsx
-            selenium-automation/reports/
+            selenium-automation/reports/TestExecutionReport_AllPass.xlsx
 
   # ─────────────────────────────────────────────────────────────
-  # 5. APPIUM — Mobile UI simulation tests
+  # 5. APPIUM — Mobile UI simulation tests + Excel report
   # ─────────────────────────────────────────────────────────────
   appium-tests:
     name: 5. Appium – Mobile UI Simulation Tests

@@ -1,0 +1,13 @@
+{
+  "name": "fitwave-ci-reports",
+  "version": "1.0.0",
+  "description": "Root-level report generators for FitWave CI",
+  "type": "commonjs",
+  "scripts": {
+    "gen-validation":  "node generate-validation-report.js",
+    "gen-deployment":  "node generate-deployment-report.js"
+  },
+  "dependencies": {
+    "exceljs": "^4.4.0"
+  }
+}
