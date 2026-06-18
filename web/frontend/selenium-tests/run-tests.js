@@ -14,21 +14,20 @@ const PROJECT_ROOT = path.resolve(__dirname, '../fitwave');
 async function main() {
   const reporter = new ExcelReporter();
   let driver;
+  let exitCode = 0;
 
   try {
     console.log('Starting Chrome Driver...');
     const options = new chrome.Options();
+    // Always add sandbox/shm flags for CI compatibility
+    options.addArguments('--no-sandbox');
+    options.addArguments('--disable-dev-shm-usage');
+    options.addArguments('--disable-gpu');
+    options.addArguments('--window-size=1280,800');
     if (process.env.HEADLESS === 'true') {
       options.addArguments('--headless=new');
-      options.addArguments('--no-sandbox');
-      options.addArguments('--disable-dev-shm-usage');
-      options.addArguments('--disable-gpu');
-      options.addArguments('--window-size=1280,800');
     }
     driver = await new Builder().forBrowser('chrome').setChromeOptions(options).build();
-    
-    // Maximize window for consistent UI tests
-    await driver.manage().window().maximize();
 
     console.log('Running Authentication Tests...');
     await runAuthTests(driver, reporter, PROJECT_ROOT);
@@ -48,11 +47,14 @@ async function main() {
     console.log('All testing completed successfully!');
 
   } catch (error) {
-    console.error('An error occurred during test execution:', error);
+    console.error('An error occurred during test execution:', error.message);
+    exitCode = 1;
   } finally {
     if (driver) {
-      await driver.quit();
+      try { await driver.quit(); } catch (_) { /* ignore quit errors */ }
     }
+    // Force exit — selenium-webdriver can keep the event loop alive
+    process.exit(exitCode);
   }
 }
 
