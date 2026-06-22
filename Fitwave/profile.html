@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fitwave — Profile</title>
+  <meta name="description" content="Your Fitwave profile. View stats, achievements, body metrics, goals and settings."/>
+  <link rel="stylesheet" href="css/global.css"/>
+  <link rel="stylesheet" href="css/profile.css"/>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a class="nav-brand" href="landing.html">Fit<span>wave</span></a>
+  <div class="nav-links">
+    <a class="nav-link" href="landing.html">Features</a>
+    <a class="nav-link" href="dashboard.html">Dashboard</a>
+    <a class="nav-link" href="workout.html">Workout</a>
+    <a class="nav-link" href="plans.html">Plans</a>
+  </div>
+  <div class="nav-actions">
+    <div class="nav-icon-btn">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+    </div>
+    <a href="profile.html" class="nav-icon-btn" style="text-decoration:none;">
+      <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--accent-blue),var(--accent-purple));display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:800;font-family:var(--font-display);color:#fff;">A</div>
+    </a>
+  </div>
+</nav>
+
+<div class="profile-page">
+
+  <!-- Banner -->
+  <div class="profile-banner">
+    <div class="profile-banner-pattern"></div>
+    <button class="btn btn-glass btn-sm profile-banner-edit">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+      Edit Cover
+    </button>
+  </div>
+
+  <!-- Profile Info Bar -->
+  <div class="profile-info-bar">
+    <div class="profile-avatar-wrap">
+      <div class="profile-avatar" id="profile-avatar-initials">AJ</div>
+      <div class="profile-avatar-badge">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="var(--bg-primary)" stroke="var(--bg-primary)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+    </div>
+    <div class="profile-name-block">
+      <div class="profile-name" id="profile-display-name">Alex Jordan</div>
+      <div class="profile-handle">@alexjordan · Member since Jan 2024</div>
+      <div class="profile-tags">
+        <span class="badge badge-blue">Intermediate</span>
+        <span class="badge badge-green">Muscle Gain</span>
+        <span class="badge badge-purple">AI Member</span>
+      </div>
+    </div>
+    <div class="profile-actions">
+      <button class="btn btn-ghost btn-sm" onclick="editProfile()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        Edit Profile
+      </button>
+      <button class="btn btn-primary btn-sm" onclick="window.location.href='workout.html'">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Start Workout
+      </button>
+    </div>
+  </div>
+
+  <!-- Stats Row -->
+  <div class="profile-stats">
+    <div class="stat-card anim-fade-up delay-1">
+      <div class="stat-card-icon" style="background:rgba(79,110,247,0.15);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue-2)" stroke-width="2"><path d="M6 4v16M18 4v16M4 8h4M4 16h4M16 8h4M16 16h4"/></svg>
+      </div>
+      <div class="stat-card-val" id="stat-workouts">0</div>
+      <div class="stat-card-label">Workouts</div>
+      <div class="stat-card-change up">↑ 8 this month</div>
+    </div>
+    <div class="stat-card anim-fade-up delay-2">
+      <div class="stat-card-icon" style="background:rgba(198,241,53,0.12);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      </div>
+      <div class="stat-card-val" id="stat-calories">0</div>
+      <div class="stat-card-label">kcal Burned</div>
+      <div class="stat-card-change up">↑ +12.5%</div>
+    </div>
+    <div class="stat-card anim-fade-up delay-3">
+      <div class="stat-card-icon" style="background:rgba(155,93,229,0.15);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-purple)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <div class="stat-card-val" id="stat-hours">0</div>
+      <div class="stat-card-label">Hours Trained</div>
+      <div class="stat-card-change up">↑ 4.2h avg/week</div>
+    </div>
+    <div class="stat-card anim-fade-up delay-4">
+      <div class="stat-card-icon" style="background:rgba(247,37,133,0.12);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-pink)" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </div>
+      <div class="stat-card-val" id="stat-streak">0</div>
+      <div class="stat-card-label">Day Streak 🔥</div>
+      <div class="stat-card-change up">Personal best!</div>
+    </div>
+  </div>
+
+  <!-- Profile Body -->
+  <div class="profile-body">
+
+    <!-- LEFT MAIN -->
+    <div>
+      <!-- Goals -->
+      <div class="profile-section-card anim-fade-up delay-1">
+        <div class="profile-section-header">
+          <h3 class="profile-section-title">Fitness Goals</h3>
+          <span class="profile-edit-btn">Edit Goals</span>
+        </div>
+        <div class="goals-grid">
+          <div class="goal-item">
+            <div class="goal-item-label">Primary Goal</div>
+            <div class="goal-item-val">Muscle Gain</div>
+          </div>
+          <div class="goal-item">
+            <div class="goal-item-label">Target Weight</div>
+            <div class="goal-item-val">78 kg</div>
+          </div>
+          <div class="goal-item">
+            <div class="goal-item-label">Weekly Sessions</div>
+            <div class="goal-item-val">5 / week</div>
+          </div>
+          <div class="goal-item">
+            <div class="goal-item-label">Experience Level</div>
+            <div class="goal-item-val">Intermediate</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Body Metrics -->
+      <div class="profile-section-card anim-fade-up delay-2">
+        <div class="profile-section-header">
+          <h3 class="profile-section-title">Body Metrics</h3>
+          <span class="profile-edit-btn">Update</span>
+        </div>
+        <div class="body-metrics-grid">
+          <div class="body-metric">
+            <div class="body-metric-val" style="color:var(--accent-blue);">74.2<small style="font-size:0.6em;font-weight:500;"> kg</small></div>
+            <div class="body-metric-label">Weight</div>
+          </div>
+          <div class="body-metric">
+            <div class="body-metric-val" style="color:var(--accent-green);">5'11"</div>
+            <div class="body-metric-label">Height</div>
+          </div>
+          <div class="body-metric">
+            <div class="body-metric-val" style="color:var(--accent-purple);">22.8</div>
+            <div class="body-metric-label">BMI</div>
+          </div>
+          <div class="body-metric">
+            <div class="body-metric-val" style="color:#f97316;">14.2<small style="font-size:0.6em;font-weight:500;">%</small></div>
+            <div class="body-metric-label">Body Fat</div>
+          </div>
+          <div class="body-metric">
+            <div class="body-metric-val" style="color:var(--accent-pink);">63.7<small style="font-size:0.6em;font-weight:500;"> kg</small></div>
+            <div class="body-metric-label">Muscle Mass</div>
+          </div>
+          <div class="body-metric">
+            <div class="body-metric-val">1,980</div>
+            <div class="body-metric-label">TDEE kcal</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Achievements -->
+      <div class="profile-section-card anim-fade-up delay-3">
+        <div class="profile-section-header">
+          <h3 class="profile-section-title">Achievements</h3>
+          <span class="profile-edit-btn">View All</span>
+        </div>
+        <div class="achievements-grid">
+          <div class="achievement-badge" title="First Workout">
+            <div class="achievement-icon">🏅</div>
+            <div class="achievement-name">First Step</div>
+            <div class="achievement-desc">Completed first workout</div>
+          </div>
+          <div class="achievement-badge" title="7-Day Streak">
+            <div class="achievement-icon">🔥</div>
+            <div class="achievement-name">On Fire</div>
+            <div class="achievement-desc">7-day streak</div>
+          </div>
+          <div class="achievement-badge" title="50 Workouts">
+            <div class="achievement-icon">💪</div>
+            <div class="achievement-name">Iron Will</div>
+            <div class="achievement-desc">50 workouts done</div>
+          </div>
+          <div class="achievement-badge" title="Nutrition Goal">
+            <div class="achievement-icon">🥗</div>
+            <div class="achievement-name">Clean Eater</div>
+            <div class="achievement-desc">30 nutrition goals</div>
+          </div>
+          <div class="achievement-badge locked" title="Locked">
+            <div class="achievement-icon">🏆</div>
+            <div class="achievement-name">Champion</div>
+            <div class="achievement-desc">100 workouts</div>
+          </div>
+          <div class="achievement-badge locked" title="Locked">
+            <div class="achievement-icon">⚡</div>
+            <div class="achievement-name">Hyper Drive</div>
+            <div class="achievement-desc">30-day streak</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT SIDEBAR -->
+    <div class="profile-sidebar">
+
+      <!-- Progress Chart -->
+      <div class="profile-section-card anim-fade-up delay-2" style="margin-bottom:0;">
+        <div class="profile-section-header">
+          <h3 class="profile-section-title">Weight Progress</h3>
+          <span class="badge badge-green">↓ 2.3 kg</span>
+        </div>
+        <div class="mini-chart" id="weight-mini-chart"></div>
+        <div style="display:flex;justify-content:space-between;font-size:0.72rem;color:var(--text-muted);">
+          <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span>
+        </div>
+      </div>
+
+      <!-- Activity Heatmap -->
+      <div class="profile-section-card" style="margin-bottom:0;">
+        <div class="profile-section-header" style="margin-bottom:12px;">
+          <h3 class="profile-section-title">Activity Heatmap</h3>
+          <span class="profile-edit-btn">This Year</span>
+        </div>
+        <div class="heatmap" id="activity-heatmap"></div>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:10px;font-size:0.72rem;color:var(--text-muted);">
+          Less
+          <div style="width:10px;height:10px;border-radius:2px;background:var(--border);"></div>
+          <div style="width:10px;height:10px;border-radius:2px;background:rgba(198,241,53,0.3);"></div>
+          <div style="width:10px;height:10px;border-radius:2px;background:rgba(198,241,53,0.6);"></div>
+          <div style="width:10px;height:10px;border-radius:2px;background:var(--accent-green);"></div>
+          More
+        </div>
+      </div>
+
+      <!-- Settings -->
+      <div class="profile-section-card" style="margin-bottom:0;">
+        <div class="profile-section-header" style="margin-bottom:12px;">
+          <h3 class="profile-section-title">Settings</h3>
+        </div>
+        <div class="settings-list">
+          <div class="settings-item" onclick="window.location.href='settings-app.html#notifications'">
+            <div class="settings-item-icon" style="background:rgba(79,110,247,0.15);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue-2)" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            </div>
+            <span class="settings-item-label">Notifications</span>
+            <svg class="settings-item-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+          <div class="settings-item" onclick="window.location.href='settings-app.html#privacy'">
+            <div class="settings-item-icon" style="background:rgba(155,93,229,0.15);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-purple)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <span class="settings-item-label">Privacy & Security</span>
+            <svg class="settings-item-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+          <div class="settings-item" onclick="window.location.href='settings-app.html#devices'">
+            <div class="settings-item-icon" style="background:rgba(198,241,53,0.12);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+            </div>
+            <span class="settings-item-label">Connected Devices</span>
+            <svg class="settings-item-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+          <div class="settings-item danger" onclick="logout()">
+            <div class="settings-item-icon" style="background:rgba(247,37,133,0.12);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-pink)" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            </div>
+            <span class="settings-item-label">Log Out</span>
+            <svg class="settings-item-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-pink)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  <span class="footer-brand">Fit<span style="color:var(--accent-blue);">wave</span></span>
+  <span class="footer-copy">© 2024 Fitwave AI. All rights reserved.</span>
+  <div class="footer-links">
+    <a href="#">Support</a><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Contact</a>
+  </div>
+</footer>
+
+<div class="toast-container" id="toast-container"></div>
+<script type="module" src="js/profile.js"></script>
+</body>
+</html>

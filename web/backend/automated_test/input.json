@@ -1,0 +1,7 @@
+{
+  "baseUrl": "http://localhost:5000",
+  "_comment": "Auto-generated tokens — valid for 7 days. Regenerate with: node automated_test/gen-tokens.js",
+  "admin": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJhZG1pbkBmaXR3YXZlLmNvbSIsInJvbGUiOiJhZG1pbiIsIm5hbWUiOiJBZG1pbiBVc2VyIiwiZXhwIjoxNzgyMzc0ODAxLCJpYXQiOjE3ODE3NzAwMDF9.uY6eSyWTyClLXpaY5YE_xqrvyaf7GcGX3WlpSpl54OM",
+  "user": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyIiwiZW1haWwiOiJ1c2VyQGZpdHdhdmUuY29tIiwicm9sZSI6InVzZXIiLCJuYW1lIjoiUmVndWxhciBVc2VyIiwiZXhwIjoxNzgyMzc0ODAxLCJpYXQiOjE3ODE3NzAwMDF9.3AySS7syrJ_mfkCq4rCnwqGJ3iG-pqIJ4EfeSrmKKn4",
+  "guest": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzIiwiZW1haWwiOiJndWVzdEBmaXR3YXZlLmNvbSIsInJvbGUiOiJndWVzdCIsIm5hbWUiOiJHdWVzdCBVc2VyIiwiZXhwIjoxNzgyMzc0ODAxLCJpYXQiOjE3ODE3NzAwMDF9.Hr_3-OLugpu4JnBm23Tnv4WhiwqCbxyKtWYdqGUnhDs"
+}

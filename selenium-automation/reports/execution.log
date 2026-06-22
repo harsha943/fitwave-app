@@ -5231,3 +5231,88 @@ Wait timed out after 15981ms
 [2026-06-16 13:21:52] [INFO]: Starting generation of Excel report at: C:\Users\harsh\Downloads\Fitwave\selenium-automation\reports\TestExecutionReport.xlsx
 [2026-06-16 13:22:43] [INFO]: Starting generation of Excel report at: C:\Users\harsh\Downloads\Fitwave\selenium-automation\reports\TestExecutionReport_Final.xlsx
 [2026-06-16 13:22:43] [INFO]: Excel report created successfully at: C:\Users\harsh\Downloads\Fitwave\selenium-automation\reports\TestExecutionReport_Final.xlsx
+[2026-06-18 10:26:23] [INFO]: Initializing Programmatic E2E Selenium Test Suite...
+[2026-06-18 10:26:23] [INFO]: Cleaning up historical reports and assets...
+[2026-06-18 10:26:23] [INFO]: Booting local mockup Express web application...
+[2026-06-18 10:26:23] [INFO]: Programmatic Sequential execution active.
+[2026-06-18 10:26:23] [INFO]: Loaded 16 test files into Mocha.
+[2026-06-18 10:26:39] [INFO]: Starting execution for business flow: TC-119
+[2026-06-18 10:26:39] [INFO]: Navigating to URL: http://localhost:3000/register
+[2026-06-18 10:26:39] [INFO]: Typing text in #regName
+[2026-06-18 10:26:39] [INFO]: Typing text in #regEmail
+[2026-06-18 10:26:39] [INFO]: Typing text in #regPassword
+[2026-06-18 10:26:39] [INFO]: Clicking element: #registerSubmitBtn
+[2026-06-18 10:26:40] [INFO]: Got text from #regSuccessMsg: "Success!"
+[2026-06-18 10:26:40] [INFO]: Clicking element: #btnGoToLogin
+[2026-06-18 10:26:40] [INFO]: Typing text in #loginEmail
+[2026-06-18 10:26:40] [INFO]: Typing text in #loginPassword
+[2026-06-18 10:26:40] [INFO]: Clicking element: #loginSubmitBtn
+[2026-06-18 10:26:41] [INFO]: Typing text in #workoutNameInput
+[2026-06-18 10:26:41] [INFO]: Selecting dropdown #workoutCategoryInput option value: Strength
+[2026-06-18 10:26:42] [INFO]: Typing text in #workoutDurationInput
+[2026-06-18 10:26:42] [INFO]: Clicking element: #btnSubmitWorkout
+[2026-06-18 10:26:43] [INFO]: Typing text in #searchBar
+[2026-06-18 10:26:43] [INFO]: Clicking element: #btnApplySearch
+[2026-06-18 10:27:00] [ERROR]: Error finding elements: .workout-row - Waiting for at least one element to be located By(css selector, .workout-row)
+Wait timed out after 16136ms
+[2026-06-18 10:27:00] [INFO]: Screenshot captured for failed test: C:\Users\harsh\OneDrive\Desktop\harsha pdd\selenium-automation\screenshots\TC-119_1781758620372.png
+[2026-06-18 10:27:00] [INFO]: Recorded test case: TC-119 [FAIL]
+[2026-06-18 10:27:01] [INFO]: Starting execution for business flow: TC-119
+[2026-06-18 10:27:01] [INFO]: Navigating to URL: http://localhost:3000/register
+[2026-06-18 10:27:01] [INFO]: Typing text in #regName
+[2026-06-18 10:27:01] [INFO]: Typing text in #regEmail
+[2026-06-18 10:27:01] [INFO]: Typing text in #regPassword
+[2026-06-18 10:27:01] [INFO]: Clicking element: #registerSubmitBtn
+[2026-06-18 10:27:02] [INFO]: Got text from #regSuccessMsg: "Success!"
+[2026-06-18 10:27:02] [INFO]: Clicking element: #btnGoToLogin
+[2026-06-18 10:27:02] [INFO]: Typing text in #loginEmail
+[2026-06-18 10:27:02] [INFO]: Typing text in #loginPassword
+[2026-06-18 10:27:02] [INFO]: Clicking element: #loginSubmitBtn
+[2026-06-18 10:27:03] [INFO]: Typing text in #workoutNameInput
+[2026-06-18 10:27:03] [INFO]: Selecting dropdown #workoutCategoryInput option value: Strength
+[2026-06-18 10:27:04] [INFO]: Typing text in #workoutDurationInput
+[2026-06-18 10:27:04] [INFO]: Clicking element: #btnSubmitWorkout
+[2026-06-18 10:27:05] [INFO]: Typing text in #searchBar
+[2026-06-18 10:27:05] [INFO]: Clicking element: #btnApplySearch
+[2026-06-18 10:27:22] [ERROR]: Error finding elements: .workout-row - Waiting for at least one element to be located By(css selector, .workout-row)
+Wait timed out after 16155ms
+[2026-06-18 10:27:22] [INFO]: Screenshot captured for failed test: C:\Users\harsh\OneDrive\Desktop\harsha pdd\selenium-automation\screenshots\TC-119_1781758642436.png
+[2026-06-18 10:27:22] [INFO]: Recorded test case: TC-119 [FAIL]
+[2026-06-18 10:27:23] [INFO]: Starting execution for business flow: TC-120
+[2026-06-18 10:27:23] [INFO]: Navigating to URL: http://localhost:3000/register
+[2026-06-18 10:27:24] [INFO]: Typing text in #regName
+[2026-06-18 10:27:24] [INFO]: Typing text in #regEmail
+[2026-06-18 10:27:24] [INFO]: Typing text in #regPassword
+[2026-06-18 10:27:24] [INFO]: Clicking element: #registerSubmitBtn
+[2026-06-18 10:27:25] [INFO]: Got text from #regSuccessMsg: "Success!"
+[2026-06-18 10:27:25] [INFO]: Clicking element: #btnGoToLogin
+[2026-06-18 10:27:25] [INFO]: Typing text in #loginEmail
+[2026-06-18 10:27:25] [INFO]: Typing text in #loginPassword
+[2026-06-18 10:27:25] [INFO]: Clicking element: #loginSubmitBtn
+[2026-06-18 10:27:26] [INFO]: Typing text in #workoutNameInput
+[2026-06-18 10:27:26] [INFO]: Selecting dropdown #workoutCategoryInput option value: Strength
+[2026-06-18 10:27:26] [INFO]: Typing text in #workoutDurationInput
+[2026-06-18 10:27:26] [INFO]: Clicking element: #btnSubmitWorkout
+[2026-06-18 10:27:27] [INFO]: Typing text in #searchBar
+[2026-06-18 10:27:27] [INFO]: Clicking element: #btnApplySearch
+[2026-06-18 10:27:45] [ERROR]: Error finding elements: .workout-row - Waiting for at least one element to be located By(css selector, .workout-row)
+Wait timed out after 16079ms
+[2026-06-18 10:27:45] [INFO]: Screenshot captured for failed test: C:\Users\harsh\OneDrive\Desktop\harsha pdd\selenium-automation\screenshots\TC-120_1781758665059.png
+[2026-06-18 10:27:45] [INFO]: Recorded test case: TC-120 [FAIL]
+[2026-06-18 10:27:45] [INFO]: Starting execution for business flow: TC-120
+[2026-06-18 10:27:45] [INFO]: Navigating to URL: http://localhost:3000/register
+[2026-06-18 10:27:47] [INFO]: Typing text in #regName
+[2026-06-18 10:27:47] [INFO]: Typing text in #regEmail
+[2026-06-18 10:27:47] [INFO]: Typing text in #regPassword
+[2026-06-18 10:27:47] [INFO]: Clicking element: #registerSubmitBtn
+[2026-06-18 10:27:48] [INFO]: Got text from #regSuccessMsg: "Success!"
+[2026-06-18 10:27:48] [INFO]: Clicking element: #btnGoToLogin
+[2026-06-18 10:27:48] [INFO]: Typing text in #loginEmail
+[2026-06-18 10:27:48] [INFO]: Typing text in #loginPassword
+[2026-06-18 10:27:48] [INFO]: Clicking element: #loginSubmitBtn
+[2026-06-18 10:27:49] [INFO]: Typing text in #workoutNameInput
+[2026-06-18 10:27:49] [INFO]: Selecting dropdown #workoutCategoryInput option value: Strength
+[2026-06-18 10:27:50] [INFO]: Typing text in #workoutDurationInput
+[2026-06-18 10:27:50] [INFO]: Clicking element: #btnSubmitWorkout
+[2026-06-18 10:27:51] [INFO]: Typing text in #searchBar
+[2026-06-18 10:27:51] [INFO]: Clicking element: #btnApplySearch

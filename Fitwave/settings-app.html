@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>Fitwave — Settings Module</title>
+  <link rel="stylesheet" href="css/global.css"/>
+  <link rel="stylesheet" href="css/settings-app.css"/>
+</head>
+<body>
+
+<div id="app-container">
+
+  <!-- ==========================================
+       1. SETTINGS HOME (ROOT)
+  =========================================== -->
+  <div class="app-screen root active" id="s-home" data-screen="home">
+    <div class="screen-header" style="position:static; padding-top:0;">
+      <div class="header-title" style="font-size:1.8rem;">Settings</div>
+    </div>
+
+    <!-- Profile Summary Card -->
+    <div class="card profile-summary-card anim-item" onclick="go('profile')">
+      <div class="profile-avatar">A</div>
+      <div class="profile-info">
+        <h3 id="user-name-display">Alex</h3>
+        <p>Premium Member</p>
+      </div>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    </div>
+
+    <div class="settings-group anim-item" style="animation-delay:0.1s;">
+      <div class="settings-group-title">Account</div>
+      <div class="settings-item" onclick="go('profile')">
+        <div class="si-icon" style="background:rgba(79,110,247,0.1);color:var(--accent-blue);">👤</div>
+        <div class="si-label">Profile Management</div>
+        <svg class="si-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+      <div class="settings-item" onclick="go('notifications')">
+        <div class="si-icon" style="background:rgba(247,37,133,0.1);color:var(--accent-pink);">🔔</div>
+        <div class="si-label">Notification Settings</div>
+        <svg class="si-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+    </div>
+
+    <div class="settings-group anim-item" style="animation-delay:0.2s;">
+      <div class="settings-group-title">Preferences</div>
+      <div class="settings-item" onclick="go('darkmode')">
+        <div class="si-icon" style="background:rgba(155,93,229,0.1);color:var(--accent-purple);">🌙</div>
+        <div class="si-label">Dark Mode Settings</div>
+        <svg class="si-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+      <div class="settings-item" onclick="go('language')">
+        <div class="si-icon" style="background:rgba(198,241,53,0.1);color:var(--accent-green);">🌐</div>
+        <div class="si-label">Language Selection</div>
+        <svg class="si-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+    </div>
+
+    <div class="settings-group anim-item" style="animation-delay:0.3s;">
+      <div class="settings-group-title">Support</div>
+      <div class="settings-item" onclick="go('chatbot')">
+        <div class="si-icon" style="background:rgba(254,217,183,0.1);color:var(--accent-orange);">🤖</div>
+        <div class="si-label">Chatbot Assistance</div>
+        <svg class="si-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+      <div class="settings-item" onclick="go('help')">
+        <div class="si-icon" style="background:rgba(79,110,247,0.1);color:var(--accent-blue);">❓</div>
+        <div class="si-label">Help & Support</div>
+        <svg class="si-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+      <div class="settings-item" onclick="go('feedback')">
+        <div class="si-icon" style="background:rgba(247,37,133,0.1);color:var(--accent-pink);">⭐</div>
+        <div class="si-label">Feedback & Rating</div>
+        <svg class="si-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+    </div>
+
+    <div class="settings-group anim-item" style="animation-delay:0.4s;">
+      <div class="settings-item" onclick="go('logout')" style="border:none;">
+        <div class="si-icon" style="background:rgba(255,69,58,0.1);color:#ff453a;">🚪</div>
+        <div class="si-label" style="color:#ff453a;font-weight:700;">Logout</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       2. PROFILE MANAGEMENT
+  =========================================== -->
+  <div class="app-screen" id="s-profile" data-screen="profile">
+    <div class="screen-header">
+      <div class="back-btn" onclick="goBack()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+      <div class="header-title">Profile</div>
+    </div>
+    
+    <div style="display:flex;flex-direction:column;align-items:center;margin-bottom:32px;">
+      <div class="profile-avatar-large">A<div class="edit-badge">✏️</div></div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Full Name</label>
+      <input type="text" class="form-input" value="Alex" placeholder="Enter your name"/>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Email Address</label>
+      <input type="email" class="form-input" value="alex@example.com" placeholder="Enter your email"/>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Phone Number</label>
+      <input type="tel" class="form-input" value="+1 234 567 890" placeholder="Enter your phone"/>
+    </div>
+    <button class="btn btn-primary" style="width:100%;margin-top:16px;" onclick="showToast('Profile updated successfully!', 'success')">Save Changes</button>
+  </div>
+
+  <!-- ==========================================
+       3. NOTIFICATION SETTINGS
+  =========================================== -->
+  <div class="app-screen" id="s-notifications" data-screen="notifications">
+    <div class="screen-header">
+      <div class="back-btn" onclick="goBack()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+      <div class="header-title">Notifications</div>
+    </div>
+
+    <div class="settings-group">
+      <div class="settings-item toggle-item">
+        <div class="si-label">Workout Reminders</div>
+        <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+      </div>
+      <div class="settings-item toggle-item">
+        <div class="si-label">Goal Achievements</div>
+        <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+      </div>
+      <div class="settings-item toggle-item">
+        <div class="si-label">Weekly Reports</div>
+        <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+      </div>
+      <div class="settings-item toggle-item">
+        <div class="si-label">System Updates</div>
+        <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       4. DARK MODE SETTINGS
+  =========================================== -->
+  <div class="app-screen" id="s-darkmode" data-screen="darkmode">
+    <div class="screen-header">
+      <div class="back-btn" onclick="goBack()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+      <div class="header-title">Appearance</div>
+    </div>
+
+    <div class="settings-group">
+      <label class="settings-item radio-item">
+        <div class="si-label">Dark Mode (Neon)</div>
+        <input type="radio" name="theme" value="dark" checked>
+        <div class="radio-indicator"></div>
+      </label>
+      <label class="settings-item radio-item">
+        <div class="si-label">Light Mode</div>
+        <input type="radio" name="theme" value="light">
+        <div class="radio-indicator"></div>
+      </label>
+      <label class="settings-item radio-item">
+        <div class="si-label">System Default</div>
+        <input type="radio" name="theme" value="system">
+        <div class="radio-indicator"></div>
+      </label>
+    </div>
+    
+    <div class="card theme-preview" style="margin-top:24px;">
+      <div style="font-family:var(--font-display);font-weight:700;margin-bottom:8px;color:var(--accent-blue);">Preview</div>
+      <p style="font-size:0.9rem;color:var(--text-secondary);">Your app currently looks like this. Select a theme above to apply changes across the platform.</p>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       5. LANGUAGE SELECTION
+  =========================================== -->
+  <div class="app-screen" id="s-language" data-screen="language">
+    <div class="screen-header">
+      <div class="back-btn" onclick="goBack()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+      <div class="header-title">Language</div>
+    </div>
+
+    <div class="settings-group">
+      <label class="settings-item radio-item">
+        <div class="si-label">English (US)</div>
+        <input type="radio" name="lang" value="en" checked>
+        <div class="radio-indicator"></div>
+      </label>
+      <label class="settings-item radio-item">
+        <div class="si-label">Español</div>
+        <input type="radio" name="lang" value="es">
+        <div class="radio-indicator"></div>
+      </label>
+      <label class="settings-item radio-item">
+        <div class="si-label">Français</div>
+        <input type="radio" name="lang" value="fr">
+        <div class="radio-indicator"></div>
+      </label>
+      <label class="settings-item radio-item">
+        <div class="si-label">Deutsch</div>
+        <input type="radio" name="lang" value="de">
+        <div class="radio-indicator"></div>
+      </label>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       6. HELP & SUPPORT
+  =========================================== -->
+  <div class="app-screen" id="s-help" data-screen="help">
+    <div class="screen-header">
+      <div class="back-btn" onclick="goBack()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+      <div class="header-title">Support</div>
+    </div>
+
+    <h3 style="font-family:var(--font-display);font-size:1.1rem;margin-bottom:16px;">Frequently Asked Questions</h3>
+    
+    <div class="faq-item">
+      <div class="faq-question">How do I connect my smartwatch?</div>
+      <div class="faq-answer">Go to Settings > Devices and tap 'Add Device'. Follow the on-screen instructions to pair via Bluetooth.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Can I change my fitness goals?</div>
+      <div class="faq-answer">Yes, navigate to the Profile screen and tap on 'Goals' to adjust your targets.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">How is the AI recommendation calculated?</div>
+      <div class="faq-answer">Our AI uses your recent sleep data, heart rate variability, and workout history to determine readiness.</div>
+    </div>
+
+    <button class="btn btn-outline" style="width:100%;margin-top:24px;" onclick="showToast('Opening contact form...', 'info')">Contact Us</button>
+  </div>
+
+  <!-- ==========================================
+       7. CHATBOT ASSISTANCE
+  =========================================== -->
+  <div class="app-screen" id="s-chatbot" data-screen="chatbot">
+    <div class="screen-header">
+      <div class="back-btn" onclick="goBack()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+      <div class="header-title">FitBot</div>
+    </div>
+
+    <div class="chat-container">
+      <div class="chat-message bot">
+        <div class="chat-bubble">Hello! I'm FitBot. How can I help you with your fitness journey today?</div>
+      </div>
+      <div class="chat-message user">
+        <div class="chat-bubble">How do I track my water intake?</div>
+      </div>
+      <div class="chat-message bot">
+        <div class="chat-bubble">You can track your water intake on the Dashboard! Just tap the 'Water Intake' card and use the + buttons to log it.</div>
+      </div>
+    </div>
+
+    <div class="chat-input-area">
+      <input type="text" class="chat-input" placeholder="Type a message..."/>
+      <button class="chat-send-btn" onclick="showToast('Message sent!', 'success')">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       8. FEEDBACK & RATING
+  =========================================== -->
+  <div class="app-screen" id="s-feedback" data-screen="feedback">
+    <div class="screen-header">
+      <div class="back-btn" onclick="goBack()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+      <div class="header-title">Feedback</div>
+    </div>
+
+    <div class="card" style="text-align:center;">
+      <h3 style="font-family:var(--font-display);margin-bottom:8px;">Rate Your Experience</h3>
+      <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:24px;">How are you enjoying Fitwave?</p>
+      
+      <div class="star-rating">
+        <span class="star active">★</span>
+        <span class="star active">★</span>
+        <span class="star active">★</span>
+        <span class="star active">★</span>
+        <span class="star">★</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Tell us more</label>
+      <textarea class="form-input" rows="5" placeholder="What do you love? What could we improve?"></textarea>
+    </div>
+    
+    <button class="btn btn-primary" style="width:100%;margin-top:16px;" onclick="showToast('Thank you for your feedback!', 'success'); setTimeout(goBack, 1500);">Submit Feedback</button>
+  </div>
+
+  <!-- ==========================================
+       9. LOGOUT SCREEN
+  =========================================== -->
+  <div class="app-screen" id="s-logout" data-screen="logout">
+    <div class="screen-header">
+      <div class="back-btn" onclick="goBack()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+      <div class="header-title">Logout</div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:60%;">
+      <div style="font-size:4rem;margin-bottom:24px;">👋</div>
+      <h2 style="font-family:var(--font-display);font-size:1.8rem;font-weight:800;margin-bottom:12px;">Leaving so soon?</h2>
+      <p style="color:var(--text-secondary);text-align:center;margin-bottom:32px;">Are you sure you want to log out of your account?</p>
+      
+      <button class="btn btn-outline" style="width:100%;margin-bottom:16px;border-color:#ff453a;color:#ff453a;" onclick="showToast('Logging out...', 'info')">Yes, Log Me Out</button>
+      <button class="btn btn-primary" style="width:100%;" onclick="goBack()">Cancel</button>
+    </div>
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav">
+    <div class="b-nav-item" onclick="window.location.href='dashboard-app.html'">
+      <div class="b-nav-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
+      <div class="b-nav-label">Dash</div>
+    </div>
+    <div class="b-nav-item" onclick="showToast('Workout Module coming in Phase 2!', 'info')">
+      <div class="b-nav-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div>
+      <div class="b-nav-label">Workout</div>
+    </div>
+    <div class="b-nav-item" onclick="showToast('Diet Module coming in Phase 3!', 'info')">
+      <div class="b-nav-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+      <div class="b-nav-label">Diet</div>
+    </div>
+    <div class="b-nav-item active" onclick="window.location.href='settings-app.html'">
+      <div class="b-nav-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div>
+      <div class="b-nav-label">Settings</div>
+    </div>
+  </nav>
+
+</div>
+
+<!-- TOAST -->
+<div class="toast-container" id="toast-container"></div>
+
+<script>
+// ── SPA ROUTING ──
+const historyStack = ['home'];
+
+function go(screenId) {
+  const current = document.getElementById('s-' + historyStack[historyStack.length-1]);
+  const next = document.getElementById('s-' + screenId);
+  if(!next || current === next) return;
+  
+  next.classList.remove('exit');
+  next.classList.add('active');
+  
+  if(current.id !== 's-home') current.classList.add('exit');
+  
+  historyStack.push(screenId);
+}
+
+function goBack() {
+  if(historyStack.length <= 1) return;
+  const currentId = historyStack.pop();
+  const current = document.getElementById('s-' + currentId);
+  current.classList.remove('active');
+  
+  const prevId = historyStack[historyStack.length-1];
+  const prev = document.getElementById('s-' + prevId);
+  prev.classList.remove('exit');
+}
+
+// ── TOAST ──
+function showToast(msg, type='info', duration=3000){
+  const c = document.getElementById('toast-container'); if(!c) return;
+  const t = document.createElement('div'); t.className = `toast ${type}`;
+  t.innerHTML = `<span>${msg}</span>`; c.appendChild(t);
+  setTimeout(()=>{ t.style.opacity='0'; t.style.transform='translateY(8px)'; t.style.transition='0.3s'; setTimeout(()=>t.remove(),300); }, duration);
+}
+
+// ── LOGIC ──
+document.querySelectorAll('.faq-item').forEach(item => {
+  item.addEventListener('click', () => {
+    item.classList.toggle('active');
+  });
+});
+
+document.querySelectorAll('.star').forEach((star, idx) => {
+  star.addEventListener('click', () => {
+    document.querySelectorAll('.star').forEach((s, i) => {
+      if(i <= idx) s.classList.add('active');
+      else s.classList.remove('active');
+    });
+  });
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+  const user = JSON.parse(localStorage.getItem('fw_user') || '{"name":"Alex"}');
+  if(document.getElementById('user-name-display')) {
+    document.getElementById('user-name-display').textContent = user.name;
+  }
+  
+  // Handle direct navigation via hash (e.g. #notifications)
+  if(window.location.hash) {
+    const screenId = window.location.hash.substring(1);
+    if(document.getElementById('s-' + screenId)) {
+      go(screenId);
+    }
+  }
+});
+</script>
+</body>
+</html>

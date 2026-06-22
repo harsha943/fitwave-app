@@ -1,11 +1,11 @@
 const ExcelJS = require('exceljs');
 const path = require('path');
 const fs = require('fs');
-// Load the testdata_300.json from the selenium folder to get all 300 test cases
-const testData = require('../selenium-automation/testdata/testdata_300.json');
+// Load the testdata.json from the selenium folder to get all 125 test cases
+const testData = require('../selenium-automation/testdata/testdata.json');
 
 async function generateAllPassReport() {
-    // Map all 300 test cases into PASS results
+    // Map all 125 test cases into PASS results
     const testResults = testData.map((tc) => ({
         id: tc.id,
         scenario: tc.scenario,

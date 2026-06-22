@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fitwave — Weekly Protocol</title>
+  <meta name="description" content="Your AI-generated weekly workout protocol. Personalized training schedule based on your metabolic profile and goals."/>
+  <link rel="stylesheet" href="css/global.css"/>
+  <link rel="stylesheet" href="css/workout.css"/>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a class="nav-brand" href="landing.html">Fit<span>wave</span></a>
+  <div class="nav-links">
+    <a class="nav-link" href="landing.html">Features</a>
+    <a class="nav-link" href="dashboard.html">Dashboard</a>
+    <a class="nav-link active" href="workout.html">Workout</a>
+    <a class="nav-link" href="plans.html">Plans</a>
+  </div>
+  <div class="nav-actions">
+    <div class="nav-icon-btn" title="Notifications">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+    </div>
+    <a href="profile.html" class="nav-icon-btn" style="text-decoration:none;">
+      <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--accent-blue),var(--accent-purple));display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:800;font-family:var(--font-display);color:#fff;">A</div>
+    </a>
+  </div>
+</nav>
+
+<div class="workout-page">
+
+  <!-- HEADER -->
+  <div class="workout-header">
+    <div class="workout-label">AI-Generated Schedule</div>
+    <h1 class="workout-title">Your Weekly Protocol</h1>
+    <p class="workout-sub">Based on your metabolic profile and goal of <strong>Hypertrophy &amp; Endurance.</strong></p>
+    <div class="level-switcher">
+      <button class="level-btn" id="lvl-beginner" onclick="setLevel('beginner')">Beginner</button>
+      <button class="level-btn active" id="lvl-intermediate" onclick="setLevel('intermediate')">Intermediate</button>
+      <button class="level-btn" id="lvl-advanced" onclick="setLevel('advanced')">Advanced</button>
+    </div>
+  </div>
+
+  <!-- LAYOUT -->
+  <div class="workout-layout">
+
+    <!-- LEFT: Schedule + Insights -->
+    <div class="schedule-panel">
+
+      <!-- This Week -->
+      <div class="week-card">
+        <div class="week-card-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue-2)" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          This Week
+        </div>
+        <div class="day-list" id="day-list">
+          <!-- Days injected by JS -->
+        </div>
+      </div>
+
+      <!-- AI Insights -->
+      <div class="insights-card">
+        <div class="insights-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-purple)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+          AI Insights
+        </div>
+        <div class="insight-item">
+          <div class="insight-item-title">Volume Adjustment</div>
+          <div class="insight-item-text">We've increased your rest times by 15s today because your sleep data indicates a higher cortisol level this morning.</div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-item-title">Progression Path</div>
+          <div class="insight-item-text">Concentric loading on Bench Press is prioritized to overcome the plateau identified in last Wednesday's session.</div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-item-title">Recovery Score</div>
+          <div class="insight-item-text">Your HRV trend shows excellent adaptation. Consider adding an extra working set to compound movements today.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Routine -->
+    <div class="routine-panel">
+
+      <!-- Hero Banner -->
+      <div class="routine-hero">
+        <div style="width:100%;height:100%;background:linear-gradient(135deg,#1a2040,#0d1525,#1c1030);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;">
+          <div style="position:absolute;inset:0;background:radial-gradient(circle at 30% 50%,rgba(79,110,247,0.3),transparent 60%),radial-gradient(circle at 70% 50%,rgba(155,93,229,0.2),transparent 60%);"></div>
+          <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="0.8" style="position:absolute;">
+            <path d="M6 4v16M18 4v16M4 8h4M4 16h4M16 8h4M16 16h4"/>
+          </svg>
+        </div>
+        <div class="routine-hero-overlay">
+          <h2 class="routine-hero-title" id="routine-title">Today's Routine: Push Power</h2>
+          <div class="routine-hero-chips">
+            <span class="routine-chip">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              45 MIN
+            </span>
+            <span class="routine-chip">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              380 KCAL
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Exercise List -->
+      <div class="exercise-card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;">
+          <h3 style="font-family:var(--font-display);font-size:1.05rem;font-weight:700;">Exercises</h3>
+          <span class="badge badge-blue">6 Exercises</span>
+        </div>
+        <div class="exercise-list" id="exercise-list">
+          <!-- Injected by JS -->
+        </div>
+      </div>
+
+      <!-- Footer CTA -->
+      <div class="routine-footer">
+        <div class="routine-readiness">
+          <div class="readiness-dot"></div>
+          Current Goal: <strong style="color:var(--text-primary);margin-left:2px;">92% ready</strong>
+        </div>
+        <button class="btn btn-primary" onclick="startSession()" id="btn-start-session" style="gap:10px;">
+          START SESSION
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  <span class="footer-brand">Fit<span style="color:var(--accent-blue);">wave</span> AI</span>
+  <span class="footer-copy">© 2024 Fitwave AI. All rights reserved.</span>
+  <div class="footer-links">
+    <a href="#">Support</a><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Contact</a>
+  </div>
+</footer>
+
+<div class="toast-container" id="toast-container"></div>
+<script type="module" src="js/workout.js"></script>
+</body>
+</html>

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>Fitwave — Workout Module</title>
+  <link rel="stylesheet" href="css/global.css"/>
+  <link rel="stylesheet" href="css/workout-app.css"/>
+</head>
+<body>
+
+<div id="app-container">
+
+  <!-- ==========================================
+       1. WORKOUT DASHBOARD (ROOT)
+  =========================================== -->
+  <div class="app-screen root active" id="s-home" data-screen="home">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+      <div>
+        <div style="font-size:0.8rem;color:var(--text-muted);font-weight:600;text-transform:uppercase;">Training</div>
+        <h1 style="font-family:var(--font-display);font-size:1.6rem;font-weight:800;">Workout Engine</h1>
+      </div>
+      <div style="width:40px;height:40px;border-radius:var(--radius-md);background:var(--bg-secondary);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </div>
+    </div>
+
+    <div class="card anim-item" style="padding:0;min-height:180px;display:flex;flex-direction:column;justify-content:flex-end;" onclick="go('plan-gym')">
+      <div class="card-img-bg" style="background-image:url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=80');"></div>
+      <div class="card-overlay"></div>
+      <div class="card-content" style="padding:20px;">
+        <span class="tag blue">AI Daily Pick</span>
+        <h3 style="font-family:var(--font-display);font-size:1.4rem;font-weight:800;margin-bottom:4px;">Push Day: Hypertrophy</h3>
+        <div style="display:flex;gap:12px;font-size:0.8rem;color:var(--text-muted);">
+          <span>⏱ 45 Min</span><span>🔥 420 kcal</span><span>💪 Intermediate</span>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="font-family:var(--font-display);font-size:1.1rem;margin:24px 0 12px;">Difficulty Levels</h3>
+    <div class="cat-grid anim-item" style="animation-delay:0.1s;">
+      <div class="cat-card" onclick="go('lvl-beginner')"><div class="cat-icon">🌱</div><div class="cat-title">Beginner</div><div style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">Learn the basics</div></div>
+      <div class="cat-card" onclick="go('lvl-inter')"><div class="cat-icon">🔥</div><div class="cat-title">Intermediate</div><div style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">Push harder</div></div>
+      <div class="cat-card" onclick="go('lvl-adv')" style="grid-column: span 2;"><div class="cat-icon">⚡</div><div class="cat-title">Advanced</div><div style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">Maximal output</div></div>
+    </div>
+
+    <h3 style="font-family:var(--font-display);font-size:1.1rem;margin:24px 0 12px;">Categories</h3>
+    <div class="cat-grid anim-item" style="animation-delay:0.2s;">
+      <div class="cat-card" onclick="go('cat-gym')"><div class="cat-icon">🏋️</div><div class="cat-title">Gym Plan</div></div>
+      <div class="cat-card" onclick="go('cat-home')"><div class="cat-icon">🏠</div><div class="cat-title">Home Workout</div></div>
+      <div class="cat-card" onclick="go('cat-yoga')"><div class="cat-icon">🧘</div><div class="cat-title">Yoga & Mobility</div></div>
+      <div class="cat-card" onclick="go('cat-cardio')"><div class="cat-icon">🏃</div><div class="cat-title">Cardio HIIT</div></div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       2-4. LEVEL / CATEGORY LISTING (Reusable Layout)
+  =========================================== -->
+  <div class="app-screen" id="s-list-view" data-screen="list-view">
+    <div class="screen-header">
+      <div class="header-left">
+        <div class="back-btn" onclick="goBack()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+        <div class="header-title" id="list-title">Workouts</div>
+      </div>
+    </div>
+
+    <div class="ex-list" id="dynamic-list">
+      <!-- Populated via JS based on category clicked -->
+    </div>
+  </div>
+
+  <!-- ==========================================
+       5-9. WORKOUT PLAN OVERVIEW
+  =========================================== -->
+  <div class="app-screen" id="s-plan-gym" data-screen="plan-gym">
+    <div style="margin:-24px -24px 24px;position:relative;height:240px;">
+      <div class="card-img-bg" style="background-image:url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=80');opacity:0.6;"></div>
+      <div class="card-overlay" style="background:linear-gradient(0deg, var(--bg-primary) 0%, transparent 100%);"></div>
+      <div class="back-btn" style="position:absolute;top:24px;left:24px;z-index:10;background:rgba(0,0,0,0.5);border:none;" onclick="goBack()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+      <div style="position:absolute;bottom:20px;left:24px;z-index:10;">
+        <span class="tag blue">AI Personalized</span>
+        <h1 style="font-family:var(--font-display);font-size:2rem;font-weight:900;line-height:1.1;margin-bottom:8px;">Push Day:<br/>Hypertrophy</h1>
+        <div style="display:flex;gap:16px;font-size:0.85rem;color:var(--text-muted);font-weight:600;">
+          <span>⏱ 45 Min</span><span>🔥 420 kcal</span><span>💪 Inter</span>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn btn-primary" style="margin-bottom:24px;" onclick="go('live-session')">▶ Start Session</button>
+    <button class="btn btn-ghost" style="margin-bottom:32px;" onclick="go('ai-form')">📷 Test AI Form Check</button>
+
+    <h3 style="font-family:var(--font-display);font-size:1.1rem;margin-bottom:12px;">6 Exercises</h3>
+    <div class="ex-list">
+      <div class="ex-item anim-item" onclick="go('ex-detail')">
+        <div class="ex-img" style="background-image:url('https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=150&q=80');"><div class="ex-play">▶</div></div>
+        <div class="ex-info">
+          <div class="ex-name">Barbell Bench Press</div>
+          <div class="ex-meta"><span>4 Sets</span><span>8-10 Reps</span></div>
+        </div>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+      <div class="ex-item anim-item" style="animation-delay:0.1s;" onclick="go('ex-detail')">
+        <div class="ex-img" style="background-image:url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=150&q=80');"><div class="ex-play">▶</div></div>
+        <div class="ex-info">
+          <div class="ex-name">Incline Dumbbell Press</div>
+          <div class="ex-meta"><span>3 Sets</span><span>10-12 Reps</span></div>
+        </div>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+      <div class="ex-item anim-item" style="animation-delay:0.2s;">
+        <div class="ex-img" style="background-image:url('https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=150&q=80');"><div class="ex-play">▶</div></div>
+        <div class="ex-info">
+          <div class="ex-name">Cable Crossovers</div>
+          <div class="ex-meta"><span>3 Sets</span><span>15 Reps</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       10-11. EXERCISE DETAIL & VIDEO
+  =========================================== -->
+  <div class="app-screen" id="s-ex-detail" data-screen="ex-detail">
+    <div class="screen-header">
+      <div class="header-left">
+        <div class="back-btn" onclick="goBack()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+        <div class="header-title">Detail</div>
+      </div>
+    </div>
+
+    <div class="video-wrap anim-item" onclick="playVideo()">
+      <div class="card-img-bg" style="background-image:url('https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=600&q=80');opacity:0.8;"></div>
+      <div class="video-overlay" id="vid-overlay">
+        <button class="play-btn-lg">▶</button>
+      </div>
+    </div>
+
+    <h1 style="font-family:var(--font-display);font-size:1.8rem;font-weight:800;margin-bottom:8px;" class="anim-item">Barbell Bench Press</h1>
+    <div style="display:flex;gap:12px;margin-bottom:24px;" class="anim-item">
+      <span class="tag blue">Chest</span><span class="tag pink">Triceps</span><span class="tag green">Shoulders</span>
+    </div>
+
+    <div class="card anim-item">
+      <h3 style="font-family:var(--font-display);font-size:1.1rem;margin-bottom:12px;">AI Form Tips</h3>
+      <ul style="padding-left:20px;color:var(--text-secondary);font-size:0.9rem;line-height:1.6;display:flex;flex-direction:column;gap:8px;">
+        <li>Keep your feet planted firmly on the ground.</li>
+        <li>Maintain a slight arch in your lower back.</li>
+        <li>Squeeze your shoulder blades together.</li>
+        <li>Lower the bar slowly to the middle of your chest.</li>
+      </ul>
+    </div>
+    
+    <button class="btn btn-ghost" onclick="go('timer')">Start Rest Timer ⏱</button>
+  </div>
+
+  <!-- ==========================================
+       12. LIVE WORKOUT SESSION (FULLSCREEN)
+  =========================================== -->
+  <div class="app-screen full-screen" id="s-live-session" data-screen="live-session">
+    <div class="live-bg"></div>
+    <div class="live-overlay">
+      <div class="live-top">
+        <div class="back-btn" style="background:rgba(0,0,0,0.5);border:none;" onclick="goBack()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+        <div class="live-metrics">
+          <div class="l-metric"><div class="l-val" style="color:var(--accent-pink);">148</div><div class="l-lbl">BPM</div></div>
+          <div class="l-metric"><div class="l-val" style="color:var(--accent-orange);">210</div><div class="l-lbl">KCAL</div></div>
+        </div>
+      </div>
+      
+      <div style="text-align:center;">
+        <div style="font-size:1rem;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.1em;font-weight:700;margin-bottom:8px;">Current Exercise</div>
+        <h1 style="font-family:var(--font-display);font-size:2.5rem;font-weight:900;color:#fff;margin-bottom:8px;">Bench Press</h1>
+        <div style="font-size:1.4rem;color:var(--accent-green);font-weight:700;">Set 2 of 4 · 10 Reps</div>
+        
+        <div style="display:flex;gap:12px;margin-top:32px;">
+          <button class="btn btn-ghost" style="flex:1;background:rgba(0,0,0,0.5);" onclick="go('timer')">Rest</button>
+          <button class="btn btn-primary" style="flex:2;" onclick="showToast('Set Complete!','success')">Log Set</button>
+        </div>
+        <button class="btn btn-ghost" style="width:100%;margin-top:12px;border-color:var(--accent-pink);color:var(--accent-pink);" onclick="go('complete')">End Workout</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       13. AI FORM CORRECTION
+  =========================================== -->
+  <div class="app-screen full-screen" id="s-ai-form" data-screen="ai-form">
+    <div class="live-bg" style="background-image:url('https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=800&q=80');"></div>
+    <div class="live-overlay" style="background:rgba(0,0,0,0.4);">
+      <div class="live-top">
+        <div class="back-btn" style="background:rgba(0,0,0,0.5);border:none;" onclick="goBack()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+        <div class="tag green" style="background:rgba(198,241,53,0.8);color:#000;">AI Camera Active</div>
+      </div>
+      
+      <div class="ai-form-box">
+        <div class="ai-form-msg">Adjust elbow flare inward!</div>
+      </div>
+
+      <div style="text-align:center;">
+        <h1 style="font-family:var(--font-display);font-size:2rem;font-weight:900;color:#fff;margin-bottom:8px;">Squat Analysis</h1>
+        <p style="color:rgba(255,255,255,0.8);font-size:0.9rem;margin-bottom:24px;">AI is tracking your joint angles in real-time.</p>
+        <button class="btn btn-primary" onclick="goBack()">Stop Tracking</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       14. WORKOUT TIMER
+  =========================================== -->
+  <div class="app-screen" id="s-timer" data-screen="timer">
+    <div class="screen-header">
+      <div class="header-left">
+        <div class="back-btn" onclick="goBack()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+        <div class="header-title">Rest</div>
+      </div>
+    </div>
+
+    <div class="timer-circle anim-item">
+      <svg style="position:absolute;inset:-8px;width:calc(100% + 16px);height:calc(100% + 16px);transform:rotate(-90deg);">
+        <circle cx="120" cy="120" r="116" fill="none" stroke="var(--accent-blue)" stroke-width="8" stroke-dasharray="728" id="timer-ring"/>
+      </svg>
+      <div class="timer-val" id="timer-display">01:30</div>
+      <div class="timer-lbl">Remaining</div>
+    </div>
+
+    <div style="display:flex;gap:16px;justify-content:center;" class="anim-item" style="animation-delay:0.1s;">
+      <button class="btn btn-ghost" style="width:auto;border-radius:50%;width:60px;height:60px;padding:0;" onclick="addTimer(-15)">-15s</button>
+      <button class="btn btn-ghost" style="width:auto;border-radius:50%;width:60px;height:60px;padding:0;" onclick="addTimer(15)">+15s</button>
+    </div>
+    
+    <button class="btn btn-primary anim-item" style="margin-top:40px;" onclick="goBack()">Skip Rest</button>
+  </div>
+
+  <!-- ==========================================
+       15-16. WORKOUT COMPLETION
+  =========================================== -->
+  <div class="app-screen" id="s-complete" data-screen="complete">
+    <div style="text-align:center;padding-top:40px;" class="anim-item">
+      <div class="confetti">🏆</div>
+      <h1 style="font-family:var(--font-display);font-size:2.5rem;font-weight:900;color:var(--accent-green);margin:16px 0 8px;">Workout Complete!</h1>
+      <p style="color:var(--text-secondary);margin-bottom:32px;">You crushed it today. Your AI coach has logged the data to optimize tomorrow's recovery.</p>
+    </div>
+
+    <div class="card anim-item" style="animation-delay:0.1s;">
+      <div style="display:flex;justify-content:space-around;text-align:center;padding:10px 0;">
+        <div><div style="font-family:var(--font-display);font-size:1.8rem;font-weight:900;">45</div><div style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;">Minutes</div></div>
+        <div><div style="font-family:var(--font-display);font-size:1.8rem;font-weight:900;color:var(--accent-pink);">420</div><div style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;">Kcal</div></div>
+        <div><div style="font-family:var(--font-display);font-size:1.8rem;font-weight:900;color:var(--accent-purple);">6,400</div><div style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;">Vol (kg)</div></div>
+      </div>
+    </div>
+
+    <button class="btn btn-primary anim-item" style="animation-delay:0.2s;" onclick="go('home')">Return to Workout Hub</button>
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav">
+    <div class="b-nav-item" onclick="window.location.href='dashboard-app.html'">
+      <div class="b-nav-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
+      <div class="b-nav-label">Dash</div>
+    </div>
+    <div class="b-nav-item active" onclick="go('home')">
+      <div class="b-nav-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div>
+      <div class="b-nav-label">Workout</div>
+    </div>
+    <div class="b-nav-item" onclick="showToast('Diet Module coming in Phase 3!', 'info')">
+      <div class="b-nav-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+      <div class="b-nav-label">Diet</div>
+    </div>
+  </nav>
+
+</div>
+
+<!-- TOAST -->
+<div class="toast-container" id="toast-container"></div>
+
+<script>
+// ── SPA ROUTING ──
+const historyStack = ['home'];
+
+function go(screenId, title = '') {
+  const current = document.getElementById('s-' + historyStack[historyStack.length-1]);
+  const next = document.getElementById('s-' + screenId);
+  if(!next || current === next) return;
+  
+  if(screenId === 'list-view') populateList(title);
+  
+  next.classList.remove('exit');
+  next.classList.add('active');
+  
+  if(current.id !== 's-home') current.classList.add('exit');
+  historyStack.push(screenId);
+}
+
+function goBack() {
+  if(historyStack.length <= 1) return;
+  const currentId = historyStack.pop();
+  const current = document.getElementById('s-' + currentId);
+  current.classList.remove('active');
+  
+  const prevId = historyStack[historyStack.length-1];
+  const prev = document.getElementById('s-' + prevId);
+  prev.classList.remove('exit');
+}
+
+// ── LIST GENERATOR ──
+function populateList(category) {
+  document.getElementById('list-title').textContent = category;
+  const wrap = document.getElementById('dynamic-list');
+  wrap.innerHTML = '';
+  
+  const items = [
+    {n:'Full Body Basics', t:'45m', l:'Beginner'},
+    {n:'Core Crusher', t:'20m', l:'All Levels'},
+    {n:'Upper Body Strength', t:'50m', l:'Intermediate'},
+    {n:'HIIT Cardio Blast', t:'30m', l:'Advanced'},
+    {n:'Mobility Flow', t:'25m', l:'Beginner'}
+  ];
+  
+  items.forEach((item, i) => {
+    wrap.innerHTML += `
+      <div class="ex-item anim-item" style="animation-delay:${i*0.1}s" onclick="go('plan-gym')">
+        <div class="ex-img" style="background-image:url('https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=150&q=80');"></div>
+        <div class="ex-info">
+          <div class="ex-name">${item.n}</div>
+          <div class="ex-meta"><span>⏱ ${item.t}</span><span>💪 ${item.l}</span></div>
+        </div>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+    `;
+  });
+}
+
+// Intercept specific category clicks
+document.querySelectorAll('.cat-card').forEach(c => {
+  c.addEventListener('click', function(e) {
+    if(!this.getAttribute('onclick').includes('go(')) return;
+    e.stopPropagation();
+    const txt = this.querySelector('.cat-title').textContent;
+    go('list-view', txt);
+  });
+});
+
+// ── TOAST ──
+function showToast(msg, type='info', duration=3000){
+  const c = document.getElementById('toast-container'); if(!c) return;
+  const t = document.createElement('div'); t.className = `toast ${type}`;
+  t.innerHTML = `<span>${msg}</span>`; c.appendChild(t);
+  setTimeout(()=>{ t.style.opacity='0'; t.style.transform='translateY(8px)'; t.style.transition='0.3s'; setTimeout(()=>t.remove(),300); }, duration);
+}
+
+// ── VIDEO PLAY ──
+function playVideo() {
+  const o = document.getElementById('vid-overlay');
+  o.innerHTML = '<div style="font-size:0.8rem;color:#fff;background:rgba(0,0,0,0.7);padding:8px 16px;border-radius:20px;">Playing Video...</div>';
+  setTimeout(()=>o.style.opacity='0', 2000);
+}
+
+// ── TIMER ──
+let tSecs = 90;
+function addTimer(s) {
+  tSecs = Math.max(0, tSecs + s);
+  updateTimerUI();
+}
+function updateTimerUI() {
+  const m = String(Math.floor(tSecs/60)).padStart(2,'0');
+  const s = String(tSecs%60).padStart(2,'0');
+  document.getElementById('timer-display').textContent = `${m}:${s}`;
+}
+
+</script>
+</body>
+</html>

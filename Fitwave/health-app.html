@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>Fitwave — Health Module</title>
+  <link rel="stylesheet" href="css/global.css"/>
+  <link rel="stylesheet" href="css/health-app.css"/>
+</head>
+<body>
+
+<div id="app-container">
+
+  <!-- ==========================================
+       1. HEALTH HOME (ROOT)
+  =========================================== -->
+  <div class="app-screen active" id="s-home" data-screen="home">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+      <div>
+        <h1 style="font-family:var(--font-display);font-size:1.8rem;font-weight:800;letter-spacing:-0.5px;">My Health</h1>
+        <div style="font-size:0.85rem;color:var(--text-muted);font-weight:500;">Your vital statistics, beautifully visualised.</div>
+      </div>
+    </div>
+
+    <!-- Main Banner: Real-Time Overview Link -->
+    <div class="glass-card neon-box-blue" onclick="go('realtime')" style="cursor:pointer; margin-bottom: 24px;">
+      <div style="display:flex;align-items:center;gap:16px;">
+        <div style="font-size:2.5rem; filter:drop-shadow(0 0 10px rgba(79,110,247,0.8));">🫀</div>
+        <div style="flex:1;">
+          <h3 class="neon-text-blue" style="font-size:1.2rem;margin-bottom:4px;">Real-Time Analysis</h3>
+          <p style="font-size:0.8rem;color:var(--text-secondary);">Live vitals and immediate health status.</p>
+        </div>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+    </div>
+
+    <div class="health-grid">
+      <div class="health-module-btn" onclick="go('bp')">
+        <div class="hm-icon">🩸</div>
+        <div class="hm-title">Blood Pressure</div>
+      </div>
+      <div class="health-module-btn" onclick="go('sugar')">
+        <div class="hm-icon">🍬</div>
+        <div class="hm-title">Sugar Level</div>
+      </div>
+      <div class="health-module-btn" onclick="go('stress')">
+        <div class="hm-icon">🧘‍♂️</div>
+        <div class="hm-title">Stress Monitor</div>
+      </div>
+      <div class="health-module-btn" onclick="go('steps')">
+        <div class="hm-icon">👟</div>
+        <div class="hm-title">Step Counter</div>
+      </div>
+      <div class="health-module-btn" onclick="go('alerts')">
+        <div class="hm-icon">⚠️</div>
+        <div class="hm-title">Health Alerts</div>
+      </div>
+      <div class="health-module-btn" onclick="go('weekly')">
+        <div class="hm-icon">📅</div>
+        <div class="hm-title">Weekly Report</div>
+      </div>
+      <div class="health-module-btn" onclick="go('monthly')">
+        <div class="hm-icon">📊</div>
+        <div class="hm-title">Monthly Report</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       1. REAL-TIME HEALTH ANALYSIS
+  =========================================== -->
+  <div class="app-screen" id="s-realtime" data-screen="realtime">
+    <div class="screen-header">
+      <div class="back-btn" onclick="goBack()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+      <div class="header-title neon-text-blue">Live Analysis</div>
+    </div>
+
+    <div class="glass-card">
+      <div style="text-align:center;margin-bottom:20px;">
+        <div style="font-size:4rem; margin-bottom:10px; animation: pulse-ring 1.5s infinite; display:inline-block;">💓</div>
+        <h2 class="neon-text-pink" style="font-size:2.5rem;line-height:1;" id="rt-hr">72 <span style="font-size:1rem;color:var(--text-muted);">BPM</span></h2>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">SpO2 (Oxygen)</span>
+        <span class="stat-value neon-text-green">98%</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Body Temp</span>
+        <span class="stat-value text-primary">36.6 °C</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Respiration Rate</span>
+        <span class="stat-value text-primary">16 /min</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       2. BLOOD PRESSURE TRACKER
+  =========================================== -->
+  <div class="app-screen" id="s-bp" data-screen="bp">
+    <div class="screen-header">
+      <div class="back-btn" onclick="goBack()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+      <div class="header-title neon-text-pink">Blood Pressure</div>
+    </div>
+
+    <div class="glass-card neon-box-pink">
+      <div style="text-align:center; margin-bottom: 20px;">
+        <div style="font-size:0.9rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px;">Latest Reading</div>
+        <div style="font-family:var(--font-display); font-size:3rem; font-weight:900; color:#fff; text-shadow: 0 0 15px var(--accent-pink);">118 <span style="font-size:1.5rem;color:var(--text-secondary);">/ 78</span></div>
+        <div style="font-size:0.85rem; color:var(--accent-green); margin-top:5px;">Optimal Range</div>
+      </div>
+
+      <div class="chart-placeholder">
+        <div class="chart-bar-container">
+          <!-- Mock Chart -->
+          <div class="chart-bar" style="height:60%; background:var(--accent-pink); opacity:0.8;"></div>
+          <div class="chart-bar" style="height:65%; background:var(--accent-pink); opacity:0.8;"></div>
+          <div class="chart-bar" style="height:58%; background:var(--accent-pink); opacity:0.8;"></div>
+          <div class="chart-bar" style="height:62%; background:var(--accent-pink); opacity:0.8;"></div>
+          <div class="chart-bar" style="height:55%; background:var(--accent-pink); box-shadow: 0 0 15px var(--accent-pink);"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       3. SUGAR LEVEL TRACKER
+  =========================================== -->
+  <div class="app-screen" id="s-sugar" data-screen="sugar">
+    <div class="screen-header">
+      <div class="back-btn" onclick="goBack()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+      <div class="header-title" style="color:#ffb703; text-shadow:0 0 10px rgba(255,183,3,0.5);">Sugar Level</div>
+    </div>
+
+    <div class="glass-card">
+      <div class="stat-row" style="border:none;">
+        <div>
+          <div class="stat-label">Fasting Blood Sugar</div>
+          <div class="stat-value" style="font-size:2rem; color:#ffb703;">92 <span style="font-size:0.9rem; color:var(--text-muted);">mg/dL</span></div>
+        </div>
+        <div style="width:60px;height:60px;border-radius:50%;border:4px solid #ffb703;display:flex;align-items:center;justify-content:center;font-size:1.5rem;">🍬</div>
+      </div>
+      <p style="font-size:0.85rem; color:var(--text-secondary); margin-top:10px;">Your glucose levels are perfectly stabilized today.</p>
+    </div>
+
+    <button class="btn btn-primary btn-full" style="background:#ffb703; color:#000; box-shadow: 0 4px 15px rgba(255,183,3,0.4);" onclick="showToast('Log Saved!', 'success')">+ Log Measurement</button>
+  </div>
+
+  <!-- ==========================================
+       4. STRESS MONITORING
+  =========================================== -->
+  <div class="app-screen" id="s-stress" data-screen="stress">
+    <div class="screen-header">
+      <div class="back-btn" onclick="goBack()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+      <div class="header-title" style="color:var(--accent-purple); text-shadow:0 0 10px rgba(155,93,229,0.5);">Stress Monitor</div>
+    </div>
+
+    <div class="glass-card" style="text-align:center;">
+      <h3 style="font-family:var(--font-display); font-weight:600; margin-bottom:20px;">Current Stress Score</h3>
+      <div style="position:relative; width:160px; height:160px; margin:0 auto; display:flex; align-items:center; justify-content:center; border-radius:50%; background:conic-gradient(var(--accent-purple) 35%, rgba(255,255,255,0.05) 0%); box-shadow: 0 0 25px rgba(155,93,229,0.3);">
+        <div style="position:absolute; inset:8px; background:var(--bg-card); border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+          <div style="font-size:3rem; font-weight:800; font-family:var(--font-display); color:var(--text-primary);">35</div>
+          <div style="font-size:0.8rem; color:var(--accent-green);">Low</div>
+        </div>
+      </div>
+      <p style="font-size:0.85rem; color:var(--text-secondary); margin-top:20px;">You're feeling relaxed. Keep up the good vibes!</p>
+      <button class="btn btn-ghost" style="margin-top:16px; border-color:var(--accent-purple); color:var(--text-primary);">Start Breathing Exercise</button>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       5. STEP COUNTER
+  =========================================== -->
+  <div class="app-screen" id="s-steps" data-screen="steps">
+    <div class="screen-header">
+      <div class="back-btn" onclick="goBack()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+      <div class="header-title neon-text-green">Step Counter</div>
+    </div>
+
+    <div class="glass-card neon-box-green" style="padding:40px 20px; text-align:center;">
+      <div class="step-circle">
+        <div style="font-size:3.5rem; font-family:var(--font-display); font-weight:900; color:var(--text-primary); text-shadow:0 0 10px rgba(255,255,255,0.5);">8,432</div>
+        <div style="font-size:0.9rem; color:var(--accent-green); font-weight:600; text-transform:uppercase;">Steps Today</div>
+      </div>
+      
+      <div style="display:flex; justify-content:space-around; margin-top:40px;">
+        <div>
+          <div style="font-size:1.5rem; font-weight:700;">6.2 <span style="font-size:0.8rem; color:var(--text-muted);">km</span></div>
+          <div style="font-size:0.75rem; color:var(--text-secondary);">Distance</div>
+        </div>
+        <div>
+          <div style="font-size:1.5rem; font-weight:700;">340 <span style="font-size:0.8rem; color:var(--text-muted);">kcal</span></div>
+          <div style="font-size:0.75rem; color:var(--text-secondary);">Burned</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       6. HEALTH ALERTS
+  =========================================== -->
+  <div class="app-screen" id="s-alerts" data-screen="alerts">
+    <div class="screen-header">
+      <div class="back-btn" onclick="goBack()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+      <div class="header-title" style="color:var(--text-primary);">Health Alerts</div>
+    </div>
+
+    <div class="glass-card alert-card warning">
+      <h4 style="color:#ffb703; margin-bottom:4px;">Elevated Heart Rate Detected</h4>
+      <p style="font-size:0.85rem; color:var(--text-secondary);">Your resting heart rate was unusually high at 3:00 AM.</p>
+      <div style="font-size:0.75rem; color:var(--text-muted); margin-top:8px;">2 hours ago</div>
+    </div>
+
+    <div class="glass-card alert-card info">
+      <h4 style="color:var(--accent-blue); margin-bottom:4px;">Hydration Reminder</h4>
+      <p style="font-size:0.85rem; color:var(--text-secondary);">You're 20% behind your daily water intake goal.</p>
+      <div style="font-size:0.75rem; color:var(--text-muted); margin-top:8px;">4 hours ago</div>
+    </div>
+
+    <div class="glass-card alert-card">
+      <h4 style="color:var(--accent-pink); margin-bottom:4px;">Incomplete Sleep Cycle</h4>
+      <p style="font-size:0.85rem; color:var(--text-secondary);">You woke up during deep sleep. Consider adjusting your alarm.</p>
+      <div style="font-size:0.75rem; color:var(--text-muted); margin-top:8px;">Yesterday</div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       7. WEEKLY HEALTH REPORT
+  =========================================== -->
+  <div class="app-screen" id="s-weekly" data-screen="weekly">
+    <div class="screen-header">
+      <div class="back-btn" onclick="goBack()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+      <div class="header-title">Weekly Report</div>
+    </div>
+
+    <div class="glass-card">
+      <h3 style="font-size:1.1rem; margin-bottom:16px;">Activity Consistency</h3>
+      <div class="chart-placeholder" style="height: 180px;">
+        <div class="chart-bar-container">
+          <div class="chart-bar" style="height:30%; background:var(--accent-blue);"></div>
+          <div class="chart-bar" style="height:50%; background:var(--accent-blue);"></div>
+          <div class="chart-bar" style="height:80%; background:var(--accent-blue);"></div>
+          <div class="chart-bar" style="height:40%; background:var(--accent-blue);"></div>
+          <div class="chart-bar" style="height:90%; background:var(--accent-green); box-shadow:0 0 10px rgba(198,241,53,0.5);"></div>
+          <div class="chart-bar" style="height:60%; background:var(--accent-blue);"></div>
+          <div class="chart-bar" style="height:70%; background:var(--accent-blue);"></div>
+        </div>
+      </div>
+      <div style="display:flex; justify-content:space-between; margin-top:10px; font-size:0.75rem; color:var(--text-muted);">
+        <span>M</span><span>T</span><span>W</span><span>T</span><span style="color:var(--accent-green); font-weight:bold;">F</span><span>S</span><span>S</span>
+      </div>
+    </div>
+
+    <div class="glass-card">
+      <h3 style="font-size:1.1rem; margin-bottom:10px;">Weekly Insights</h3>
+      <ul style="font-size:0.85rem; color:var(--text-secondary); line-height:1.6; padding-left:16px; list-style-type:disc;">
+        <li>Average sleep increased by 45 mins.</li>
+        <li>Active calories up 12% compared to last week.</li>
+        <li>Resting HR is trending downwards (Good!).</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       8. MONTHLY HEALTH REPORT
+  =========================================== -->
+  <div class="app-screen" id="s-monthly" data-screen="monthly">
+    <div class="screen-header">
+      <div class="back-btn" onclick="goBack()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+      <div class="header-title">Monthly Report</div>
+    </div>
+
+    <div class="glass-card neon-box-blue">
+      <h3 style="font-size:1.1rem; margin-bottom:16px;">Overall Wellness Trend</h3>
+      <div class="chart-placeholder" style="height: 200px;">
+        <svg viewBox="0 0 100 50" style="width:100%; height:100%; overflow:visible;">
+          <defs>
+            <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="rgba(247,37,133,0.5)" />
+              <stop offset="100%" stop-color="rgba(247,37,133,0)" />
+            </linearGradient>
+          </defs>
+          <path d="M0,40 Q10,30 20,35 T40,20 T60,25 T80,10 T100,5 L100,50 L0,50 Z" fill="url(#lineGrad)"/>
+          <path d="M0,40 Q10,30 20,35 T40,20 T60,25 T80,10 T100,5" fill="none" stroke="var(--accent-pink)" stroke-width="2" style="filter:drop-shadow(0 0 5px rgba(247,37,133,0.8));" />
+          <circle cx="100" cy="5" r="2" fill="#fff" style="filter:drop-shadow(0 0 4px #fff);" />
+        </svg>
+      </div>
+      <p style="font-size:0.85rem; color:var(--text-secondary); margin-top:16px; text-align:center;">Your overall wellness score has improved by 18% this month. Phenomenal progress!</p>
+    </div>
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav">
+    <div class="b-nav-item" onclick="window.location.href='dashboard-app.html'">
+      <div class="b-nav-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
+      <div class="b-nav-label">Dash</div>
+    </div>
+    <div class="b-nav-item" onclick="showToast('Workout Module coming in Phase 2!', 'info')">
+      <div class="b-nav-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div>
+      <div class="b-nav-label">Workout</div>
+    </div>
+    <div class="b-nav-item" onclick="showToast('Diet Module coming in Phase 3!', 'info')">
+      <div class="b-nav-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+      <div class="b-nav-label">Diet</div>
+    </div>
+    <div class="b-nav-item active" onclick="go('home')">
+      <div class="b-nav-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+      <div class="b-nav-label">Health</div>
+    </div>
+  </nav>
+
+</div>
+
+<!-- TOAST -->
+<div class="toast-container" id="toast-container"></div>
+
+<script>
+// ── SPA ROUTING ──
+const historyStack = ['home'];
+
+function go(screenId) {
+  const currentId = historyStack[historyStack.length-1];
+  const current = document.getElementById('s-' + currentId);
+  const next = document.getElementById('s-' + screenId);
+  if(!next || current === next) return;
+  
+  next.classList.remove('exit');
+  next.classList.add('active');
+  
+  if(current.id !== 's-home') current.classList.add('exit');
+  current.classList.remove('active');
+  
+  historyStack.push(screenId);
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function goBack() {
+  if(historyStack.length <= 1) return;
+  const currentId = historyStack.pop();
+  const current = document.getElementById('s-' + currentId);
+  current.classList.remove('active');
+  
+  const prevId = historyStack[historyStack.length-1];
+  const prev = document.getElementById('s-' + prevId);
+  prev.classList.add('active');
+  prev.classList.remove('exit');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+// ── TOAST ──
+function showToast(msg, type='info', duration=3000){
+  const c = document.getElementById('toast-container'); if(!c) return;
+  const t = document.createElement('div'); t.className = `toast ${type}`;
+  t.innerHTML = `<span>${msg}</span>`; c.appendChild(t);
+  setTimeout(()=>{ t.style.opacity='0'; t.style.transform='translateY(8px)'; t.style.transition='0.3s'; setTimeout(()=>t.remove(),300); }, duration);
+}
+
+// ── LOGIC ──
+setInterval(()=>{
+  const el = document.getElementById('rt-hr');
+  if(el && document.getElementById('s-realtime').classList.contains('active')) {
+    const base = 72;
+    const pulse = base + Math.floor(Math.random()*6) - 3;
+    el.innerHTML = `${pulse} <span style="font-size:1rem;color:var(--text-muted);">BPM</span>`;
+  }
+}, 2000);
+</script>
+</body>
+</html>

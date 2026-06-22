@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fitwave — Dashboard</title>
+  <meta name="description" content="Fitwave AI Dashboard — Your personal fitness command center with real-time health analytics."/>
+  <link rel="stylesheet" href="css/global.css"/>
+  <link rel="stylesheet" href="css/dashboard-app.css"/>
+</head>
+<body>
+
+<div id="web-layout">
+
+  <!-- ══════════════════════════════════════
+       SIDEBAR NAVIGATION
+  ═══════════════════════════════════════ -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="sidebar-brand-icon">⚡</div>
+      Fit<span>wave</span>
+    </div>
+
+    <div class="sidebar-nav">
+      <div class="sidebar-section-label">Main</div>
+
+      <div class="s-nav-item active" onclick="go('home')" id="nav-home">
+        <svg class="s-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Dashboard
+      </div>
+      <div class="s-nav-item" onclick="go('summary')" id="nav-summary">
+        <svg class="s-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        Daily Summary
+      </div>
+      <div class="s-nav-item" onclick="go('progress')" id="nav-progress">
+        <svg class="s-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        Workout Progress
+      </div>
+      <div class="s-nav-item" onclick="go('ai-rec')" id="nav-ai-rec">
+        <svg class="s-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+        AI Coach
+        <span class="s-nav-badge">NEW</span>
+      </div>
+
+      <div class="sidebar-section-label">Health</div>
+
+      <div class="s-nav-item" onclick="go('cals')" id="nav-cals">
+        <svg class="s-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        Calories
+      </div>
+      <div class="s-nav-item" onclick="go('water')" id="nav-water">
+        <svg class="s-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+        Hydration
+      </div>
+      <div class="s-nav-item" onclick="go('sleep')" id="nav-sleep">
+        <svg class="s-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        Sleep
+      </div>
+      <div class="s-nav-item" onclick="go('mood')" id="nav-mood">
+        <svg class="s-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+        Mood & Energy
+      </div>
+      <div class="s-nav-item" onclick="go('bmi')" id="nav-bmi">
+        <svg class="s-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+        BMI Calc
+      </div>
+      <div class="s-nav-item" onclick="go('hr')" id="nav-hr">
+        <svg class="s-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        Heart Rate
+      </div>
+
+      <div class="sidebar-section-label">Modules</div>
+
+      <a class="s-nav-item" href="workout-app.html">
+        <svg class="s-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+        Workout
+      </a>
+      <a class="s-nav-item" href="diet-app.html">
+        <svg class="s-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        Diet & Nutrition
+      </a>
+      <a class="s-nav-item" href="settings-app.html">
+        <svg class="s-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        Settings
+      </a>
+    </div>
+
+    <div class="sidebar-user">
+      <div class="sidebar-avatar" id="sidebar-avatar">A</div>
+      <div class="sidebar-user-info">
+        <div class="sidebar-user-name" id="sidebar-name">Alex</div>
+        <div class="sidebar-user-role">Intermediate · Day 14 🔥</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ══════════════════════════════════════
+       MAIN AREA
+  ═══════════════════════════════════════ -->
+  <div class="main-area">
+
+    <!-- Top Bar -->
+    <div class="topbar">
+      <span class="topbar-title" id="topbar-title">Dashboard <span class="topbar-subtitle">— Welcome back!</span></span>
+      <div class="topbar-actions">
+        <div class="topbar-btn" title="Notifications">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        </div>
+        <a href="plans.html" class="topbar-btn" title="Plans" style="text-decoration:none;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 6 6 1-4 4 1 6-6-3-6 3 1-6-4-4 6-1z"/></svg>
+        </a>
+        <a href="landing.html" class="topbar-btn" title="Home" style="text-decoration:none;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- SPA Screen Container -->
+    <div id="app-container">
+
+      <!-- ==========================================
+           1. HOME DASHBOARD (ROOT)
+      =========================================== -->
+      <div class="app-screen root active" id="s-home" data-screen="home">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;">
+          <div>
+            <div style="font-size:0.8rem;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">Welcome back</div>
+            <h1 style="font-family:var(--font-display);font-size:2rem;font-weight:800;margin-top:4px;" id="user-name-display">Alex</h1>
+          </div>
+          <div style="display:flex;gap:12px;">
+            <div style="background:rgba(198,241,53,0.1);border:1px solid rgba(198,241,53,0.2);border-radius:12px;padding:10px 18px;font-size:0.85rem;font-weight:700;color:var(--accent-green);">🔥 14 Day Streak</div>
+            <div style="background:rgba(79,110,247,0.1);border:1px solid rgba(79,110,247,0.2);border-radius:12px;padding:10px 18px;font-size:0.85rem;font-weight:700;color:var(--accent-blue);">⚡ 92% Readiness</div>
+          </div>
+        </div>
+
+        <!-- AI Banner -->
+        <div class="card anim-item" style="background:linear-gradient(135deg,rgba(198,241,53,0.08),rgba(79,110,247,0.08));border-color:rgba(198,241,53,0.25);cursor:pointer;margin-bottom:24px;" onclick="go('ai-rec')">
+          <div style="display:flex;align-items:center;gap:16px;">
+            <div class="card-icon" style="background:var(--accent-green);color:#000;font-size:1.4rem;width:48px;height:48px;border-radius:14px;">✨</div>
+            <div style="flex:1;">
+              <h3 style="font-family:var(--font-display);font-size:1.05rem;font-weight:800;color:var(--accent-green);">AI Coach Update</h3>
+              <p style="font-size:0.85rem;color:var(--text-secondary);margin-top:3px;">Your recovery is optimal. Ready for a new plan? Click to view your personalised recommendations.</p>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+        </div>
+
+        <!-- Stats Row -->
+        <div class="cards-3col anim-item" style="margin-bottom:24px;">
+          <div class="card" style="cursor:pointer;text-align:center;" onclick="go('cals')">
+            <div style="font-size:2rem;margin-bottom:8px;">🔥</div>
+            <div class="stat-val" style="color:var(--accent-pink);">642</div>
+            <div style="font-size:0.8rem;color:var(--text-muted);margin-top:6px;">Kcal Burned</div>
+          </div>
+          <div class="card" style="cursor:pointer;text-align:center;" onclick="go('water')">
+            <div style="font-size:2rem;margin-bottom:8px;">💧</div>
+            <div class="stat-val" style="color:#4fc3f7;">1.2L</div>
+            <div style="font-size:0.8rem;color:var(--text-muted);margin-top:6px;">Water / 3.0L</div>
+          </div>
+          <div class="card" style="cursor:pointer;text-align:center;" onclick="go('sleep')">
+            <div style="font-size:2rem;margin-bottom:8px;">🌙</div>
+            <div class="stat-val" style="color:var(--accent-purple);">7h 24m</div>
+            <div style="font-size:0.8rem;color:var(--text-muted);margin-top:6px;">Sleep Score: 88</div>
+          </div>
+        </div>
+
+        <!-- Action Grid -->
+        <h2 style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;margin-bottom:16px;color:var(--text-secondary);">Quick Access</h2>
+        <div class="action-grid">
+          <div class="action-card anim-item" style="animation-delay:0.05s;" onclick="go('summary')">
+            <div class="ac-icon">📊</div><div class="ac-title">Daily Summary</div><div class="ac-sub">Overview of today</div>
+          </div>
+          <div class="action-card anim-item" style="animation-delay:0.1s;" onclick="go('progress')">
+            <div class="ac-icon">📈</div><div class="ac-title">Workout Progress</div><div class="ac-sub">Consistency metrics</div>
+          </div>
+          <div class="action-card anim-item" style="animation-delay:0.15s;" onclick="go('mood')">
+            <div class="ac-icon">🧠</div><div class="ac-title">Mood & Energy</div><div class="ac-sub">Mental wellbeing</div>
+          </div>
+          <div class="action-card anim-item" style="animation-delay:0.2s;" onclick="go('bmi')">
+            <div class="ac-icon">⚖️</div><div class="ac-title">BMI Calculator</div><div class="ac-sub">Body metrics</div>
+          </div>
+          <div class="action-card anim-item" style="animation-delay:0.25s;" onclick="go('hr')">
+            <div class="ac-icon">❤️</div><div class="ac-title">Heart Rate</div><div class="ac-sub">Live monitoring</div>
+          </div>
+          <div class="action-card anim-item" style="animation-delay:0.3s;" onclick="window.location.href='workout-app.html'">
+            <div class="ac-icon">🏋️</div><div class="ac-title">Start Workout</div><div class="ac-sub">Today's protocol</div>
+          </div>
+          <div class="action-card anim-item" style="animation-delay:0.35s;" onclick="window.location.href='diet-app.html'">
+            <div class="ac-icon">🥗</div><div class="ac-title">Diet & Nutrition</div><div class="ac-sub">Meal tracking</div>
+          </div>
+          <div class="action-card anim-item" style="animation-delay:0.4s;" onclick="window.location.href='settings-app.html'">
+            <div class="ac-icon">⚙️</div><div class="ac-title">Settings</div><div class="ac-sub">Preferences & profile</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           2. DAILY SUMMARY
+      =========================================== -->
+      <div class="app-screen" id="s-summary" data-screen="summary">
+        <div class="screen-header">
+          <div class="back-btn" onclick="goBack()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+          <div class="header-title">Daily Summary</div>
+        </div>
+        <div class="cards-2col">
+          <div class="card">
+            <div class="card-header"><div class="card-title">Activity Rings</div></div>
+            <div style="display:flex;justify-content:center;padding:20px 0;">
+              <div style="width:200px;height:200px;position:relative;">
+                <svg viewBox="0 0 100 100" style="width:100%;height:100%;transform:rotate(-90deg);">
+                  <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(247,37,133,0.15)" stroke-width="7"/>
+                  <circle cx="50" cy="50" r="42" fill="none" stroke="var(--accent-pink)" stroke-width="7" stroke-dasharray="264" stroke-dashoffset="60" stroke-linecap="round"/>
+                  <circle cx="50" cy="50" r="32" fill="none" stroke="rgba(198,241,53,0.15)" stroke-width="7"/>
+                  <circle cx="50" cy="50" r="32" fill="none" stroke="var(--accent-green)" stroke-width="7" stroke-dasharray="200" stroke-dashoffset="40" stroke-linecap="round"/>
+                  <circle cx="50" cy="50" r="22" fill="none" stroke="rgba(79,110,247,0.15)" stroke-width="7"/>
+                  <circle cx="50" cy="50" r="22" fill="none" stroke="var(--accent-blue)" stroke-width="7" stroke-dasharray="138" stroke-dashoffset="15" stroke-linecap="round"/>
+                </svg>
+              </div>
+            </div>
+            <div style="display:flex;justify-content:space-around;text-align:center;">
+              <div><div style="color:var(--accent-pink);font-weight:700;">Move</div><div style="font-size:0.85rem;color:var(--text-muted);">640 kcal</div></div>
+              <div><div style="color:var(--accent-green);font-weight:700;">Exercise</div><div style="font-size:0.85rem;color:var(--text-muted);">45 min</div></div>
+              <div><div style="color:var(--accent-blue);font-weight:700;">Stand</div><div style="font-size:0.85rem;color:var(--text-muted);">10 hrs</div></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header"><div class="card-title">Today's Breakdown</div></div>
+            <div class="track-wrap"><div class="track-info"><span>Steps</span><span>8,240 / 10,000</span></div><div class="track-bar"><div class="track-fill" style="background:var(--accent-blue);width:82%;"></div></div></div>
+            <div class="track-wrap"><div class="track-info"><span>Calories</span><span>640 / 800 kcal</span></div><div class="track-bar"><div class="track-fill" style="background:var(--accent-pink);width:80%;"></div></div></div>
+            <div class="track-wrap"><div class="track-info"><span>Active Minutes</span><span>45 / 60 min</span></div><div class="track-bar"><div class="track-fill" style="background:var(--accent-green);width:75%;"></div></div></div>
+            <div class="track-wrap"><div class="track-info"><span>Hydration</span><span>1.2 / 3.0 L</span></div><div class="track-bar"><div class="track-fill" style="background:#4fc3f7;width:40%;"></div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           3. AI COACH
+      =========================================== -->
+      <div class="app-screen" id="s-ai-rec" data-screen="ai-rec">
+        <div class="screen-header">
+          <div class="back-btn" onclick="goBack()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+          <div class="header-title">AI Coach</div>
+        </div>
+        <div class="ai-rec-banner">
+          <div style="font-size:3rem;">🧠</div>
+          <div class="ai-rec-title">Optimal Readiness Detected</div>
+          <p class="ai-rec-desc">Based on your sleep score (88%) and HRV trend, your body is primed for a high-intensity session today. Your cortisol levels are within the optimal range for performance.</p>
+          <button class="btn btn-primary" onclick="window.location.href='workout-app.html'">Start Recommended Workout →</button>
+        </div>
+        <div class="cards-2col">
+          <div class="card"><div style="display:flex;gap:14px;align-items:center;"><div class="card-icon" style="background:rgba(247,37,133,0.1);color:var(--accent-pink);font-size:1.3rem;">🥩</div><div><div style="font-weight:700;">Increase Protein</div><div style="font-size:0.82rem;color:var(--text-muted);">Bump up by 15g today to aid recovery.</div></div></div></div>
+          <div class="card"><div style="display:flex;gap:14px;align-items:center;"><div class="card-icon" style="background:rgba(79,195,247,0.1);color:#4fc3f7;font-size:1.3rem;">💧</div><div><div style="font-weight:700;">Hydration Alert</div><div style="font-size:0.82rem;color:var(--text-muted);">You are 500ml behind your daily target.</div></div></div></div>
+          <div class="card"><div style="display:flex;gap:14px;align-items:center;"><div class="card-icon" style="background:rgba(198,241,53,0.1);color:var(--accent-green);font-size:1.3rem;">😴</div><div><div style="font-weight:700;">Sleep Consistency</div><div style="font-size:0.82rem;color:var(--text-muted);">Aim for bed by 10:30 PM tonight.</div></div></div></div>
+          <div class="card"><div style="display:flex;gap:14px;align-items:center;"><div class="card-icon" style="background:rgba(155,93,229,0.1);color:var(--accent-purple);font-size:1.3rem;">📊</div><div><div style="font-weight:700;">Progress on Track</div><div style="font-size:0.82rem;color:var(--text-muted);">Goal reached in 4 weeks at current rate.</div></div></div></div>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           4. WORKOUT PROGRESS
+      =========================================== -->
+      <div class="app-screen" id="s-progress" data-screen="progress">
+        <div class="screen-header">
+          <div class="back-btn" onclick="goBack()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+          <div class="header-title">Workout Progress</div>
+        </div>
+        <div class="cards-2col">
+          <div class="card" style="text-align:center;">
+            <div style="font-size:0.8rem;color:var(--text-muted);text-transform:uppercase;font-weight:600;margin-bottom:8px;">Current Streak</div>
+            <div style="font-family:var(--font-display);font-size:4rem;font-weight:900;color:var(--accent-orange);">14 <span style="font-size:1.2rem;color:var(--text-muted);">days</span></div>
+            <div style="display:flex;justify-content:center;gap:8px;margin-top:20px;">
+              <div style="width:26px;height:26px;border-radius:50%;background:var(--accent-orange);display:flex;align-items:center;justify-content:center;font-size:0.7rem;color:#000;">✓</div>
+              <div style="width:26px;height:26px;border-radius:50%;background:var(--accent-orange);display:flex;align-items:center;justify-content:center;font-size:0.7rem;color:#000;">✓</div>
+              <div style="width:26px;height:26px;border-radius:50%;background:var(--accent-orange);display:flex;align-items:center;justify-content:center;font-size:0.7rem;color:#000;">✓</div>
+              <div style="width:26px;height:26px;border-radius:50%;border:1px dashed var(--text-muted);"></div>
+              <div style="width:26px;height:26px;border-radius:50%;border:1px dashed var(--text-muted);"></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header"><div class="card-title">Weekly Volume</div></div>
+            <div class="track-wrap"><div class="track-info"><span>Chest</span><span>8,400 kg</span></div><div class="track-bar"><div class="track-fill" style="background:var(--accent-blue);width:85%;"></div></div></div>
+            <div class="track-wrap"><div class="track-info"><span>Back</span><span>7,200 kg</span></div><div class="track-bar"><div class="track-fill" style="background:var(--accent-purple);width:70%;"></div></div></div>
+            <div class="track-wrap"><div class="track-info"><span>Legs</span><span>12,000 kg</span></div><div class="track-bar"><div class="track-fill" style="background:var(--accent-green);width:95%;"></div></div></div>
+            <div class="track-wrap"><div class="track-info"><span>Shoulders</span><span>4,100 kg</span></div><div class="track-bar"><div class="track-fill" style="background:var(--accent-orange);width:55%;"></div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           5. CALORIES
+      =========================================== -->
+      <div class="app-screen" id="s-cals" data-screen="cals">
+        <div class="screen-header">
+          <div class="back-btn" onclick="goBack()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+          <div class="header-title">Calories Burned</div>
+        </div>
+        <div class="cards-2col">
+          <div class="card" style="text-align:center;">
+            <div style="font-size:3rem;margin-bottom:12px;">🔥</div>
+            <div class="stat-val" style="color:var(--accent-pink);">642 <span>kcal</span></div>
+            <div style="font-size:0.85rem;color:var(--text-muted);margin-top:10px;">Active energy burned today</div>
+          </div>
+          <div class="card">
+            <div class="card-header"><div class="card-title">Daily Trend (7 Days)</div></div>
+            <div style="display:flex;align-items:flex-end;gap:10px;height:130px;margin-top:16px;">
+              <div style="flex:1;background:var(--bg-surface);border-radius:4px;height:40%;"></div>
+              <div style="flex:1;background:var(--bg-surface);border-radius:4px;height:55%;"></div>
+              <div style="flex:1;background:var(--bg-surface);border-radius:4px;height:80%;"></div>
+              <div style="flex:1;background:var(--bg-surface);border-radius:4px;height:45%;"></div>
+              <div style="flex:1;background:var(--bg-surface);border-radius:4px;height:65%;"></div>
+              <div style="flex:1;background:var(--accent-pink);border-radius:4px;height:75%;box-shadow:0 0 12px rgba(247,37,133,0.4);"></div>
+              <div style="flex:1;background:var(--border-color);border-radius:4px;height:10%;"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;margin-top:8px;font-size:0.7rem;color:var(--text-muted);">
+              <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span style="color:var(--accent-pink);font-weight:700;">Sat</span><span>Sun</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           6. HYDRATION
+      =========================================== -->
+      <div class="app-screen" id="s-water" data-screen="water">
+        <div class="screen-header">
+          <div class="back-btn" onclick="goBack()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+          <div class="header-title">Hydration Tracker</div>
+        </div>
+        <div class="cards-2col">
+          <div class="card" style="text-align:center;padding:40px;">
+            <div class="water-glass-wrap"><div class="water-glass"><div class="water-liquid" id="water-level" style="height:40%;"></div></div></div>
+            <div class="stat-val" style="color:#4fc3f7;margin-top:16px;"><span id="water-amount">1.2</span> <span>/ 3.0 L</span></div>
+            <div style="font-size:0.8rem;color:var(--text-muted);margin:8px 0 24px;">Daily Goal</div>
+            <div class="water-controls"><button class="btn btn-ghost" onclick="addWater(0.25)">+ 250ml</button><button class="btn btn-primary" onclick="addWater(0.5)">+ 500ml</button></div>
+          </div>
+          <div class="card">
+            <div class="card-header"><div class="card-title">Smart Reminders</div></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--border-color);">
+              <div><div style="font-weight:700;">Hourly Alerts</div><div style="font-size:0.8rem;color:var(--text-muted);">Remind me every hour</div></div>
+              <div style="width:44px;height:24px;background:var(--accent-blue);border-radius:12px;position:relative;cursor:pointer;"><div style="width:20px;height:20px;background:#fff;border-radius:50%;position:absolute;top:2px;right:2px;"></div></div>
+            </div>
+            <div class="track-wrap" style="margin-top:16px;"><div class="track-info"><span>Today's Progress</span><span>40%</span></div><div class="track-bar"><div class="track-fill" id="water-bar" style="background:#4fc3f7;width:40%;"></div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           7. SLEEP
+      =========================================== -->
+      <div class="app-screen" id="s-sleep" data-screen="sleep">
+        <div class="screen-header">
+          <div class="back-btn" onclick="goBack()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+          <div class="header-title">Sleep Analysis</div>
+        </div>
+        <div class="cards-2col">
+          <div class="card" style="text-align:center;background:linear-gradient(135deg,rgba(155,93,229,0.1),var(--bg-surface));border-color:rgba(155,93,229,0.3);">
+            <div style="font-size:0.8rem;color:var(--text-muted);text-transform:uppercase;font-weight:600;margin-bottom:8px;">Last Night</div>
+            <div class="stat-val" style="color:var(--accent-purple);">7h 24m</div>
+            <div style="font-size:1rem;font-weight:700;color:var(--accent-green);margin-top:12px;">Score: 88 — Excellent ✓</div>
+          </div>
+          <div class="card">
+            <div class="card-header"><div class="card-title">Sleep Architecture</div></div>
+            <div class="track-wrap"><div class="track-info"><span>Awake</span><span>20m</span></div><div class="track-bar"><div class="track-fill" style="background:var(--accent-pink);width:5%;"></div></div></div>
+            <div class="track-wrap"><div class="track-info"><span>REM</span><span>1h 45m</span></div><div class="track-bar"><div class="track-fill" style="background:var(--accent-blue);width:25%;"></div></div></div>
+            <div class="track-wrap"><div class="track-info"><span>Light Sleep</span><span>3h 40m</span></div><div class="track-bar"><div class="track-fill" style="background:var(--accent-blue);width:50%;"></div></div></div>
+            <div class="track-wrap"><div class="track-info"><span>Deep Sleep</span><span>1h 39m</span></div><div class="track-bar"><div class="track-fill" style="background:var(--accent-purple);width:25%;"></div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           8. MOOD & ENERGY
+      =========================================== -->
+      <div class="app-screen" id="s-mood" data-screen="mood">
+        <div class="screen-header">
+          <div class="back-btn" onclick="goBack()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+          <div class="header-title">Mood & Energy</div>
+        </div>
+        <div class="cards-2col">
+          <div class="card">
+            <h3 style="text-align:center;margin-bottom:28px;font-family:var(--font-display);font-size:1.1rem;">How do you feel today?</h3>
+            <div class="mood-grid">
+              <div class="mood-btn" onclick="setMood(this,'Terrible')">😫</div>
+              <div class="mood-btn" onclick="setMood(this,'Bad')">🙁</div>
+              <div class="mood-btn" onclick="setMood(this,'Okay')">😐</div>
+              <div class="mood-btn" onclick="setMood(this,'Good')">🙂</div>
+              <div class="mood-btn active" onclick="setMood(this,'Excellent')">🤩</div>
+            </div>
+            <div style="text-align:center;font-weight:700;color:var(--accent-blue);font-size:1.1rem;" id="mood-label">Excellent</div>
+          </div>
+          <div class="card">
+            <div class="card-header"><div class="card-title">Energy Level</div></div>
+            <input type="range" style="width:100%;accent-color:var(--accent-green);" min="1" max="10" value="8" oninput="document.getElementById('energy-val').innerText=this.value+'/10'"/>
+            <div style="text-align:center;font-family:var(--font-display);font-weight:900;font-size:2.5rem;margin-top:20px;color:var(--accent-green);" id="energy-val">8/10</div>
+            <button class="btn btn-primary" style="width:100%;margin-top:20px;" onclick="showToast('Daily log saved! ✓','success')">Save Daily Log</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           9. BMI CALCULATOR
+      =========================================== -->
+      <div class="app-screen" id="s-bmi" data-screen="bmi">
+        <div class="screen-header">
+          <div class="back-btn" onclick="goBack()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+          <div class="header-title">BMI Calculator</div>
+        </div>
+        <div class="cards-2col">
+          <div class="card">
+            <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-weight:600;"><span>Height</span><span id="bmi-h-lbl">175 cm</span></div>
+            <input class="bmi-slider" type="range" id="bmi-h" min="140" max="220" value="175" oninput="calcBMI()"/>
+            <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-weight:600;margin-top:20px;"><span>Weight</span><span id="bmi-w-lbl">70 kg</span></div>
+            <input class="bmi-slider" type="range" id="bmi-w" min="40" max="150" value="70" oninput="calcBMI()"/>
+          </div>
+          <div class="card">
+            <div class="bmi-result">
+              <div style="font-size:0.85rem;color:var(--text-muted);text-transform:uppercase;font-weight:700;">Your BMI</div>
+              <div class="bmi-num" id="bmi-num" style="color:var(--accent-green);">22.9</div>
+              <div class="bmi-cat" id="bmi-cat" style="color:var(--accent-green);">Normal Weight</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           10. HEART RATE
+      =========================================== -->
+      <div class="app-screen" id="s-hr" data-screen="hr">
+        <div class="screen-header">
+          <div class="back-btn" onclick="goBack()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+          <div class="header-title">Live Heart Rate</div>
+        </div>
+        <div class="cards-2col">
+          <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 0;">
+            <div style="position:relative;width:180px;height:180px;display:flex;align-items:center;justify-content:center;">
+              <div style="position:absolute;inset:0;border-radius:50%;border:4px solid rgba(247,37,133,0.2);animation:pulse-ring 1s infinite;"></div>
+              <div style="position:absolute;inset:20px;border-radius:50%;background:rgba(247,37,133,0.08);"></div>
+              <div style="font-family:var(--font-display);font-size:3.5rem;font-weight:900;color:var(--accent-pink);position:relative;z-index:2;" id="live-hr-display">144</div>
+            </div>
+            <div style="font-size:1.2rem;font-weight:700;margin-top:16px;">BPM</div>
+            <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(247,37,133,0.1);color:var(--accent-pink);padding:6px 16px;border-radius:20px;font-size:0.82rem;font-weight:700;text-transform:uppercase;margin-top:12px;">
+              <div style="width:8px;height:8px;border-radius:50%;background:var(--accent-pink);"></div> Zone 4 · Vigorous
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header"><div class="card-title">HR Zones Today</div></div>
+            <div class="track-wrap"><div class="track-info"><span>Peak (&gt;170 BPM)</span><span>15 min</span></div><div class="track-bar"><div class="track-fill" style="background:var(--accent-pink);width:20%;"></div></div></div>
+            <div class="track-wrap"><div class="track-info"><span>Cardio (135–169)</span><span>25 min</span></div><div class="track-bar"><div class="track-fill" style="background:var(--accent-orange);width:40%;"></div></div></div>
+            <div class="track-wrap"><div class="track-info"><span>Fat Burn (100–134)</span><span>10 min</span></div><div class="track-bar"><div class="track-fill" style="background:var(--accent-green);width:15%;"></div></div></div>
+            <div class="track-wrap"><div class="track-info"><span>Rest (&lt;100)</span><span>Rest of day</span></div><div class="track-bar"><div class="track-fill" style="background:var(--accent-blue);width:75%;"></div></div></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end #app-container -->
+  </div><!-- end .main-area -->
+</div><!-- end #web-layout -->
+
+<div class="toast-container" id="toast-container"></div>
+
+<script>
+// ── SPA ROUTING ──
+const historyStack = ['home'];
+const screenTitles = {
+  home: 'Dashboard', summary: 'Daily Summary', 'ai-rec': 'AI Coach',
+  progress: 'Workout Progress', cals: 'Calories Burned', water: 'Hydration Tracker',
+  sleep: 'Sleep Analysis', mood: 'Mood & Energy', bmi: 'BMI Calculator', hr: 'Live Heart Rate'
+};
+
+function go(screenId) {
+  const current = document.getElementById('s-' + historyStack[historyStack.length-1]);
+  const next = document.getElementById('s-' + screenId);
+  if(!next || current === next) return;
+  next.classList.remove('exit');
+  next.classList.add('active');
+  if(current.id !== 's-home') current.classList.add('exit');
+  historyStack.push(screenId);
+
+  // Update topbar title
+  const t = document.getElementById('topbar-title');
+  if(t) t.innerHTML = `${screenTitles[screenId] || 'Dashboard'} <span class="topbar-subtitle">— Fitwave AI</span>`;
+
+  // Update sidebar active
+  document.querySelectorAll('.s-nav-item').forEach(i => i.classList.remove('active'));
+  const ni = document.getElementById('nav-' + screenId);
+  if(ni) ni.classList.add('active');
+}
+
+function goBack() {
+  if(historyStack.length <= 1) return;
+  const currentId = historyStack.pop();
+  const current = document.getElementById('s-' + currentId);
+  current.classList.remove('active');
+  const prevId = historyStack[historyStack.length-1];
+  const prev = document.getElementById('s-' + prevId);
+  prev.classList.remove('exit');
+  const t = document.getElementById('topbar-title');
+  if(t) t.innerHTML = `${screenTitles[prevId] || 'Dashboard'} <span class="topbar-subtitle">— Welcome back!</span>`;
+  document.querySelectorAll('.s-nav-item').forEach(i => i.classList.remove('active'));
+  const ni = document.getElementById('nav-' + prevId);
+  if(ni) ni.classList.add('active');
+}
+
+function showToast(msg, type='info', duration=3000){
+  const c = document.getElementById('toast-container'); if(!c) return;
+  const t = document.createElement('div'); t.className = `toast ${type}`;
+  t.innerHTML = `<span>${msg}</span>`; c.appendChild(t);
+  setTimeout(()=>{ t.style.opacity='0'; t.style.transform='translateY(8px)'; t.style.transition='0.3s'; setTimeout(()=>t.remove(),300); }, duration);
+}
+
+// Water
+let wAmount = 1.2;
+function addWater(v) {
+  wAmount = Math.min(3.0, wAmount + v);
+  document.getElementById('water-amount').textContent = wAmount.toFixed(1);
+  document.getElementById('water-level').style.height = ((wAmount/3)*100) + '%';
+  const bar = document.getElementById('water-bar');
+  if(bar) bar.style.width = ((wAmount/3)*100) + '%';
+  showToast('Hydration updated! 💧', 'success');
+}
+
+// BMI
+function calcBMI() {
+  const h = parseInt(document.getElementById('bmi-h').value);
+  const w = parseInt(document.getElementById('bmi-w').value);
+  document.getElementById('bmi-h-lbl').textContent = h + ' cm';
+  document.getElementById('bmi-w-lbl').textContent = w + ' kg';
+  const bmi = (w / ((h/100)**2)).toFixed(1);
+  const num = document.getElementById('bmi-num');
+  const cat = document.getElementById('bmi-cat');
+  num.textContent = bmi;
+  if(bmi < 18.5) { cat.textContent='Underweight'; num.style.color=cat.style.color='var(--accent-blue)'; }
+  else if(bmi < 25) { cat.textContent='Normal Weight'; num.style.color=cat.style.color='var(--accent-green)'; }
+  else if(bmi < 30) { cat.textContent='Overweight'; num.style.color=cat.style.color='var(--accent-orange)'; }
+  else { cat.textContent='Obese'; num.style.color=cat.style.color='var(--accent-pink)'; }
+}
+
+// Mood
+function setMood(el, label) {
+  document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('mood-label').textContent = label;
+}
+
+// HR Flicker
+setInterval(()=>{
+  const el = document.getElementById('live-hr-display');
+  if(el && document.getElementById('s-hr').classList.contains('active')) {
+    el.textContent = 144 + Math.floor(Math.random()*7) - 3;
+  }
+}, 1000);
+
+// Init
+window.addEventListener('DOMContentLoaded', () => {
+  const user = JSON.parse(localStorage.getItem('fw_user') || '{"name":"Alex"}');
+  const name = user.name.split(' ')[0];
+  ['user-name-display','sidebar-name'].forEach(id => {
+    const el = document.getElementById(id); if(el) el.textContent = name;
+  });
+  const av = document.getElementById('sidebar-avatar');
+  if(av) av.textContent = name[0].toUpperCase();
+  document.getElementById('sidebar-avatar').textContent = name[0].toUpperCase();
+});
+</script>
+</body>
+</html>

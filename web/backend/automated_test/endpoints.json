@@ -1,0 +1,194 @@
+[
+  {
+    "method": "POST",
+    "path": "/api/auth/login",
+    "full_url": "http://localhost:5000/api/auth/login",
+    "access": "public",
+    "source": "index.js",
+    "has_id_param": false
+  },
+  {
+    "method": "POST",
+    "path": "/api/auth/register",
+    "full_url": "http://localhost:5000/api/auth/register",
+    "access": "public",
+    "source": "index.js",
+    "has_id_param": false
+  },
+  {
+    "method": "POST",
+    "path": "/api/auth/logout",
+    "full_url": "http://localhost:5000/api/auth/logout",
+    "access": "requires-auth",
+    "source": "index.js",
+    "has_id_param": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/users/me",
+    "full_url": "http://localhost:5000/api/users/me",
+    "access": "requires-auth",
+    "source": "index.js",
+    "has_id_param": false
+  },
+  {
+    "method": "PUT",
+    "path": "/api/users/me",
+    "full_url": "http://localhost:5000/api/users/me",
+    "access": "requires-auth",
+    "source": "index.js",
+    "has_id_param": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/workouts",
+    "full_url": "http://localhost:5000/api/workouts",
+    "access": "requires-auth",
+    "source": "index.js",
+    "has_id_param": false
+  },
+  {
+    "method": "POST",
+    "path": "/api/workouts",
+    "full_url": "http://localhost:5000/api/workouts",
+    "access": "requires-auth",
+    "source": "index.js",
+    "has_id_param": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/workouts/:id",
+    "full_url": "http://localhost:5000/api/workouts/1",
+    "access": "requires-auth",
+    "source": "index.js",
+    "has_id_param": true
+  },
+  {
+    "method": "PUT",
+    "path": "/api/workouts/:id",
+    "full_url": "http://localhost:5000/api/workouts/1",
+    "access": "requires-auth",
+    "source": "index.js",
+    "has_id_param": true
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/workouts/:id",
+    "full_url": "http://localhost:5000/api/workouts/1",
+    "access": "requires-auth",
+    "source": "index.js",
+    "has_id_param": true
+  },
+  {
+    "method": "GET",
+    "path": "/api/diet/meals",
+    "full_url": "http://localhost:5000/api/diet/meals",
+    "access": "requires-auth",
+    "source": "index.js",
+    "has_id_param": false
+  },
+  {
+    "method": "POST",
+    "path": "/api/diet/meals",
+    "full_url": "http://localhost:5000/api/diet/meals",
+    "access": "requires-auth",
+    "source": "index.js",
+    "has_id_param": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/diet/meals/:id",
+    "full_url": "http://localhost:5000/api/diet/meals/1",
+    "access": "requires-auth",
+    "source": "index.js",
+    "has_id_param": true
+  },
+  {
+    "method": "GET",
+    "path": "/api/dashboard",
+    "full_url": "http://localhost:5000/api/dashboard",
+    "access": "requires-auth",
+    "source": "index.js",
+    "has_id_param": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/analytics/summary",
+    "full_url": "http://localhost:5000/api/analytics/summary",
+    "access": "requires-auth",
+    "source": "index.js",
+    "has_id_param": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/profile",
+    "full_url": "http://localhost:5000/api/profile",
+    "access": "requires-auth",
+    "source": "index.js",
+    "has_id_param": false
+  },
+  {
+    "method": "PUT",
+    "path": "/api/profile",
+    "full_url": "http://localhost:5000/api/profile",
+    "access": "requires-auth",
+    "source": "index.js",
+    "has_id_param": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/plans",
+    "full_url": "http://localhost:5000/api/plans",
+    "access": "requires-auth",
+    "source": "index.js",
+    "has_id_param": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/admin/users",
+    "full_url": "http://localhost:5000/api/admin/users",
+    "access": "role-restricted(admin)",
+    "source": "index.js",
+    "has_id_param": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/admin/users/:id",
+    "full_url": "http://localhost:5000/api/admin/users/1",
+    "access": "role-restricted(admin)",
+    "source": "index.js",
+    "has_id_param": true
+  },
+  {
+    "method": "PUT",
+    "path": "/api/admin/users/:id",
+    "full_url": "http://localhost:5000/api/admin/users/1",
+    "access": "role-restricted(admin)",
+    "source": "index.js",
+    "has_id_param": true
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/admin/users/:id",
+    "full_url": "http://localhost:5000/api/admin/users/1",
+    "access": "role-restricted(admin)",
+    "source": "index.js",
+    "has_id_param": true
+  },
+  {
+    "method": "GET",
+    "path": "/api/admin/analytics",
+    "full_url": "http://localhost:5000/api/admin/analytics",
+    "access": "role-restricted(admin)",
+    "source": "index.js",
+    "has_id_param": false
+  },
+  {
+    "method": "GET",
+    "path": "/api/admin/reports",
+    "full_url": "http://localhost:5000/api/admin/reports",
+    "access": "role-restricted(admin)",
+    "source": "index.js",
+    "has_id_param": false
+  }
+]

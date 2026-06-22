@@ -25,6 +25,13 @@ const upload = multer({ storage: storage });
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Request logger middleware
+app.use((req, res, next) => {
+  console.log(`[HTTP ${new Date().toISOString()}] ${req.method} ${req.url} | Body:`, req.body);
+  next();
+});
+
 app.use('/uploads', express.static(uploadDir));
 
 // In-memory state for mock application

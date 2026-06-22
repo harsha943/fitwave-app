@@ -1,0 +1,12 @@
+{
+  "name": "fitwave-appium-tests",
+  "version": "1.0.0",
+  "description": "Appium Mobile Simulation tests for FitWave",
+  "main": "run-appium-tests.js",
+  "scripts": {
+    "test": "node run-appium-tests.js"
+  },
+  "dependencies": {
+    "exceljs": "^4.4.0"
+  }
+}

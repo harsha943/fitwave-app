@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fitwave — Real-Time Health Analytics</title>
+  <link rel="stylesheet" href="css/global.css"/>
+  <link rel="stylesheet" href="css/health.css"/>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-brand">Fit<span>wave</span></div>
+  <nav class="sidebar-nav">
+    <a href="dashboard.html" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Dashboard</a>
+    <a href="workout.html" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>Workout</a>
+    <a href="diet.html" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Nutrition</a>
+    <a href="health.html" class="nav-item active"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>Health</a>
+    <a href="profile.html" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Profile</a>
+  </nav>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="main-content">
+  <!-- TOP NAV -->
+  <header class="top-nav">
+    <div class="nav-search">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" placeholder="Search analytics..."/>
+    </div>
+    <div class="nav-actions">
+      <button class="nav-icon-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></button>
+      <button class="nav-icon-btn" style="padding:0;overflow:hidden;border-radius:50%;">
+        <div style="width:100%;height:100%;background:linear-gradient(135deg,var(--accent-blue),var(--accent-purple));display:flex;align-items:center;justify-content:center;font-weight:700;font-family:var(--font-display);color:#fff;" id="nav-avatar">U</div>
+      </button>
+    </div>
+  </header>
+
+  <!-- CONTENT -->
+  <div class="content-scroll">
+    <div class="health-header">
+      <div>
+        <div class="health-title-sub">Clinical Precision</div>
+        <h1 class="health-title">Real-Time Analytics</h1>
+      </div>
+      <div>
+        <button class="btn btn-ghost btn-sm" onclick="showToast('Exporting medical report...', 'info')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:6px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Export Report</button>
+      </div>
+    </div>
+
+    <!-- AI Readiness Status -->
+    <div class="ai-status-card anim-fade-up">
+      <div class="ai-status-info">
+        <div class="ai-status-pulse">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <div class="ai-status-text">
+          <h3>Prime Condition</h3>
+          <p>Your central nervous system is fully recovered. HRV is trending upward and sleep architecture shows deep REM cycles. You are cleared for maximal exertion today.</p>
+        </div>
+      </div>
+      <div class="ai-status-score">
+        <div class="ai-status-score-val">94<span style="font-size:1.4rem;">%</span></div>
+        <div class="ai-status-score-lbl">Readiness Score</div>
+      </div>
+    </div>
+
+    <!-- Main Grid -->
+    <div class="health-grid">
+      
+      <!-- Live HR Chart -->
+      <div class="chart-card anim-fade-up delay-1">
+        <div class="chart-header">
+          <div>
+            <div class="chart-title">Heart Rate Monitor</div>
+            <div class="chart-sub">Continuous biometric tracking</div>
+          </div>
+          <div class="live-badge">Live</div>
+        </div>
+        <div class="hr-display">
+          <span id="live-hr-val">144</span> <span>BPM</span>
+        </div>
+        <div class="ecg-container">
+          <div class="ecg-points">
+            <!-- Simulated ECG wave pattern -->
+            <svg viewBox="0 0 1000 100" preserveAspectRatio="none">
+              <path class="ecg-path" d="M0,50 L50,50 L60,40 L70,60 L80,50 L120,50 L130,20 L140,80 L150,50 L190,50 L200,40 L210,60 L220,50 L260,50 L270,20 L280,80 L290,50 L330,50 L340,40 L350,60 L360,50 L400,50 L410,20 L420,80 L430,50 L470,50 L480,40 L490,60 L500,50 
+              L550,50 L560,40 L570,60 L580,50 L620,50 L630,20 L640,80 L650,50 L690,50 L700,40 L710,60 L720,50 L760,50 L770,20 L780,80 L790,50 L830,50 L840,40 L850,60 L860,50 L900,50 L910,20 L920,80 L930,50 L970,50 L980,40 L990,60 L1000,50" />
+            </svg>
+          </div>
+        </div>
+        <div style="display:flex; justify-content:space-between; margin-top:16px; border-top:1px solid var(--border); padding-top:16px;">
+          <div><div style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;font-weight:700;">Resting HR</div><div style="font-family:var(--font-display);font-size:1.2rem;font-weight:800;color:var(--text-primary);">58 <span style="font-size:0.8rem;color:var(--text-muted);">bpm</span></div></div>
+          <div><div style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;font-weight:700;">Zone</div><div style="font-family:var(--font-display);font-size:1.2rem;font-weight:800;color:var(--accent-orange, #f97316);">Cardio</div></div>
+          <div><div style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;font-weight:700;">Max HR</div><div style="font-family:var(--font-display);font-size:1.2rem;font-weight:800;color:var(--text-primary);">192 <span style="font-size:0.8rem;color:var(--text-muted);">bpm</span></div></div>
+        </div>
+      </div>
+
+      <!-- Metrics Sidebar -->
+      <div class="metrics-col anim-fade-up delay-2">
+        <div class="metric-box">
+          <div class="metric-icon" style="background:rgba(247,37,133,0.1);color:var(--accent-pink);">🔥</div>
+          <div class="metric-box-info">
+            <div class="metric-box-title">Active Energy</div>
+            <div class="metric-box-val">642 <span style="font-size:0.8rem;color:var(--text-muted);font-weight:600;">kcal</span></div>
+          </div>
+          <div class="metric-trend up"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg> 12%</div>
+        </div>
+        
+        <div class="metric-box">
+          <div class="metric-icon" style="background:rgba(79,110,247,0.1);color:var(--accent-blue);">🫁</div>
+          <div class="metric-box-info">
+            <div class="metric-box-title">Blood Oxygen</div>
+            <div class="metric-box-val">98<span style="font-size:0.8rem;color:var(--text-muted);font-weight:600;">%</span></div>
+          </div>
+          <div class="metric-trend neutral"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </div>
+
+        <div class="metric-box">
+          <div class="metric-icon" style="background:rgba(198,241,53,0.1);color:var(--accent-green);">👟</div>
+          <div class="metric-box-info">
+            <div class="metric-box-title">Daily Steps</div>
+            <div class="metric-box-val">8,432</div>
+          </div>
+          <div class="metric-trend up"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg> 5%</div>
+        </div>
+        
+        <div class="metric-box">
+          <div class="metric-icon" style="background:rgba(155,93,229,0.1);color:var(--accent-purple);">🌡️</div>
+          <div class="metric-box-info">
+            <div class="metric-box-title">Body Temp</div>
+            <div class="metric-box-val">36.6<span style="font-size:0.8rem;color:var(--text-muted);font-weight:600;">°C</span></div>
+          </div>
+          <div class="metric-trend neutral"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recovery & Sleep Grid -->
+    <div class="recovery-grid">
+      <!-- Sleep Analysis -->
+      <div class="recovery-card anim-fade-up delay-3">
+        <div class="chart-header">
+          <div>
+            <div class="chart-title">Sleep Architecture</div>
+            <div class="chart-sub">7h 45m average this week</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-family:var(--font-display);font-size:1.6rem;font-weight:900;color:var(--accent-purple);">92%</div>
+            <div style="font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;font-weight:700;">Quality Score</div>
+          </div>
+        </div>
+        <div class="sleep-bars" id="sleep-chart"></div>
+      </div>
+
+      <!-- HRV Analysis -->
+      <div class="recovery-card anim-fade-up delay-4">
+        <div class="chart-header">
+          <div>
+            <div class="chart-title">Heart Rate Variability</div>
+            <div class="chart-sub">CNS fatigue indicator</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-family:var(--font-display);font-size:1.6rem;font-weight:900;color:var(--accent-blue-2);">70<span style="font-size:0.8rem;color:var(--text-muted);font-weight:600;">ms</span></div>
+            <div style="font-size:0.7rem;color:var(--accent-green);text-transform:uppercase;font-weight:700;">Optimal</div>
+          </div>
+        </div>
+        <div class="sleep-bars" id="hrv-chart"></div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- TOAST -->
+<div class="toast-container" id="toast-container"></div>
+
+<script type="module" src="js/health.js"></script>
+</body>
+</html>

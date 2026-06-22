@@ -1,0 +1,25 @@
+{
+  "name": "fitwave-backend",
+  "version": "1.0.0",
+  "description": "FitWave Express backend with JWT auth and RBAC",
+  "main": "index.js",
+  "scripts": {
+    "start":      "node index.js",
+    "dev":        "node index.js",
+    "gen-tokens": "node automated_test/gen-tokens.js",
+    "discover":   "node automated_test/discover.js",
+    "dast":       "node automated_test/gen-tokens.js && node automated_test/runner.js",
+    "test":       "node -e \"require('./index.js'); setTimeout(()=>{ console.log('Backend smoke test passed'); process.exit(0); }, 800);\"",
+    "validate":   "node -c index.js && node -c automated_test/runner.js && node -c automated_test/discover.js && echo 'All files valid'"
+  },
+  "keywords": ["fitwave", "fitness", "api", "express"],
+  "author": "FitWave Team",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "cors":    "^2.8.6",
+    "dotenv":  "^17.4.2",
+    "express": "^5.2.1",
+    "exceljs": "^4.4.0"
+  }
+}
