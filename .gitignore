@@ -127,3 +127,4 @@ app/build/
 .gradle/
 .idea/
 *.apk
+~$*.xlsx

@@ -1,7 +1,7 @@
 const ExcelJS = require('exceljs');
 const path = require('path');
 const fs = require('fs');
-const testData = require('./testdata/testdata.json');
+const testData = require('./testdata/testdata_300.json');
 
 async function generateAllPassReport() {
   const reportPath = path.join(__dirname, 'reports', 'TestExecutionReport_AllPass.xlsx');
