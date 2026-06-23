@@ -382,8 +382,7 @@ jobs:
       - name: Run Autocannon Load Test
         working-directory: web/backend
         run: |
-          npm run load-test > load-test-results.txt
-          cat load-test-results.txt
+          npm run load-test
           echo "✅ Load testing completed"
 
       - name: Stop Backend Server
@@ -398,7 +397,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Load-Test-Results
-          path: web/backend/load-test-results.txt
+          path: web/backend/Load-Test-Results.xlsx
 
   # ─────────────────────────────────────────────────────────────
   # 7. DEPLOY – Deploy frontend to GitHub Pages branch
