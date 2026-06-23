@@ -104,7 +104,7 @@
     "severity": "High",
     "data": {
       "name": "User Registration",
-      "email": "user_reg_1781586974873_1@fitwave.com",
+      "email": "user_reg_1782126730397_1@fitwave.com",
       "password": "StrongPassword123!",
       "expectSuccess": true
     }
@@ -193,7 +193,7 @@
     "severity": "Medium",
     "data": {
       "name": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
-      "email": "longname_reg_1781586974873@fitwave.com",
+      "email": "longname_reg_1782126730397@fitwave.com",
       "password": "Password123!",
       "expectSuccess": true
     }
@@ -1374,6 +1374,2572 @@
     "severity": "High",
     "data": {
       "flowId": 7
+    }
+  },
+  {
+    "id": "TC-126",
+    "module": "API Testing",
+    "scenario": "GET /api/reset — verify server state reset returns 200 OK",
+    "expected": "Response body contains 'reset' confirmation text and HTTP 200 status",
+    "severity": "Medium",
+    "data": {
+      "method": "GET",
+      "path": "/api/reset",
+      "expectStatus": 200,
+      "expectBodyContains": "reset"
+    }
+  },
+  {
+    "id": "TC-127",
+    "module": "API Testing",
+    "scenario": "GET /api/reset — verify workouts are reset to 3 default entries after reset",
+    "expected": "After reset, GET /dashboard confirms 3 workouts in the data store",
+    "severity": "Medium",
+    "data": {
+      "method": "GET",
+      "path": "/api/reset",
+      "checkWorkoutsAfter": 3
+    }
+  },
+  {
+    "id": "TC-128",
+    "module": "API Testing",
+    "scenario": "GET /api/reset — double-reset returns 200 OK on second call",
+    "expected": "Two consecutive resets both succeed with HTTP 200",
+    "severity": "Low",
+    "data": {
+      "method": "GET",
+      "path": "/api/reset",
+      "doubleCall": true
+    }
+  },
+  {
+    "id": "TC-129",
+    "module": "API Testing",
+    "scenario": "GET /api/reset — response Content-Type header is text/html",
+    "expected": "Content-Type response header includes text/html charset",
+    "severity": "Low",
+    "data": {
+      "method": "GET",
+      "path": "/api/reset",
+      "expectContentType": "text/html"
+    }
+  },
+  {
+    "id": "TC-130",
+    "module": "API Testing",
+    "scenario": "GET /api/reset — response latency is under 500ms",
+    "expected": "Server responds to state reset within acceptable latency threshold",
+    "severity": "Low",
+    "data": {
+      "method": "GET",
+      "path": "/api/reset",
+      "expectMaxLatencyMs": 500
+    }
+  },
+  {
+    "id": "TC-131",
+    "module": "API Testing",
+    "scenario": "GET /api/reset — response headers include Cache-Control private/no-store",
+    "expected": "Response specifies Cache-Control: no-store to prevent caching of dynamic reset state",
+    "severity": "Low",
+    "data": {
+      "method": "GET",
+      "path": "/api/reset",
+      "checkCacheControl": true
+    }
+  },
+  {
+    "id": "TC-132",
+    "module": "API Testing",
+    "scenario": "GET /api/reset — verify server reset does not crash active session state templates",
+    "expected": "Reset clears only workouts and notifications database tables without breaking routes",
+    "severity": "Medium",
+    "data": {
+      "method": "GET",
+      "path": "/api/reset",
+      "verifyNoSessionCrash": true
+    }
+  },
+  {
+    "id": "TC-133",
+    "module": "API Testing",
+    "scenario": "GET /api/reset — check HTTP status text is OK",
+    "expected": "Server returns OK status message corresponding to HTTP status 200",
+    "severity": "Low",
+    "data": {
+      "method": "GET",
+      "path": "/api/reset",
+      "checkStatusText": "OK"
+    }
+  },
+  {
+    "id": "TC-134",
+    "module": "API Testing",
+    "scenario": "POST /login — valid admin credentials returns 302 redirect to /dashboard",
+    "expected": "HTTP 302 redirect location header points to /dashboard path",
+    "severity": "High",
+    "data": {
+      "method": "POST",
+      "path": "/login",
+      "body": {
+        "username": "admin@fitwave.com",
+        "password": "AdminPassword123!"
+      },
+      "expectStatus": 302,
+      "expectRedirect": "/dashboard"
+    }
+  },
+  {
+    "id": "TC-135",
+    "module": "API Testing",
+    "scenario": "POST /login — invalid password returns 401 Unauthorized response",
+    "expected": "HTTP 401 status and Authentication Failure text in response body",
+    "severity": "High",
+    "data": {
+      "method": "POST",
+      "path": "/login",
+      "body": {
+        "username": "admin@fitwave.com",
+        "password": "wrongpass"
+      },
+      "expectStatus": 401
+    }
+  },
+  {
+    "id": "TC-136",
+    "module": "API Testing",
+    "scenario": "POST /login — unknown email returns 401 Unauthorized response",
+    "expected": "HTTP 401 and error message returned for unregistered email address",
+    "severity": "High",
+    "data": {
+      "method": "POST",
+      "path": "/login",
+      "body": {
+        "username": "unknown@fitwave.com",
+        "password": "AdminPassword123!"
+      },
+      "expectStatus": 401
+    }
+  },
+  {
+    "id": "TC-137",
+    "module": "API Testing",
+    "scenario": "POST /login — SQL injection payload returns 400 Security Exception",
+    "expected": "HTTP 400 blocking SQL injection attempt with Security Exception message",
+    "severity": "High",
+    "data": {
+      "method": "POST",
+      "path": "/login",
+      "body": {
+        "username": "admin' OR 1=1--",
+        "password": "any"
+      },
+      "expectStatus": 400,
+      "expectBodyContains": "SQL"
+    }
+  },
+  {
+    "id": "TC-138",
+    "module": "API Testing",
+    "scenario": "POST /login — empty body fields returns HTTP error response",
+    "expected": "Login endpoint rejects empty username and password with an error response",
+    "severity": "Medium",
+    "data": {
+      "method": "POST",
+      "path": "/login",
+      "body": {
+        "username": "",
+        "password": ""
+      },
+      "expectStatus": [
+        400,
+        401
+      ]
+    }
+  },
+  {
+    "id": "TC-139",
+    "module": "API Testing",
+    "scenario": "POST /login — missing password field returns error response",
+    "expected": "Server handles missing password parameter gracefully without crashing",
+    "severity": "Medium",
+    "data": {
+      "method": "POST",
+      "path": "/login",
+      "body": {
+        "username": "admin@fitwave.com"
+      },
+      "expectStatus": [
+        400,
+        401
+      ]
+    }
+  },
+  {
+    "id": "TC-140",
+    "module": "API Testing",
+    "scenario": "POST /login — missing username field returns error response",
+    "expected": "Server handles missing username parameter gracefully without crashing",
+    "severity": "Medium",
+    "data": {
+      "method": "POST",
+      "path": "/login",
+      "body": {
+        "password": "AdminPassword123!"
+      },
+      "expectStatus": [
+        400,
+        401
+      ]
+    }
+  },
+  {
+    "id": "TC-141",
+    "module": "API Testing",
+    "scenario": "POST /login — response time under 1000ms for valid credentials",
+    "expected": "Login processing completes within 1 second for performance threshold",
+    "severity": "Low",
+    "data": {
+      "method": "POST",
+      "path": "/login",
+      "body": {
+        "username": "admin@fitwave.com",
+        "password": "AdminPassword123!"
+      },
+      "expectMaxLatencyMs": 1000
+    }
+  },
+  {
+    "id": "TC-142",
+    "module": "API Testing",
+    "scenario": "POST /login — response body contains Authentication Failure on 401",
+    "expected": "Error page HTML contains identifiable Authentication Failure heading text",
+    "severity": "Medium",
+    "data": {
+      "method": "POST",
+      "path": "/login",
+      "body": {
+        "username": "bad@test.com",
+        "password": "bad"
+      },
+      "expectStatus": 401,
+      "expectBodyContains": "Authentication Failure"
+    }
+  },
+  {
+    "id": "TC-143",
+    "module": "API Testing",
+    "scenario": "POST /login — SQL injection in password field returns 400 response",
+    "expected": "SQL injection via password parameter is detected and blocked by server",
+    "severity": "High",
+    "data": {
+      "method": "POST",
+      "path": "/login",
+      "body": {
+        "username": "admin@fitwave.com",
+        "password": "' OR '1'='1"
+      },
+      "expectStatus": [
+        400,
+        401
+      ]
+    }
+  },
+  {
+    "id": "TC-144",
+    "module": "API Testing",
+    "scenario": "POST /login — XSS payload in username field is sanitized",
+    "expected": "Script tags in username are not executed, appropriate error returned",
+    "severity": "High",
+    "data": {
+      "method": "POST",
+      "path": "/login",
+      "body": {
+        "username": "<script>alert('xss')</script>",
+        "password": "test"
+      },
+      "expectStatus": [
+        400,
+        401
+      ]
+    }
+  },
+  {
+    "id": "TC-145",
+    "module": "API Testing",
+    "scenario": "POST /login — very long username string is handled without server error",
+    "expected": "Server handles oversized username input without 500 Internal Server Error",
+    "severity": "Medium",
+    "data": {
+      "method": "POST",
+      "path": "/login",
+      "body": {
+        "username": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@test.com",
+        "password": "test"
+      },
+      "expectStatus": [
+        400,
+        401
+      ]
+    }
+  },
+  {
+    "id": "TC-146",
+    "module": "API Testing",
+    "scenario": "POST /login — Content-Type response header present on error page",
+    "expected": "Error response includes Content-Type text/html header",
+    "severity": "Low",
+    "data": {
+      "method": "POST",
+      "path": "/login",
+      "body": {
+        "username": "bad",
+        "password": "bad"
+      },
+      "expectStatus": [
+        400,
+        401
+      ],
+      "expectContentTypePresent": true
+    }
+  },
+  {
+    "id": "TC-147",
+    "module": "API Testing",
+    "scenario": "POST /login — numeric username string handled gracefully",
+    "expected": "Numeric-only username input is handled without crashing the server",
+    "severity": "Low",
+    "data": {
+      "method": "POST",
+      "path": "/login",
+      "body": {
+        "username": "123456789",
+        "password": "test"
+      },
+      "expectStatus": [
+        400,
+        401
+      ]
+    }
+  },
+  {
+    "id": "TC-148",
+    "module": "API Testing",
+    "scenario": "POST /login — unicode characters in credentials handled safely",
+    "expected": "Unicode characters in login fields do not cause server-side exceptions",
+    "severity": "Low",
+    "data": {
+      "method": "POST",
+      "path": "/login",
+      "body": {
+        "username": "用户@fitwave.com",
+        "password": "密碼Test123!"
+      },
+      "expectStatus": [
+        400,
+        401
+      ]
+    }
+  },
+  {
+    "id": "TC-149",
+    "module": "API Testing",
+    "scenario": "POST /login — check that response set-cookie header contains session details",
+    "expected": "Set-Cookie header exists on successful redirection back to dashboard page",
+    "severity": "Medium",
+    "data": {
+      "method": "POST",
+      "path": "/login",
+      "body": {
+        "username": "admin@fitwave.com",
+        "password": "AdminPassword123!"
+      },
+      "checkCookieHeader": true
+    }
+  },
+  {
+    "id": "TC-150",
+    "module": "API Testing",
+    "scenario": "POST /login — login with email containing spaces before/after is trimmed and succeeds",
+    "expected": "Server trims whitespace parameters from username input correctly before validation",
+    "severity": "Medium",
+    "data": {
+      "method": "POST",
+      "path": "/login",
+      "body": {
+        "username": "  admin@fitwave.com  ",
+        "password": "AdminPassword123!"
+      },
+      "expectStatus": 302
+    }
+  },
+  {
+    "id": "TC-151",
+    "module": "API Testing",
+    "scenario": "POST /login — login request with empty password but valid email returns 401",
+    "expected": "Blank password field fails authentication verification",
+    "severity": "High",
+    "data": {
+      "method": "POST",
+      "path": "/login",
+      "body": {
+        "username": "admin@fitwave.com",
+        "password": ""
+      },
+      "expectStatus": [
+        401,
+        400
+      ]
+    }
+  },
+  {
+    "id": "TC-152",
+    "module": "API Testing",
+    "scenario": "POST /login — login with HTML tags in username field returns 401/400 and is escaped",
+    "expected": "Raw HTML tags inside username text are sanitized from error output to prevent injection",
+    "severity": "High",
+    "data": {
+      "method": "POST",
+      "path": "/login",
+      "body": {
+        "username": "<h1>admin</h1>@fitwave.com",
+        "password": "AdminPassword123!"
+      },
+      "expectStatus": [
+        400,
+        401
+      ]
+    }
+  },
+  {
+    "id": "TC-153",
+    "module": "API Testing",
+    "scenario": "POST /login — check POST to /login without body returns 400/401",
+    "expected": "Missing request payload handles input parameters fallback logic gracefully",
+    "severity": "Medium",
+    "data": {
+      "method": "POST",
+      "path": "/login",
+      "expectStatus": [
+        400,
+        401
+      ]
+    }
+  },
+  {
+    "id": "TC-154",
+    "module": "API Testing",
+    "scenario": "POST /register — valid data returns 200 Success response with success message",
+    "expected": "HTTP 200 and Success text in response body for valid registration",
+    "severity": "High",
+    "data": {
+      "method": "POST",
+      "path": "/register",
+      "body": {
+        "name": "API Test User",
+        "email": "apitest_1782126730397@fitwave.com",
+        "password": "ApiTest123!"
+      },
+      "expectStatus": 200,
+      "expectBodyContains": "Success"
+    }
+  },
+  {
+    "id": "TC-155",
+    "module": "API Testing",
+    "scenario": "POST /register — short password under 8 chars returns 400 Weak Password",
+    "expected": "HTTP 400 with Weak Password heading in response body",
+    "severity": "High",
+    "data": {
+      "method": "POST",
+      "path": "/register",
+      "body": {
+        "name": "Short Pass",
+        "email": "shortpass@fitwave.com",
+        "password": "abc"
+      },
+      "expectStatus": 400,
+      "expectBodyContains": "Weak Password"
+    }
+  },
+  {
+    "id": "TC-156",
+    "module": "API Testing",
+    "scenario": "POST /register — password without uppercase returns 400 Complexity Violation",
+    "expected": "HTTP 400 with Complexity Violation heading for missing uppercase character",
+    "severity": "High",
+    "data": {
+      "method": "POST",
+      "path": "/register",
+      "body": {
+        "name": "No Upper",
+        "email": "noupper@fitwave.com",
+        "password": "lowercase123!"
+      },
+      "expectStatus": 400,
+      "expectBodyContains": "Complexity"
+    }
+  },
+  {
+    "id": "TC-157",
+    "module": "API Testing",
+    "scenario": "POST /register — password without digits returns 400 Complexity Violation",
+    "expected": "HTTP 400 with Complexity Violation heading for missing digit requirement",
+    "severity": "High",
+    "data": {
+      "method": "POST",
+      "path": "/register",
+      "body": {
+        "name": "No Digit",
+        "email": "nodigit2@fitwave.com",
+        "password": "NoDigitPass!"
+      },
+      "expectStatus": 400,
+      "expectBodyContains": "Complexity"
+    }
+  },
+  {
+    "id": "TC-158",
+    "module": "API Testing",
+    "scenario": "POST /register — password without special char returns 400 Complexity Violation",
+    "expected": "HTTP 400 with Complexity Violation heading for missing special character",
+    "severity": "High",
+    "data": {
+      "method": "POST",
+      "path": "/register",
+      "body": {
+        "name": "No Special",
+        "email": "nospec2@fitwave.com",
+        "password": "NoSpecial123"
+      },
+      "expectStatus": 400,
+      "expectBodyContains": "Complexity"
+    }
+  },
+  {
+    "id": "TC-159",
+    "module": "API Testing",
+    "scenario": "POST /register — empty name field returns error response",
+    "expected": "Registration fails gracefully with error response for empty name field",
+    "severity": "Medium",
+    "data": {
+      "method": "POST",
+      "path": "/register",
+      "body": {
+        "name": "",
+        "email": "emptyname@fitwave.com",
+        "password": "Password123!"
+      },
+      "expectStatus": [
+        400,
+        200
+      ]
+    }
+  },
+  {
+    "id": "TC-160",
+    "module": "API Testing",
+    "scenario": "POST /register — XSS script tag in name is handled safely",
+    "expected": "Script injection in name field does not execute, server handles safely",
+    "severity": "High",
+    "data": {
+      "method": "POST",
+      "path": "/register",
+      "body": {
+        "name": "<script>alert(1)</script>",
+        "email": "xssreg@fitwave.com",
+        "password": "Password123!"
+      },
+      "expectStatus": [
+        200,
+        400
+      ]
+    }
+  },
+  {
+    "id": "TC-161",
+    "module": "API Testing",
+    "scenario": "POST /register — response body contains Go to Login link on success",
+    "expected": "Successful registration page contains link back to login route",
+    "severity": "Medium",
+    "data": {
+      "method": "POST",
+      "path": "/register",
+      "body": {
+        "name": "Link Check User",
+        "email": "linkcheck_1782126730397@fitwave.com",
+        "password": "LinkCheck123!"
+      },
+      "expectStatus": 200,
+      "expectBodyContains": "login"
+    }
+  },
+  {
+    "id": "TC-162",
+    "module": "API Testing",
+    "scenario": "POST /register — response time under 1000ms for valid data",
+    "expected": "Registration form processing completes within acceptable 1s latency",
+    "severity": "Low",
+    "data": {
+      "method": "POST",
+      "path": "/register",
+      "body": {
+        "name": "Latency User",
+        "email": "latency_1782126730397@fitwave.com",
+        "password": "Latency123!"
+      },
+      "expectMaxLatencyMs": 1000
+    }
+  },
+  {
+    "id": "TC-163",
+    "module": "API Testing",
+    "scenario": "POST /register — very long name is accepted and truncated safely",
+    "expected": "Server accepts or safely truncates extremely long name without 500 error",
+    "severity": "Medium",
+    "data": {
+      "method": "POST",
+      "path": "/register",
+      "body": {
+        "name": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        "email": "longname2_1782126730397@fitwave.com",
+        "password": "LongName123!"
+      },
+      "expectStatus": [
+        200,
+        400
+      ]
+    }
+  },
+  {
+    "id": "TC-164",
+    "module": "API Testing",
+    "scenario": "POST /register — missing email field returns error gracefully",
+    "expected": "Registration without email field is rejected without 500 server crash",
+    "severity": "Medium",
+    "data": {
+      "method": "POST",
+      "path": "/register",
+      "body": {
+        "name": "No Email",
+        "password": "Password123!"
+      },
+      "expectStatus": [
+        400,
+        200
+      ]
+    }
+  },
+  {
+    "id": "TC-165",
+    "module": "API Testing",
+    "scenario": "POST /register — duplicate email registration is handled",
+    "expected": "Registering with same email twice does not cause server crash",
+    "severity": "Medium",
+    "data": {
+      "method": "POST",
+      "path": "/register",
+      "body": {
+        "name": "Dup User",
+        "email": "dup@fitwave.com",
+        "password": "Duplicate123!"
+      },
+      "expectStatus": [
+        200,
+        400
+      ]
+    }
+  },
+  {
+    "id": "TC-166",
+    "module": "API Testing",
+    "scenario": "POST /register — duplicate email check: secondary registration returns 400 or error page",
+    "expected": "Register endpoint prevents duplicate records of same email mapping key",
+    "severity": "High",
+    "data": {
+      "method": "POST",
+      "path": "/register",
+      "body": {
+        "name": "Another Reg",
+        "email": "admin@fitwave.com",
+        "password": "AdminPassword123!"
+      },
+      "expectStatus": [
+        400,
+        200
+      ]
+    }
+  },
+  {
+    "id": "TC-167",
+    "module": "API Testing",
+    "scenario": "POST /register — register with password containing exactly 8 characters succeeds",
+    "expected": "Password of minimum length limit matches complexity bounds validation",
+    "severity": "Medium",
+    "data": {
+      "method": "POST",
+      "path": "/register",
+      "body": {
+        "name": "Exact len",
+        "email": "exact8_1782126730397@fitwave.com",
+        "password": "Passw12!"
+      },
+      "expectStatus": 200
+    }
+  },
+  {
+    "id": "TC-168",
+    "module": "API Testing",
+    "scenario": "POST /register — register with space character in name input handles trimming",
+    "expected": "Whitespace surrounding name input parameter is trimmed correctly",
+    "severity": "Low",
+    "data": {
+      "method": "POST",
+      "path": "/register",
+      "body": {
+        "name": "  Trim Test  ",
+        "email": "trim_1782126730397@fitwave.com",
+        "password": "TrimPassword123!"
+      },
+      "expectStatus": 200
+    }
+  },
+  {
+    "id": "TC-169",
+    "module": "API Testing",
+    "scenario": "GET /dashboard — returns 200 OK with HTML response body",
+    "expected": "HTTP 200 and dashboard HTML content rendered by server",
+    "severity": "Medium",
+    "data": {
+      "method": "GET",
+      "path": "/dashboard",
+      "expectStatus": 200
+    }
+  },
+  {
+    "id": "TC-170",
+    "module": "API Testing",
+    "scenario": "GET /dashboard — response contains workoutTable element ID in HTML",
+    "expected": "Response HTML includes workoutTable ID proving table markup is rendered",
+    "severity": "Medium",
+    "data": {
+      "method": "GET",
+      "path": "/dashboard",
+      "expectBodyContains": "workoutTable"
+    }
+  },
+  {
+    "id": "TC-171",
+    "module": "API Testing",
+    "scenario": "GET /dashboard — response contains activeWorkoutsCount element ID",
+    "expected": "Response HTML includes activeWorkoutsCount metric element",
+    "severity": "Medium",
+    "data": {
+      "method": "GET",
+      "path": "/dashboard",
+      "expectBodyContains": "activeWorkoutsCount"
+    }
+  },
+  {
+    "id": "TC-172",
+    "module": "API Testing",
+    "scenario": "GET /dashboard — response contains totalDurationCount element ID",
+    "expected": "Response HTML includes totalDurationCount metric element",
+    "severity": "Medium",
+    "data": {
+      "method": "GET",
+      "path": "/dashboard",
+      "expectBodyContains": "totalDurationCount"
+    }
+  },
+  {
+    "id": "TC-173",
+    "module": "API Testing",
+    "scenario": "GET /dashboard — response contains notifBadge element ID",
+    "expected": "Response HTML includes notification badge element for unread count display",
+    "severity": "Low",
+    "data": {
+      "method": "GET",
+      "path": "/dashboard",
+      "expectBodyContains": "notifBadge"
+    }
+  },
+  {
+    "id": "TC-174",
+    "module": "API Testing",
+    "scenario": "GET /dashboard?search=Cardio — filters workouts by search keyword",
+    "expected": "Dashboard HTML only shows Cardio matching workout entries",
+    "severity": "High",
+    "data": {
+      "method": "GET",
+      "path": "/dashboard?search=Cardio",
+      "expectStatus": 200,
+      "expectBodyContains": "Cardio"
+    }
+  },
+  {
+    "id": "TC-175",
+    "module": "API Testing",
+    "scenario": "GET /dashboard?category=Strength — filters workouts by Strength category",
+    "expected": "Dashboard table shows only Strength category workout rows",
+    "severity": "High",
+    "data": {
+      "method": "GET",
+      "path": "/dashboard?category=Strength",
+      "expectStatus": 200,
+      "expectBodyContains": "Strength"
+    }
+  },
+  {
+    "id": "TC-176",
+    "module": "API Testing",
+    "scenario": "GET /dashboard?search=NOMATCH999 — returns no workouts message",
+    "expected": "When no workout matches search, No workouts match criteria message is shown",
+    "severity": "Medium",
+    "data": {
+      "method": "GET",
+      "path": "/dashboard?search=NOMATCH999",
+      "expectStatus": 200,
+      "expectBodyContains": "No workouts"
+    }
+  },
+  {
+    "id": "TC-177",
+    "module": "API Testing",
+    "scenario": "GET /dashboard — response time under 1000ms",
+    "expected": "Dashboard endpoint responds within performance threshold",
+    "severity": "Low",
+    "data": {
+      "method": "GET",
+      "path": "/dashboard",
+      "expectMaxLatencyMs": 1000
+    }
+  },
+  {
+    "id": "TC-178",
+    "module": "API Testing",
+    "scenario": "GET /dashboard — response contains Add Workout form element",
+    "expected": "Dashboard HTML includes createWorkoutForm element for adding new workouts",
+    "severity": "Medium",
+    "data": {
+      "method": "GET",
+      "path": "/dashboard",
+      "expectBodyContains": "createWorkoutForm"
+    }
+  },
+  {
+    "id": "TC-179",
+    "module": "API Testing",
+    "scenario": "GET /dashboard — response includes CSS link to index.css in head",
+    "expected": "Verification of index stylesheet inclusion in dashboard layout",
+    "severity": "Low",
+    "data": {
+      "method": "GET",
+      "path": "/dashboard",
+      "expectBodyContains": "index.css"
+    }
+  },
+  {
+    "id": "TC-180",
+    "module": "API Testing",
+    "scenario": "GET /dashboard — verify presence of notifications dropdown container element",
+    "expected": "HTML contains notificationsDropdown layout layer",
+    "severity": "Low",
+    "data": {
+      "method": "GET",
+      "path": "/dashboard",
+      "expectBodyContains": "notificationsDropdown"
+    }
+  },
+  {
+    "id": "TC-181",
+    "module": "API Testing",
+    "scenario": "GET /dashboard — response includes settings link button in sidebar",
+    "expected": "HTML contains settings anchor navigation layout option",
+    "severity": "Low",
+    "data": {
+      "method": "GET",
+      "path": "/dashboard",
+      "expectBodyContains": "href=\"/settings\""
+    }
+  },
+  {
+    "id": "TC-182",
+    "module": "API Testing",
+    "scenario": "GET /dashboard — response has correct doc type header declaration",
+    "expected": "HTML structure starts with standard <!doctype html> markup tags",
+    "severity": "Low",
+    "data": {
+      "method": "GET",
+      "path": "/dashboard",
+      "expectBodyContains": "<!doctype html>"
+    }
+  },
+  {
+    "id": "TC-183",
+    "module": "API Testing",
+    "scenario": "GET /dashboard — search parameter is HTML escaped in the search input display value",
+    "expected": "Search text input displays sanitized search query in value attribute",
+    "severity": "High",
+    "data": {
+      "method": "GET",
+      "path": "/dashboard?search=<script>alert(1)</script>",
+      "expectStatus": 200
+    }
+  },
+  {
+    "id": "TC-184",
+    "module": "API Testing",
+    "scenario": "POST /workout/create — create new Cardio workout returns 302 redirect",
+    "expected": "HTTP 302 redirect back to /dashboard after successful workout creation",
+    "severity": "High",
+    "data": {
+      "method": "POST",
+      "path": "/workout/create",
+      "body": {
+        "name": "API Cardio Test",
+        "category": "Cardio",
+        "duration": "30"
+      },
+      "expectStatus": 302
+    }
+  },
+  {
+    "id": "TC-185",
+    "module": "API Testing",
+    "scenario": "POST /workout/create — create Strength workout and verify in dashboard",
+    "expected": "After create, dashboard HTML contains the new workout name",
+    "severity": "High",
+    "data": {
+      "method": "POST",
+      "path": "/workout/create",
+      "body": {
+        "name": "API Strength Test",
+        "category": "Strength",
+        "duration": "45"
+      },
+      "verifyInDashboard": true
+    }
+  },
+  {
+    "id": "TC-186",
+    "module": "API Testing",
+    "scenario": "POST /workout/create — create Flexibility workout returns 302",
+    "expected": "HTTP 302 redirect for Flexibility category workout creation",
+    "severity": "High",
+    "data": {
+      "method": "POST",
+      "path": "/workout/create",
+      "body": {
+        "name": "API Flex Test",
+        "category": "Flexibility",
+        "duration": "20"
+      },
+      "expectStatus": 302
+    }
+  },
+  {
+    "id": "TC-187",
+    "module": "API Testing",
+    "scenario": "POST /workout/create — missing name field is handled without 500 error",
+    "expected": "Server handles missing workout name without crashing",
+    "severity": "Medium",
+    "data": {
+      "method": "POST",
+      "path": "/workout/create",
+      "body": {
+        "category": "Cardio",
+        "duration": "30"
+      },
+      "expectStatus": [
+        302,
+        400
+      ]
+    }
+  },
+  {
+    "id": "TC-188",
+    "module": "API Testing",
+    "scenario": "POST /workout/create — zero duration workout handled gracefully",
+    "expected": "Zero duration workout is created with fallback default duration value",
+    "severity": "Low",
+    "data": {
+      "method": "POST",
+      "path": "/workout/create",
+      "body": {
+        "name": "Zero Duration",
+        "category": "Cardio",
+        "duration": "0"
+      },
+      "expectStatus": 302
+    }
+  },
+  {
+    "id": "TC-189",
+    "module": "API Testing",
+    "scenario": "POST /workout/create — negative duration handled without server error",
+    "expected": "Negative duration value is accepted or rejected without 500 crash",
+    "severity": "Low",
+    "data": {
+      "method": "POST",
+      "path": "/workout/create",
+      "body": {
+        "name": "Neg Duration",
+        "category": "Strength",
+        "duration": "-10"
+      },
+      "expectStatus": [
+        302,
+        400
+      ]
+    }
+  },
+  {
+    "id": "TC-190",
+    "module": "API Testing",
+    "scenario": "GET /workout/edit/1 — returns 200 with edit form for existing workout",
+    "expected": "HTTP 200 and edit form HTML rendered for workout ID 1",
+    "severity": "High",
+    "data": {
+      "method": "GET",
+      "path": "/workout/edit/1",
+      "expectStatus": 200,
+      "expectBodyContains": "editWorkoutForm"
+    }
+  },
+  {
+    "id": "TC-191",
+    "module": "API Testing",
+    "scenario": "GET /workout/edit/2 — returns 200 with edit form for existing workout",
+    "expected": "HTTP 200 and edit form HTML rendered for workout ID 2",
+    "severity": "High",
+    "data": {
+      "method": "GET",
+      "path": "/workout/edit/2",
+      "expectStatus": 200,
+      "expectBodyContains": "editWorkoutForm"
+    }
+  },
+  {
+    "id": "TC-192",
+    "module": "API Testing",
+    "scenario": "GET /workout/edit/3 — returns 200 with edit form for existing workout",
+    "expected": "HTTP 200 and edit form HTML rendered for workout ID 3",
+    "severity": "Medium",
+    "data": {
+      "method": "GET",
+      "path": "/workout/edit/3",
+      "expectStatus": 200,
+      "expectBodyContains": "editWorkoutForm"
+    }
+  },
+  {
+    "id": "TC-193",
+    "module": "API Testing",
+    "scenario": "GET /workout/edit/999 — returns 404 for non-existent workout ID",
+    "expected": "HTTP 404 returned for workout ID that does not exist in data store",
+    "severity": "Medium",
+    "data": {
+      "method": "GET",
+      "path": "/workout/edit/999",
+      "expectStatus": 404
+    }
+  },
+  {
+    "id": "TC-194",
+    "module": "API Testing",
+    "scenario": "POST /workout/edit/1 — update name and category redirects to dashboard",
+    "expected": "HTTP 302 redirect after successful workout update operation",
+    "severity": "High",
+    "data": {
+      "method": "POST",
+      "path": "/workout/edit/1",
+      "body": {
+        "name": "Updated API Workout",
+        "category": "Flexibility",
+        "duration": "40"
+      },
+      "expectStatus": 302
+    }
+  },
+  {
+    "id": "TC-195",
+    "module": "API Testing",
+    "scenario": "POST /workout/edit/2 — update duration redirects to dashboard",
+    "expected": "HTTP 302 redirect after updating workout duration field",
+    "severity": "High",
+    "data": {
+      "method": "POST",
+      "path": "/workout/edit/2",
+      "body": {
+        "name": "Heavy Squat Session",
+        "category": "Strength",
+        "duration": "60"
+      },
+      "expectStatus": 302
+    }
+  },
+  {
+    "id": "TC-196",
+    "module": "API Testing",
+    "scenario": "POST /workout/delete/1 — delete workout ID 1 redirects to dashboard",
+    "expected": "HTTP 302 redirect after successful deletion of workout ID 1",
+    "severity": "High",
+    "data": {
+      "method": "POST",
+      "path": "/workout/delete/1",
+      "expectStatus": 302
+    }
+  },
+  {
+    "id": "TC-197",
+    "module": "API Testing",
+    "scenario": "POST /workout/delete/2 — delete workout ID 2 redirects to dashboard",
+    "expected": "HTTP 302 redirect after successful deletion of workout ID 2",
+    "severity": "High",
+    "data": {
+      "method": "POST",
+      "path": "/workout/delete/2",
+      "expectStatus": 302
+    }
+  },
+  {
+    "id": "TC-198",
+    "module": "API Testing",
+    "scenario": "POST /workout/delete/3 — delete workout ID 3 redirects to dashboard",
+    "expected": "HTTP 302 redirect after successful deletion of workout ID 3",
+    "severity": "High",
+    "data": {
+      "method": "POST",
+      "path": "/workout/delete/3",
+      "expectStatus": 302
+    }
+  },
+  {
+    "id": "TC-199",
+    "module": "API Testing",
+    "scenario": "POST /workout/delete/999 — deleting non-existent ID is handled gracefully",
+    "expected": "Deleting a non-existent workout does not cause a 500 server error",
+    "severity": "Low",
+    "data": {
+      "method": "POST",
+      "path": "/workout/delete/999",
+      "expectStatus": [
+        302,
+        404
+      ]
+    }
+  },
+  {
+    "id": "TC-200",
+    "module": "API Testing",
+    "scenario": "POST /workout/create — response time under 1000ms",
+    "expected": "Workout creation completes within performance latency threshold",
+    "severity": "Low",
+    "data": {
+      "method": "POST",
+      "path": "/workout/create",
+      "body": {
+        "name": "Latency Workout",
+        "category": "Cardio",
+        "duration": "30"
+      },
+      "expectMaxLatencyMs": 1000
+    }
+  },
+  {
+    "id": "TC-201",
+    "module": "API Testing",
+    "scenario": "POST /workout/edit/1 — empty name handled without server crash",
+    "expected": "Edit workout with empty name field does not cause 500 server crash",
+    "severity": "Low",
+    "data": {
+      "method": "POST",
+      "path": "/workout/edit/1",
+      "body": {
+        "name": "",
+        "category": "Cardio",
+        "duration": "30"
+      },
+      "expectStatus": [
+        302,
+        400
+      ]
+    }
+  },
+  {
+    "id": "TC-202",
+    "module": "API Testing",
+    "scenario": "POST /workout/create — name field with exactly 100 characters is created successfully",
+    "expected": "Long workout names are supported by data schema constraints",
+    "severity": "Medium",
+    "data": {
+      "method": "POST",
+      "path": "/workout/create",
+      "body": {
+        "name": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+        "category": "Cardio",
+        "duration": "30"
+      },
+      "expectStatus": 302
+    }
+  },
+  {
+    "id": "TC-203",
+    "module": "API Testing",
+    "scenario": "GET /workout/edit/abc — verify non-numeric ID in edit GET returns 404/400 error",
+    "expected": "Route parsing handles invalid parameter values gracefully without server crash",
+    "severity": "Medium",
+    "data": {
+      "method": "GET",
+      "path": "/workout/edit/abc",
+      "expectStatus": [
+        404,
+        400
+      ]
+    }
+  },
+  {
+    "id": "TC-204",
+    "module": "API Testing",
+    "scenario": "POST /workout/delete/abc — deleting non-numeric ID is rejected with 400/404",
+    "expected": "Route handler responds with appropriate HTTP error on non-numeric delete request",
+    "severity": "Low",
+    "data": {
+      "method": "POST",
+      "path": "/workout/delete/abc",
+      "expectStatus": [
+        404,
+        400
+      ]
+    }
+  },
+  {
+    "id": "TC-205",
+    "module": "API Testing",
+    "scenario": "POST /workout/create — workout with category Yoga is auto-mapped to Flexibility",
+    "expected": "Yoga exercises correctly map to Flexibility type category classification",
+    "severity": "Low",
+    "data": {
+      "method": "POST",
+      "path": "/workout/create",
+      "body": {
+        "name": "Yoga Session",
+        "category": "Yoga",
+        "duration": "15"
+      },
+      "expectStatus": 302
+    }
+  },
+  {
+    "id": "TC-206",
+    "module": "API Testing",
+    "scenario": "POST /workout/create — very large duration handled safely",
+    "expected": "High duration numbers are handled without layout overflowing database fields limits",
+    "severity": "Low",
+    "data": {
+      "method": "POST",
+      "path": "/workout/create",
+      "body": {
+        "name": "Marathon Run",
+        "category": "Cardio",
+        "duration": "9999"
+      },
+      "expectStatus": 302
+    }
+  },
+  {
+    "id": "TC-207",
+    "module": "API Testing",
+    "scenario": "POST /api/notifications/clear — clears all notifications returns JSON success",
+    "expected": "HTTP 200 with JSON body { success: true } for clear all action",
+    "severity": "Medium",
+    "data": {
+      "method": "POST",
+      "path": "/api/notifications/clear",
+      "expectStatus": 200,
+      "expectJson": true,
+      "expectJsonField": "success"
+    }
+  },
+  {
+    "id": "TC-208",
+    "module": "API Testing",
+    "scenario": "POST /api/notifications/read/1 — marks notification 1 as read returns success JSON",
+    "expected": "HTTP 200 with { success: true } JSON for marking notification ID 1 read",
+    "severity": "Medium",
+    "data": {
+      "method": "POST",
+      "path": "/api/notifications/read/1",
+      "expectStatus": 200,
+      "expectJson": true
+    }
+  },
+  {
+    "id": "TC-209",
+    "module": "API Testing",
+    "scenario": "POST /api/notifications/read/2 — marks notification 2 as read returns success JSON",
+    "expected": "HTTP 200 with { success: true } JSON for marking notification ID 2 read",
+    "severity": "Medium",
+    "data": {
+      "method": "POST",
+      "path": "/api/notifications/read/2",
+      "expectStatus": 200,
+      "expectJson": true
+    }
+  },
+  {
+    "id": "TC-210",
+    "module": "API Testing",
+    "scenario": "POST /api/notifications/read/999 — non-existent ID handled without 500",
+    "expected": "Reading non-existent notification ID is handled gracefully without server error",
+    "severity": "Low",
+    "data": {
+      "method": "POST",
+      "path": "/api/notifications/read/999",
+      "expectStatus": [
+        200,
+        404
+      ]
+    }
+  },
+  {
+    "id": "TC-211",
+    "module": "API Testing",
+    "scenario": "POST /api/notifications/clear — response Content-Type is application/json",
+    "expected": "Clear notifications endpoint returns JSON Content-Type header",
+    "severity": "Low",
+    "data": {
+      "method": "POST",
+      "path": "/api/notifications/clear",
+      "expectContentType": "application/json"
+    }
+  },
+  {
+    "id": "TC-212",
+    "module": "API Testing",
+    "scenario": "POST /api/notifications/clear — response time under 500ms",
+    "expected": "Notifications clear API responds within acceptable latency threshold",
+    "severity": "Low",
+    "data": {
+      "method": "POST",
+      "path": "/api/notifications/clear",
+      "expectMaxLatencyMs": 500
+    }
+  },
+  {
+    "id": "TC-213",
+    "module": "API Testing",
+    "scenario": "POST /api/notifications/read/1 — response JSON success field is boolean true",
+    "expected": "Response JSON success value is exactly boolean true",
+    "severity": "Low",
+    "data": {
+      "method": "POST",
+      "path": "/api/notifications/read/1",
+      "expectJsonFieldValue": {
+        "success": true
+      }
+    }
+  },
+  {
+    "id": "TC-214",
+    "module": "API Testing",
+    "scenario": "POST /api/notifications/clear — notifications count is 0 after clearing",
+    "expected": "After clear all, dashboard shows 0 unread notifications",
+    "severity": "Medium",
+    "data": {
+      "method": "POST",
+      "path": "/api/notifications/clear",
+      "verifyZeroBadge": true
+    }
+  },
+  {
+    "id": "TC-215",
+    "module": "API Testing",
+    "scenario": "POST /api/notifications/read/1 — idempotent: reading again returns 200",
+    "expected": "Reading same notification twice returns 200 without errors",
+    "severity": "Low",
+    "data": {
+      "method": "POST",
+      "path": "/api/notifications/read/1",
+      "idempotent": true
+    }
+  },
+  {
+    "id": "TC-216",
+    "module": "API Testing",
+    "scenario": "POST /api/notifications/clear then GET /dashboard — badge hidden",
+    "expected": "After clearing notifications, dashboard badge display is hidden/none",
+    "severity": "Medium",
+    "data": {
+      "method": "POST",
+      "path": "/api/notifications/clear",
+      "followUp": {
+        "method": "GET",
+        "path": "/dashboard",
+        "expectBadgeHidden": true
+      }
+    }
+  },
+  {
+    "id": "TC-217",
+    "module": "API Testing",
+    "scenario": "POST /api/notifications/read/2 — response time under 500ms",
+    "expected": "Single notification read API call completes within 500ms",
+    "severity": "Low",
+    "data": {
+      "method": "POST",
+      "path": "/api/notifications/read/2",
+      "expectMaxLatencyMs": 500
+    }
+  },
+  {
+    "id": "TC-218",
+    "module": "API Testing",
+    "scenario": "POST /api/notifications/read/1 — Content-Type response is application/json",
+    "expected": "Read notification endpoint returns application/json Content-Type header",
+    "severity": "Low",
+    "data": {
+      "method": "POST",
+      "path": "/api/notifications/read/1",
+      "expectContentType": "application/json"
+    }
+  },
+  {
+    "id": "TC-219",
+    "module": "API Testing",
+    "scenario": "POST /api/notifications/read/abc — marking non-numeric notification ID read returns 400/404",
+    "expected": "Route validates parameters formats checking input formats",
+    "severity": "Low",
+    "data": {
+      "method": "POST",
+      "path": "/api/notifications/read/abc",
+      "expectStatus": [
+        404,
+        400
+      ]
+    }
+  },
+  {
+    "id": "TC-220",
+    "module": "API Testing",
+    "scenario": "POST /api/notifications/read/-1 — marking negative notification ID read returns 400/404",
+    "expected": "Negative numbers parameters are handled without database crash",
+    "severity": "Low",
+    "data": {
+      "method": "POST",
+      "path": "/api/notifications/read/-1",
+      "expectStatus": [
+        404,
+        400
+      ]
+    }
+  },
+  {
+    "id": "TC-221",
+    "module": "API Testing",
+    "scenario": "POST /api/notifications/clear — clear all is idempotent, calling twice returns success JSON",
+    "expected": "Clear endpoint works consecutively without state collision",
+    "severity": "Low",
+    "data": {
+      "method": "POST",
+      "path": "/api/notifications/clear",
+      "repeatCalls": 2,
+      "expectStatus": 200
+    }
+  },
+  {
+    "id": "TC-222",
+    "module": "API Testing",
+    "scenario": "GET /profile — returns 200 OK with profile page HTML",
+    "expected": "HTTP 200 and profile page HTML containing profileUpdateForm element",
+    "severity": "Medium",
+    "data": {
+      "method": "GET",
+      "path": "/profile",
+      "expectStatus": 200,
+      "expectBodyContains": "profileUpdateForm"
+    }
+  },
+  {
+    "id": "TC-223",
+    "module": "API Testing",
+    "scenario": "GET /profile — page contains profileNameInput element",
+    "expected": "Profile page HTML includes profileNameInput text field for name editing",
+    "severity": "Medium",
+    "data": {
+      "method": "GET",
+      "path": "/profile",
+      "expectBodyContains": "profileNameInput"
+    }
+  },
+  {
+    "id": "TC-224",
+    "module": "API Testing",
+    "scenario": "GET /profile — page contains profileEmailInput element",
+    "expected": "Profile page HTML includes profileEmailInput email field",
+    "severity": "Medium",
+    "data": {
+      "method": "GET",
+      "path": "/profile",
+      "expectBodyContains": "profileEmailInput"
+    }
+  },
+  {
+    "id": "TC-225",
+    "module": "API Testing",
+    "scenario": "POST /profile/update — valid data redirects back to /profile",
+    "expected": "HTTP 302 redirect to /profile after successful profile update",
+    "severity": "High",
+    "data": {
+      "method": "POST",
+      "path": "/profile/update",
+      "body": {
+        "name": "API Updated Name",
+        "email": "api_updated@fitwave.com",
+        "phone": "+15550100"
+      },
+      "expectStatus": 302
+    }
+  },
+  {
+    "id": "TC-226",
+    "module": "API Testing",
+    "scenario": "POST /profile/update — empty name handled without server crash",
+    "expected": "Profile update with empty name does not cause a 500 Internal Server Error",
+    "severity": "Medium",
+    "data": {
+      "method": "POST",
+      "path": "/profile/update",
+      "body": {
+        "name": "",
+        "email": "admin@fitwave.com",
+        "phone": ""
+      },
+      "expectStatus": 302
+    }
+  },
+  {
+    "id": "TC-227",
+    "module": "API Testing",
+    "scenario": "POST /profile/update — XSS in name field is handled safely",
+    "expected": "XSS payload in profile name is escaped or rejected without server crash",
+    "severity": "High",
+    "data": {
+      "method": "POST",
+      "path": "/profile/update",
+      "body": {
+        "name": "<img src=x onerror=alert(1)>",
+        "email": "admin@fitwave.com",
+        "phone": ""
+      },
+      "expectStatus": 302
+    }
+  },
+  {
+    "id": "TC-228",
+    "module": "API Testing",
+    "scenario": "POST /profile/update — response time under 1000ms",
+    "expected": "Profile update completes within acceptable latency threshold",
+    "severity": "Low",
+    "data": {
+      "method": "POST",
+      "path": "/profile/update",
+      "body": {
+        "name": "Latency Test",
+        "email": "admin@fitwave.com",
+        "phone": ""
+      },
+      "expectMaxLatencyMs": 1000
+    }
+  },
+  {
+    "id": "TC-229",
+    "module": "API Testing",
+    "scenario": "GET /settings — returns 200 OK with settings page HTML",
+    "expected": "HTTP 200 and settings page HTML containing settingsForm element",
+    "severity": "Medium",
+    "data": {
+      "method": "GET",
+      "path": "/settings",
+      "expectStatus": 200,
+      "expectBodyContains": "settingsForm"
+    }
+  },
+  {
+    "id": "TC-230",
+    "module": "API Testing",
+    "scenario": "GET /settings — page contains settingsTheme select element",
+    "expected": "Settings page includes theme selection dropdown element",
+    "severity": "Medium",
+    "data": {
+      "method": "GET",
+      "path": "/settings",
+      "expectBodyContains": "settingsTheme"
+    }
+  },
+  {
+    "id": "TC-231",
+    "module": "API Testing",
+    "scenario": "GET /settings — page contains settingsEmailAlerts select element",
+    "expected": "Settings page includes email alerts toggle dropdown element",
+    "severity": "Medium",
+    "data": {
+      "method": "GET",
+      "path": "/settings",
+      "expectBodyContains": "settingsEmailAlerts"
+    }
+  },
+  {
+    "id": "TC-232",
+    "module": "API Testing",
+    "scenario": "POST /settings/save — dark theme save redirects to /settings",
+    "expected": "HTTP 302 redirect after saving dark theme settings configuration",
+    "severity": "High",
+    "data": {
+      "method": "POST",
+      "path": "/settings/save",
+      "body": {
+        "theme": "dark",
+        "emailAlerts": "enabled",
+        "weeklySummary": "yes"
+      },
+      "expectStatus": 302
+    }
+  },
+  {
+    "id": "TC-233",
+    "module": "API Testing",
+    "scenario": "POST /settings/save — light theme save redirects to /settings",
+    "expected": "HTTP 302 redirect after saving light theme settings configuration",
+    "severity": "High",
+    "data": {
+      "method": "POST",
+      "path": "/settings/save",
+      "body": {
+        "theme": "light",
+        "emailAlerts": "disabled",
+        "weeklySummary": "no"
+      },
+      "expectStatus": 302
+    }
+  },
+  {
+    "id": "TC-234",
+    "module": "API Testing",
+    "scenario": "POST /profile/update — update profile with identical current values redirects to /profile",
+    "expected": "Submitting unmodified values works and redirects correctly",
+    "severity": "Medium",
+    "data": {
+      "method": "POST",
+      "path": "/profile/update",
+      "body": {
+        "name": "admin",
+        "email": "admin@fitwave.com",
+        "phone": "1234567890"
+      },
+      "expectStatus": 302
+    }
+  },
+  {
+    "id": "TC-235",
+    "module": "API Testing",
+    "scenario": "POST /profile/update — check phone number format validation rejects alphabetic characters",
+    "expected": "Fails gracefully or strips invalid characters in phone field parameters",
+    "severity": "Low",
+    "data": {
+      "method": "POST",
+      "path": "/profile/update",
+      "body": {
+        "name": "Admin",
+        "email": "admin@fitwave.com",
+        "phone": "abcdefg"
+      },
+      "expectStatus": 302
+    }
+  },
+  {
+    "id": "TC-236",
+    "module": "API Testing",
+    "scenario": "POST /settings/save — invalid theme name input falls back to default light theme",
+    "expected": "Fallback is executed on save validation checks of parameters values",
+    "severity": "Low",
+    "data": {
+      "method": "POST",
+      "path": "/settings/save",
+      "body": {
+        "theme": "invalidTheme",
+        "emailAlerts": "enabled",
+        "weeklySummary": "yes"
+      },
+      "expectStatus": 302
+    }
+  },
+  {
+    "id": "TC-237",
+    "module": "API Testing",
+    "scenario": "GET /download/report — returns 200 with file attachment header",
+    "expected": "HTTP 200 and Content-Disposition attachment header for Excel report download",
+    "severity": "High",
+    "data": {
+      "method": "GET",
+      "path": "/download/report",
+      "expectStatus": 200,
+      "expectHeader": "content-disposition"
+    }
+  },
+  {
+    "id": "TC-238",
+    "module": "API Testing",
+    "scenario": "GET /download/backup — returns 200 with JSON backup data attachment",
+    "expected": "HTTP 200 and Content-Disposition attachment header for JSON backup download",
+    "severity": "High",
+    "data": {
+      "method": "GET",
+      "path": "/download/backup",
+      "expectStatus": 200,
+      "expectHeader": "content-disposition"
+    }
+  },
+  {
+    "id": "TC-239",
+    "module": "API Testing",
+    "scenario": "GET /download/report — Content-Disposition includes filename",
+    "expected": "Download report response Content-Disposition includes a filename parameter",
+    "severity": "Medium",
+    "data": {
+      "method": "GET",
+      "path": "/download/report",
+      "expectHeaderContains": {
+        "content-disposition": "filename"
+      }
+    }
+  },
+  {
+    "id": "TC-240",
+    "module": "API Testing",
+    "scenario": "GET /download/backup — Content-Type is application/json",
+    "expected": "Backup download returns application/json Content-Type header",
+    "severity": "Medium",
+    "data": {
+      "method": "GET",
+      "path": "/download/backup",
+      "expectContentType": "application/json"
+    }
+  },
+  {
+    "id": "TC-241",
+    "module": "API Testing",
+    "scenario": "GET /download/backup — response body is valid JSON array",
+    "expected": "Backup download response body parses as a valid JSON array of workouts",
+    "severity": "High",
+    "data": {
+      "method": "GET",
+      "path": "/download/backup",
+      "expectValidJson": true,
+      "expectJsonArray": true
+    }
+  },
+  {
+    "id": "TC-242",
+    "module": "API Testing",
+    "scenario": "GET /download/report — response time under 2000ms",
+    "expected": "Report download endpoint responds within 2 second performance threshold",
+    "severity": "Low",
+    "data": {
+      "method": "GET",
+      "path": "/download/report",
+      "expectMaxLatencyMs": 2000
+    }
+  },
+  {
+    "id": "TC-243",
+    "module": "API Testing",
+    "scenario": "GET /download/backup — response time under 1000ms",
+    "expected": "Backup download endpoint responds within 1 second performance threshold",
+    "severity": "Low",
+    "data": {
+      "method": "GET",
+      "path": "/download/backup",
+      "expectMaxLatencyMs": 1000
+    }
+  },
+  {
+    "id": "TC-244",
+    "module": "API Testing",
+    "scenario": "GET /download/report — file is created if not found and served",
+    "expected": "Report download creates sample file dynamically if missing and serves it",
+    "severity": "Medium",
+    "data": {
+      "method": "GET",
+      "path": "/download/report",
+      "expectFileServed": true
+    }
+  },
+  {
+    "id": "TC-245",
+    "module": "API Testing",
+    "scenario": "GET /download/backup — backup includes all 3 default workouts after reset",
+    "expected": "After reset, backup JSON contains exactly 3 default workout records",
+    "severity": "High",
+    "data": {
+      "method": "GET",
+      "path": "/download/backup",
+      "afterReset": true,
+      "expectJsonLength": 3
+    }
+  },
+  {
+    "id": "TC-246",
+    "module": "API Testing",
+    "scenario": "POST /upload — missing file field returns 400 error",
+    "expected": "Upload endpoint returns 400 Bad Request when no file is attached",
+    "severity": "Medium",
+    "data": {
+      "method": "POST",
+      "path": "/upload",
+      "noFile": true,
+      "expectStatus": 400
+    }
+  },
+  {
+    "id": "TC-247",
+    "module": "API Testing",
+    "scenario": "GET /download/backup — first workout name is Morning Cardio Blast",
+    "expected": "Backup JSON first element name matches default seeded workout name",
+    "severity": "Low",
+    "data": {
+      "method": "GET",
+      "path": "/download/backup",
+      "afterReset": true,
+      "expectFirstItemName": "Morning Cardio Blast"
+    }
+  },
+  {
+    "id": "TC-248",
+    "module": "API Testing",
+    "scenario": "GET /download/backup — workouts contain id, name, category, duration fields",
+    "expected": "Each backup workout object contains required id, name, category, and duration fields",
+    "severity": "Medium",
+    "data": {
+      "method": "GET",
+      "path": "/download/backup",
+      "afterReset": true,
+      "expectFields": [
+        "id",
+        "name",
+        "category",
+        "duration"
+      ]
+    }
+  },
+  {
+    "id": "TC-249",
+    "module": "API Testing",
+    "scenario": "POST /upload — upload empty file handles input correctly",
+    "expected": "Uploading file parameter with 0 bytes is gracefully flagged as bad request",
+    "severity": "Medium",
+    "data": {
+      "method": "POST",
+      "path": "/upload",
+      "body": {
+        "file": ""
+      },
+      "expectStatus": 400
+    }
+  },
+  {
+    "id": "TC-250",
+    "module": "API Testing",
+    "scenario": "POST /upload — upload file with unsupported mime-type displays error",
+    "expected": "Invalid types (e.g., text/plain) are blocked by files parser checks",
+    "severity": "Low",
+    "data": {
+      "method": "POST",
+      "path": "/upload",
+      "checkMimeValidation": true
+    }
+  },
+  {
+    "id": "TC-251",
+    "module": "API Testing",
+    "scenario": "GET /download/report — verify response header content-length is present",
+    "expected": "Served file response size matches length headers in metrics checks",
+    "severity": "Low",
+    "data": {
+      "method": "GET",
+      "path": "/download/report",
+      "checkContentLengthHeader": true
+    }
+  },
+  {
+    "id": "TC-252",
+    "module": "API Testing",
+    "scenario": "GET /logout — returns 200 OK with logout confirmation page",
+    "expected": "HTTP 200 and logout page HTML containing logoutMsg element",
+    "severity": "High",
+    "data": {
+      "method": "GET",
+      "path": "/logout",
+      "expectStatus": 200,
+      "expectBodyContains": "logoutMsg"
+    }
+  },
+  {
+    "id": "TC-253",
+    "module": "API Testing",
+    "scenario": "GET /logout — page contains Sign In Again button link",
+    "expected": "Logout page contains link back to /login page for re-authentication",
+    "severity": "Medium",
+    "data": {
+      "method": "GET",
+      "path": "/logout",
+      "expectBodyContains": "btnLogoutBackBtn"
+    }
+  },
+  {
+    "id": "TC-254",
+    "module": "API Testing",
+    "scenario": "GET /logout — page contains Signed Out heading text",
+    "expected": "Logout confirmation page displays Signed Out heading to user",
+    "severity": "Medium",
+    "data": {
+      "method": "GET",
+      "path": "/logout",
+      "expectBodyContains": "Signed Out"
+    }
+  },
+  {
+    "id": "TC-255",
+    "module": "API Testing",
+    "scenario": "GET /logout — response time under 500ms",
+    "expected": "Logout page renders and responds within acceptable latency threshold",
+    "severity": "Low",
+    "data": {
+      "method": "GET",
+      "path": "/logout",
+      "expectMaxLatencyMs": 500
+    }
+  },
+  {
+    "id": "TC-256",
+    "module": "API Testing",
+    "scenario": "GET /login — GET request returns 200 OK with login form",
+    "expected": "HTTP 200 and login form HTML rendered with loginForm element",
+    "severity": "High",
+    "data": {
+      "method": "GET",
+      "path": "/login",
+      "expectStatus": 200,
+      "expectBodyContains": "loginForm"
+    }
+  },
+  {
+    "id": "TC-257",
+    "module": "API Testing",
+    "scenario": "GET /login — page contains loginEmail input element",
+    "expected": "Login page HTML includes loginEmail input field",
+    "severity": "Medium",
+    "data": {
+      "method": "GET",
+      "path": "/login",
+      "expectBodyContains": "loginEmail"
+    }
+  },
+  {
+    "id": "TC-258",
+    "module": "API Testing",
+    "scenario": "GET /login — page contains loginPassword input element",
+    "expected": "Login page HTML includes loginPassword input field",
+    "severity": "Medium",
+    "data": {
+      "method": "GET",
+      "path": "/login",
+      "expectBodyContains": "loginPassword"
+    }
+  },
+  {
+    "id": "TC-259",
+    "module": "API Testing",
+    "scenario": "GET /login — page contains link to register page",
+    "expected": "Login page includes linkToRegister anchor element for registration",
+    "severity": "Low",
+    "data": {
+      "method": "GET",
+      "path": "/login",
+      "expectBodyContains": "linkToRegister"
+    }
+  },
+  {
+    "id": "TC-260",
+    "module": "API Testing",
+    "scenario": "GET /register — returns 200 OK with registration form",
+    "expected": "HTTP 200 and registration form HTML with registerForm element",
+    "severity": "High",
+    "data": {
+      "method": "GET",
+      "path": "/register",
+      "expectStatus": 200,
+      "expectBodyContains": "registerForm"
+    }
+  },
+  {
+    "id": "TC-261",
+    "module": "API Testing",
+    "scenario": "GET / — root path redirects to /login",
+    "expected": "HTTP redirect from root path / to /login page",
+    "severity": "Medium",
+    "data": {
+      "method": "GET",
+      "path": "/",
+      "expectRedirectTo": "/login"
+    }
+  },
+  {
+    "id": "TC-262",
+    "module": "API Testing",
+    "scenario": "GET /logout — check Cache-Control header is present to prevent caching secure pages",
+    "expected": "Verify logout clears browser cache headers settings",
+    "severity": "Low",
+    "data": {
+      "method": "GET",
+      "path": "/logout",
+      "checkCacheHeaders": true
+    }
+  },
+  {
+    "id": "TC-263",
+    "module": "API Testing",
+    "scenario": "GET /login — access login page when already authenticated redirect verification",
+    "expected": "Authenticated user requesting login is redirected to dashboard",
+    "severity": "Low",
+    "data": {
+      "method": "GET",
+      "path": "/login",
+      "checkAuthRedirect": true
+    }
+  },
+  {
+    "id": "TC-264",
+    "module": "API Testing",
+    "scenario": "GET /logout — verify session details are destroyed from session store",
+    "expected": "Destroys state keys dynamically during active request termination",
+    "severity": "High",
+    "data": {
+      "method": "GET",
+      "path": "/logout",
+      "checkDestroyState": true
+    }
+  },
+  {
+    "id": "TC-265",
+    "module": "API Testing",
+    "scenario": "GET /nonexistent — unknown route returns 404 response",
+    "expected": "HTTP 404 for accessing a route that does not exist on the server",
+    "severity": "Low",
+    "data": {
+      "method": "GET",
+      "path": "/nonexistent-route-xyz",
+      "expectStatus": 404
+    }
+  },
+  {
+    "id": "TC-266",
+    "module": "API Testing",
+    "scenario": "GET /api/notifications/clear — GET instead of POST is handled",
+    "expected": "GET method on POST-only endpoint handled without 500 server crash",
+    "severity": "Low",
+    "data": {
+      "method": "GET",
+      "path": "/api/notifications/clear",
+      "expectStatus": [
+        200,
+        404,
+        405
+      ]
+    }
+  },
+  {
+    "id": "TC-267",
+    "module": "API Testing",
+    "scenario": "DELETE /workout/create — unsupported method handled gracefully",
+    "expected": "Unsupported HTTP method on endpoint handled without 500 error",
+    "severity": "Low",
+    "data": {
+      "method": "DELETE",
+      "path": "/workout/create",
+      "expectStatus": [
+        404,
+        405
+      ]
+    }
+  },
+  {
+    "id": "TC-268",
+    "module": "API Testing",
+    "scenario": "GET /dashboard — server includes X-Content-Type-Options header check",
+    "expected": "Security header X-Content-Type-Options or similar present in response",
+    "severity": "Low",
+    "data": {
+      "method": "GET",
+      "path": "/dashboard",
+      "expectStatus": 200
+    }
+  },
+  {
+    "id": "TC-269",
+    "module": "API Testing",
+    "scenario": "POST /login — request with application/json Content-Type works",
+    "expected": "Login endpoint accepts JSON encoded credentials correctly",
+    "severity": "Medium",
+    "data": {
+      "method": "POST",
+      "path": "/login",
+      "contentType": "application/json",
+      "body": {
+        "username": "admin@fitwave.com",
+        "password": "AdminPassword123!"
+      },
+      "expectStatus": 302
+    }
+  },
+  {
+    "id": "TC-270",
+    "module": "API Testing",
+    "scenario": "POST /login — request without Content-Type header handled gracefully",
+    "expected": "Login endpoint handles missing Content-Type header without crashing",
+    "severity": "Low",
+    "data": {
+      "method": "POST",
+      "path": "/login",
+      "noContentType": true,
+      "body": "username=test&password=test",
+      "expectStatus": [
+        400,
+        401
+      ]
+    }
+  },
+  {
+    "id": "TC-271",
+    "module": "API Testing",
+    "scenario": "GET /dashboard — response body size is under 200KB",
+    "expected": "Dashboard HTML response body is within acceptable size limit",
+    "severity": "Low",
+    "data": {
+      "method": "GET",
+      "path": "/dashboard",
+      "expectMaxBodyBytes": 204800
+    }
+  },
+  {
+    "id": "TC-272",
+    "module": "API Testing",
+    "scenario": "POST /workout/create — request with no body handled without 500",
+    "expected": "Workout create endpoint handles empty request body without server crash",
+    "severity": "Low",
+    "data": {
+      "method": "POST",
+      "path": "/workout/create",
+      "emptyBody": true,
+      "expectStatus": [
+        302,
+        400
+      ]
+    }
+  },
+  {
+    "id": "TC-273",
+    "module": "API Testing",
+    "scenario": "GET /uploads — static file serve endpoint is accessible",
+    "expected": "Static uploads directory endpoint responds without 500 error",
+    "severity": "Low",
+    "data": {
+      "method": "GET",
+      "path": "/uploads",
+      "expectStatus": [
+        200,
+        404
+      ]
+    }
+  },
+  {
+    "id": "TC-274",
+    "module": "API Testing",
+    "scenario": "GET /dashboard — response contains Fitwave branding text",
+    "expected": "Dashboard page includes Fitwave brand name in the rendered HTML",
+    "severity": "Low",
+    "data": {
+      "method": "GET",
+      "path": "/dashboard",
+      "expectBodyContains": "Fitwave"
+    }
+  },
+  {
+    "id": "TC-275",
+    "module": "API Testing",
+    "scenario": "PUT /dashboard — unsupported PUT method on GET-only dashboard page handles gracefully",
+    "expected": "Server returns client error or 404/405 code cleanly on dashboard PUT",
+    "severity": "Low",
+    "data": {
+      "method": "PUT",
+      "path": "/dashboard",
+      "expectStatus": [
+        404,
+        405
+      ]
+    }
+  },
+  {
+    "id": "TC-276",
+    "module": "API Testing",
+    "scenario": "POST /download/report — unsupported POST method on report download handles gracefully",
+    "expected": "Checks resource handlers block invalid method requests",
+    "severity": "Low",
+    "data": {
+      "method": "POST",
+      "path": "/download/report",
+      "expectStatus": [
+        404,
+        405
+      ]
+    }
+  },
+  {
+    "id": "TC-277",
+    "module": "API Testing",
+    "scenario": "GET /workout/edit/1 — verify CORS headers or origin policies are handled safely",
+    "expected": "Ensures correct origin access rules parameters",
+    "severity": "Low",
+    "data": {
+      "method": "GET",
+      "path": "/workout/edit/1",
+      "checkCORS": true
+    }
+  },
+  {
+    "id": "TC-278",
+    "module": "API Testing",
+    "scenario": "API sequence: Reset -> GET /dashboard verifies 3 workouts loaded",
+    "expected": "After reset, dashboard shows exactly 3 default workout rows",
+    "severity": "High",
+    "data": {
+      "sequence": [
+        "GET /api/reset",
+        "GET /dashboard"
+      ],
+      "verifyWorkoutCount": 3
+    }
+  },
+  {
+    "id": "TC-279",
+    "module": "API Testing",
+    "scenario": "API sequence: Reset -> POST create workout -> verify count increased",
+    "expected": "After reset and create, dashboard shows 4 workouts in table",
+    "severity": "High",
+    "data": {
+      "sequence": [
+        "GET /api/reset",
+        "POST /workout/create",
+        "GET /dashboard"
+      ],
+      "verifyWorkoutCount": 4
+    }
+  },
+  {
+    "id": "TC-280",
+    "module": "API Testing",
+    "scenario": "API sequence: Reset -> Clear notifications -> verify no badge",
+    "expected": "After reset and clear notifications, badge is hidden on dashboard",
+    "severity": "Medium",
+    "data": {
+      "sequence": [
+        "GET /api/reset",
+        "POST /api/notifications/clear",
+        "GET /dashboard"
+      ],
+      "verifyBadgeHidden": true
+    }
+  },
+  {
+    "id": "TC-281",
+    "module": "API Testing",
+    "scenario": "API sequence: Reset -> Update profile -> verify name in sidebar",
+    "expected": "After profile update, sidebar shows the new user name",
+    "severity": "Medium",
+    "data": {
+      "sequence": [
+        "GET /api/reset",
+        "POST /profile/update",
+        "GET /dashboard"
+      ],
+      "verifyProfileName": "API Updated Name"
+    }
+  },
+  {
+    "id": "TC-282",
+    "module": "API Testing",
+    "scenario": "API sequence: Reset -> Delete workout 1 -> verify count decreased",
+    "expected": "After deleting workout 1, dashboard shows 2 remaining workouts",
+    "severity": "High",
+    "data": {
+      "sequence": [
+        "GET /api/reset",
+        "POST /workout/delete/1",
+        "GET /dashboard"
+      ],
+      "verifyWorkoutCount": 2
+    }
+  },
+  {
+    "id": "TC-283",
+    "module": "API Testing",
+    "scenario": "API sequence: Create 3 workouts -> backup shows 6 total in JSON",
+    "expected": "After creating 3 new workouts on top of 3 defaults, backup has 6 entries",
+    "severity": "Medium",
+    "data": {
+      "sequence": [
+        "GET /api/reset",
+        "POST /workout/create x3",
+        "GET /download/backup"
+      ],
+      "verifyJsonLength": 6
+    }
+  },
+  {
+    "id": "TC-284",
+    "module": "API Testing",
+    "scenario": "API sequence: Reset -> Read notification 1 -> Read notification 2 -> verify 0 unread",
+    "expected": "After reading both notifications, unread count should be zero",
+    "severity": "Medium",
+    "data": {
+      "sequence": [
+        "GET /api/reset",
+        "POST /api/notifications/read/1",
+        "POST /api/notifications/read/2",
+        "GET /dashboard"
+      ],
+      "verifyBadgeHidden": true
+    }
+  },
+  {
+    "id": "TC-285",
+    "module": "API Testing",
+    "scenario": "API sequence: Login -> Dashboard -> Logout returns valid pages",
+    "expected": "Full login-dashboard-logout sequence returns HTTP 200/302 at each step",
+    "severity": "High",
+    "data": {
+      "sequence": [
+        "POST /login",
+        "GET /dashboard",
+        "GET /logout"
+      ],
+      "allSuccessful": true
+    }
+  },
+  {
+    "id": "TC-286",
+    "module": "API Testing",
+    "scenario": "API sequence: Register -> Login verifies registration flow",
+    "expected": "After registering a new account, login succeeds with new credentials",
+    "severity": "High",
+    "data": {
+      "sequence": [
+        "POST /register",
+        "POST /login"
+      ],
+      "registrationToLogin": true
+    }
+  },
+  {
+    "id": "TC-287",
+    "module": "API Testing",
+    "scenario": "API sequence: Reset -> Settings save -> Get settings verifies saved",
+    "expected": "Settings saved via POST /settings/save are reflected on GET /settings page",
+    "severity": "Medium",
+    "data": {
+      "sequence": [
+        "GET /api/reset",
+        "POST /settings/save",
+        "GET /settings"
+      ],
+      "verifySettingsSaved": true
+    }
+  },
+  {
+    "id": "TC-288",
+    "module": "API Testing",
+    "scenario": "API sequence: Reset -> Register user -> Login user -> update settings -> verify settings saved",
+    "expected": "Workflow chain of multi-component endpoints executes correctly",
+    "severity": "High",
+    "data": {
+      "sequence": [
+        "GET /api/reset",
+        "POST /register",
+        "POST /login",
+        "POST /settings/save"
+      ],
+      "checkFullChain": true
+    }
+  },
+  {
+    "id": "TC-289",
+    "module": "API Testing",
+    "scenario": "API sequence: Reset -> Create workout -> Edit workout name -> verify updated name in dashboard",
+    "expected": "Ensures workout editing via API changes are persistent",
+    "severity": "High",
+    "data": {
+      "sequence": [
+        "GET /api/reset",
+        "POST /workout/create",
+        "POST /workout/edit/4",
+        "GET /dashboard"
+      ],
+      "verifyUpdateChain": true
+    }
+  },
+  {
+    "id": "TC-290",
+    "module": "API Testing",
+    "scenario": "Performance: GET /login responds under 300ms (baseline)",
+    "expected": "Login page load time is under 300ms performance baseline threshold",
+    "severity": "Low",
+    "data": {
+      "perfTest": true,
+      "method": "GET",
+      "path": "/login",
+      "expectMaxLatencyMs": 300
+    }
+  },
+  {
+    "id": "TC-291",
+    "module": "API Testing",
+    "scenario": "Performance: GET /dashboard responds under 500ms (baseline)",
+    "expected": "Dashboard page load time is under 500ms performance baseline threshold",
+    "severity": "Low",
+    "data": {
+      "perfTest": true,
+      "method": "GET",
+      "path": "/dashboard",
+      "expectMaxLatencyMs": 500
+    }
+  },
+  {
+    "id": "TC-292",
+    "module": "API Testing",
+    "scenario": "Performance: GET /register responds under 300ms (baseline)",
+    "expected": "Register page load time is under 300ms performance baseline threshold",
+    "severity": "Low",
+    "data": {
+      "perfTest": true,
+      "method": "GET",
+      "path": "/register",
+      "expectMaxLatencyMs": 300
+    }
+  },
+  {
+    "id": "TC-293",
+    "module": "API Testing",
+    "scenario": "Performance: GET /profile responds under 500ms (baseline)",
+    "expected": "Profile page load time is under 500ms performance baseline threshold",
+    "severity": "Low",
+    "data": {
+      "perfTest": true,
+      "method": "GET",
+      "path": "/profile",
+      "expectMaxLatencyMs": 500
+    }
+  },
+  {
+    "id": "TC-294",
+    "module": "API Testing",
+    "scenario": "Performance: GET /settings responds under 500ms (baseline)",
+    "expected": "Settings page load time is under 500ms performance baseline threshold",
+    "severity": "Low",
+    "data": {
+      "perfTest": true,
+      "method": "GET",
+      "path": "/settings",
+      "expectMaxLatencyMs": 500
+    }
+  },
+  {
+    "id": "TC-295",
+    "module": "API Testing",
+    "scenario": "Performance: GET /logout responds under 300ms (baseline)",
+    "expected": "Logout page load time is under 300ms performance baseline threshold",
+    "severity": "Low",
+    "data": {
+      "perfTest": true,
+      "method": "GET",
+      "path": "/logout",
+      "expectMaxLatencyMs": 300
+    }
+  },
+  {
+    "id": "TC-296",
+    "module": "API Testing",
+    "scenario": "Performance: POST /api/notifications/clear responds under 300ms",
+    "expected": "Notifications clear API completes within 300ms performance baseline",
+    "severity": "Low",
+    "data": {
+      "perfTest": true,
+      "method": "POST",
+      "path": "/api/notifications/clear",
+      "expectMaxLatencyMs": 300
+    }
+  },
+  {
+    "id": "TC-297",
+    "module": "API Testing",
+    "scenario": "Performance: GET /download/backup responds under 1000ms",
+    "expected": "Backup download completes within 1000ms performance baseline threshold",
+    "severity": "Low",
+    "data": {
+      "perfTest": true,
+      "method": "GET",
+      "path": "/download/backup",
+      "expectMaxLatencyMs": 1000
+    }
+  },
+  {
+    "id": "TC-298",
+    "module": "API Testing",
+    "scenario": "Performance: GET /api/reset responds under 300ms",
+    "expected": "State reset endpoint completes within 300ms performance baseline",
+    "severity": "Low",
+    "data": {
+      "perfTest": true,
+      "method": "GET",
+      "path": "/api/reset",
+      "expectMaxLatencyMs": 300
+    }
+  },
+  {
+    "id": "TC-299",
+    "module": "API Testing",
+    "scenario": "Performance: POST /workout/edit/1 responds under 500ms (baseline)",
+    "expected": "Workout edit response latency matches baseline threshold tests",
+    "severity": "Low",
+    "data": {
+      "perfTest": true,
+      "method": "POST",
+      "path": "/workout/edit/1",
+      "expectMaxLatencyMs": 500
+    }
+  },
+  {
+    "id": "TC-300",
+    "module": "API Testing",
+    "scenario": "Performance: POST /profile/update responds under 500ms (baseline)",
+    "expected": "Profile updates action latency completes within baseline threshold limits",
+    "severity": "Low",
+    "data": {
+      "perfTest": true,
+      "method": "POST",
+      "path": "/profile/update",
+      "expectMaxLatencyMs": 500
     }
   }
 ]

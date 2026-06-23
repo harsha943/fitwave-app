@@ -39,12 +39,12 @@ describe('Registration Module Tests', function() {
             throw new Error('Clicking link to sign in did not redirect to login page');
           }
           actual = 'Redirected successfully to login page.';
-        } else if (tc.data.name === '' || tc.data.email === '') {
-          // Empty input checks
+        } else if (tc.data.name === '' || tc.data.email === '' || (tc.data.email && !tc.data.email.includes('@'))) {
+          // Empty or malformed input checks
           await registerPage.register(tc.data.name, tc.data.email, tc.data.password);
           const currentUrl = await driver.getCurrentUrl();
           if (currentUrl.includes('/login') || currentUrl.includes('success')) {
-            throw new Error('Registration form was submitted with invalid empty inputs');
+            throw new Error('Registration form was submitted with invalid empty or malformed inputs');
           }
           actual = 'Form inputs validated; browser blocked form submission.';
         } else {

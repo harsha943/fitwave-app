@@ -43,13 +43,13 @@ describe('Login Module Tests', function() {
             throw new Error(`Expected SQL injection block warning, but got: ${errorMsg}`);
           }
           actual = `Security warning correctly blocks username injection. Error message: ${errorMsg}`;
-        } else if (tc.data.username === '' || tc.data.password === '') {
-          // Empty inputs validation
+        } else if (tc.data.username === '' || tc.data.password === '' || (tc.data.username && !tc.data.username.includes('@'))) {
+          // Empty or malformed inputs validation
           await loginPage.login(tc.data.username, tc.data.password);
           // Standard HTML5 validation prevents dashboard redirection
           const currentUrl = await driver.getCurrentUrl();
           if (currentUrl.includes('/dashboard')) {
-            throw new Error('User should not reach dashboard with empty inputs');
+            throw new Error('User should not reach dashboard with invalid email or empty inputs');
           }
           actual = 'Form submission blocked or user remained on the login screen.';
         } else {

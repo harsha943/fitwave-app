@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Fitwave — Redirecting...</title>
+  <script>
+    // GitHub Pages SPA redirect trick.
+    // Stores the path in sessionStorage so the main index.html can restore it.
+    var segmentCount = 1; // Number of path segments in the repo name (1 for /fitwave-app/)
+    var l = window.location;
+    l.replace(
+      l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+      l.pathname.split('/').slice(0, 1 + segmentCount).join('/') + '/?/' +
+      l.pathname.slice(1 + l.pathname.split('/').slice(0, 1 + segmentCount).join('/').length) +
+      (l.search ? '&' + l.search.slice(1) : '') +
+      l.hash
+    );
+  </script>
+</head>
+<body>
+  <p>Redirecting to Fitwave...</p>
+</body>
+</html>

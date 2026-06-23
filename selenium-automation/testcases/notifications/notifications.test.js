@@ -47,9 +47,8 @@ describe('Notifications Module Tests', function() {
           await dashboardPage.clearNotifications();
           await driver.sleep(500);
           
-          const badgeStyle = await dashboardPage.findElement(dashboardPage.notifBadge);
-          const badgeDisplay = await badgeStyle.getCssValue('display');
-          if (badgeDisplay !== 'none') {
+          const isBadgeVisible = await dashboardPage.isDisplayed(dashboardPage.notifBadge);
+          if (isBadgeVisible) {
             throw new Error('Badge count still visible after clearing all notifications');
           }
           
