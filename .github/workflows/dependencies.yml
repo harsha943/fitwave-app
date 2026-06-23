@@ -344,12 +344,69 @@ jobs:
           path: appium-tests/FitWave_Appium_Test_Report.xlsx
 
   # ─────────────────────────────────────────────────────────────
-  # 6. DEPLOY – Deploy frontend to GitHub Pages branch
+  # 6. LOAD TESTS — Baseline Performance Benchmarking
+  # ─────────────────────────────────────────────────────────────
+  load-tests:
+    name: 6. Load Tests – Baseline Performance
+    runs-on: ubuntu-latest
+    needs: validation
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 26
+        uses: actions/setup-node@v4
+        with:
+          node-version: '26'
+
+      - name: Install Backend dependencies
+        working-directory: web/backend
+        run: npm install
+
+      - name: Start Backend Server
+        working-directory: web/backend
+        env:
+          PORT: 5000
+        run: |
+          node index.js &
+          echo $! > /tmp/backend.pid
+          for i in $(seq 1 20); do
+            if curl -sf http://localhost:5000/api/health > /dev/null 2>&1; then
+              echo "✅ Backend ready on attempt $i"
+              break
+            fi
+            echo "Waiting for backend... $i/20"
+            sleep 1
+          done
+
+      - name: Run Autocannon Load Test
+        working-directory: web/backend
+        run: |
+          npm run load-test > load-test-results.txt
+          cat load-test-results.txt
+          echo "✅ Load testing completed"
+
+      - name: Stop Backend Server
+        if: always()
+        run: |
+          if [ -f /tmp/backend.pid ]; then
+            kill $(cat /tmp/backend.pid) 2>/dev/null || true
+          fi
+
+      - name: Upload Load Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Load-Test-Results
+          path: web/backend/load-test-results.txt
+
+  # ─────────────────────────────────────────────────────────────
+  # 7. DEPLOY – Deploy frontend to GitHub Pages branch
   # ─────────────────────────────────────────────────────────────
   deploy:
-    name: 6. Deploy – GitHub Pages Deployment
+    name: 7. Deploy – GitHub Pages Deployment
     runs-on: ubuntu-latest
-    needs: [validation, deployment-status, api-tests, selenium-tests, appium-tests]
+    needs: [validation, deployment-status, api-tests, selenium-tests, appium-tests, load-tests]
     permissions:
       contents: read
       pages: write
